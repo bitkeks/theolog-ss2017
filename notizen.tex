@@ -9,16 +9,15 @@
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{tgpagella}
+\usepackage{marginnote}
 \usepackage[hidelinks]{hyperref}
 
-\title{Notizen VL Theoretische Informatik und Logik}
-%\subtitle{}
+\title{Notizen zur Vorlesung Theoretische Informatik und Logik}
 \author{Dominik Pataky}
-\date{\today}
 
 \definecolor{light-gray}{gray}{0.7}
 
-\newcommand{\vl}[1]{\colorbox{light-gray}{\textcolor{white}{\textbf{VL #1}}}}
+\newcommand{\vl}[1]{\colorbox{light-gray}{\textcolor{white}{\textbf{#1}}}}
 
 \begin{document}
 
@@ -30,43 +29,145 @@
     \rhead{\slshape\nouppercase{\leftmark}}
     \cfoot{\thepage}
 
-    % begin document content
-    \maketitle
+    \begin{titlepage}
+        \centering
+
+        {\scshape\Large Notizen zur Vorlesung \par}
+        {\scshape\LARGE Theoretische Informatik und Logik \par}
+        \vspace{1cm}
+
+        \begin{abstract}
+            Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}. \par
+            Ich versuche möglichst ohne formelle Symbole und Definitionen zu arbeiten, daher verweisen die Markierungen jeweils auf die Vorlesungsnummer in \vl{FS} bzw. \vl{TIL}.
+            Obwohl der Schwerpunkt auf TheoLog liegt, habe ich ein paar Definitionen aus Formale Systeme mit einbezogen, da TheoLog diese weiterverwendet. \\
+            Einige Formulierungen habe ich aus den hervorragenden Folien von Prof. Krötzsch geliehen. Quellen dieser Folien sind auf Github zu finden: \url{https://github.com/mkroetzsch}
+        \end{abstract}
+
+        \tableofcontents
+
+        \vfill
+        \begin{tabular}{p{3cm} p{10cm}}
+            Professor & Prof. Krötzsch \\
+            Ort & TU Dresden \\
+            Semester & Sommer 2017 \\
+            Letztes Update & \today \\
+            Lizenz & CC BY-SA 4.0
+        \end{tabular}
+
+    \end{titlepage}
+
+    %\section{Motivation}
+    % Hier Motivationstext über theoretische Informatik einfügen
+
+    \section{Formale Systeme}
+    \subsection{Sprachen und Automaten}
+
+    \begin{description}
+        \item[(formale) Sprache] Menge von Wörtern/Symbolen/Tokens, z.B. Programmiercode oder natürliche Sprache.
+            Zusätzliche Begriffe: Konkatenation, Präfix/Suffix/Infix, leeres Wort \vl{FS 1}
+            \begin{description}
+                \item[Symbol] Token der Sprache, z.B. if/else, +/-, True/False, ''Hello World''-String
+                \item[Alphabet] nichtleere, endliche Menge von Symbolen
+                \item[Wort] endliche Sequenz von Symbolen
+                \item[Grammatik] formelle Spezifikation einer Sprache. Aus einer Grammatik kann man widerum eine Sprache erzeugen \vl{FS 2}
+                \item[Rechenoperationen] Vereinigung, Schnitt, Komplement, Produkt, Potenz, Kleene-Abschluss
+                \item[Abschlusseigenschaft] Beispiel: Wenn Sprache A und Sprache B regulär sind, wäre dann auch der Schnitt der beiden Sprachen wieder regulär? \vl{FS 5}
+            \end{description}
+
+        \item[Automat]
+            Beginnt von einem Startzustand und folgt je nach Eingabe seinen Übergängen in die jeweiligen Zustände.
+            Akzeptiert, wenn letzter Zustand ein akzeptierter Endzustand.
+            \begin{description}
+                \item[Deterministischer endlicher Automat (DFA)] erkennen reguläre Sprachen \vl{FS 3}
+                \item[nichtdeterministischer endlicher Automat (NFA)] „rät“ die richtigen Übergänge, arbeitet parallel. Nichtdeterminismus sinnvoll? Kompaktere Darstellungen, Start für Entwicklung DFA, kann bei Untersuchung Komplexität/Berechenbarkeit helfen \vl{FS 4}
+                \item[Kellerautomat (PDA)]
+                    PDA erweitern endliche Automaten um einen unbeschränkt großen Speicher, der aber nur nach dem LIFO-Prinzip verwendet werden
+                    kann. PDAs erkennen genau die kontextfreien Sprachen. \vl{FS 15}
+                \item[Turingmaschine (TM)]
+                    liefert allgemeines Modell der Berechnung. Liest und schreibt in einem Schritt, hat unendlichen
+                    Speicher, kann beliebig auf Speicher zugreifen (im Gegensatz zu LIFO bei PDA).
+                    Kann ein Band oder mehrere Bänder haben.
+                    Kann deterministisch (DTM) oder nichtdeterministisch (NTM) sein.
+                    Alle Varianten der TM können die selben Funktionen berechnen - einzig der Aufwand ist unterschiedlich (NTM kann DTM darstellen, NTM kann durch DTM simuliert werden etc.).
+                    Siehe auch Church-Turing-These. \vl{FS 18}
+            \end{description}
 
 
-    \begin{abstract}
-        Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}
-    \end{abstract}
+        \item[Kardinalität] Unterscheidung abzählbar (mit natürlichen Zahlen) und überabzählbar
 
+        \item[Chomsky-Hierarchie]
+            Kategorische Einteilung von Sprachen je nach Komplexität ihrer Grammatik. \\
+            Hierarchie 0 > 1 > 2 > 3.
+            These: „Die meisten Sprachen können nicht mit Grammatiken beschrieben
+            werden (abzählbar viele Grammatiken vs. überabzählbar viele Sprachen)“. \vl{FS 2}
+            \begin{description}
+                \item[Typ 0] beliebige Grammatiken (Turingmaschinen)
+                \item[Typ 1] kontextsensitive Grammatiken
+                \item[Typ 2] kontextfreie Grammatiken (CYK, Kellerautomaten)
+                \item[Typ 3] reguläre Grammatiken (DFA, NFA, Pumping Lemma)
+            \end{description}
 
-    \tableofcontents
+        \item[Probleme] Probleme formulieren Berechnungsfragen.
+            \begin{description}
+                \item[Wortproblem] Wortproblem für eine Sprache über einem Alphabet ist die Berechnung der Ausgabe „ja, Wort ist in Sprache“ oder „nein, Wort ist nicht in Sprache“, für die Eingabe eines Wortes gebildet aus dem Alphabet \vl{FS 3}
+                \item[Leerheitsproblem (DFA, NFA)] Entscheidung für „ja, Automat erzeugt Sprache“ oder „nein, durch den Automaten erzeugte Sprache ist leer“ (es wird nie ein Endzustand erreicht). \vl{FS 10}
+                \item[Inklusionsproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist eine Teilmenge der Sprache B eines anderen Automaten“ oder „nein, Sprache A ist keine Teilmenge der Sprache B“. \vl{FS 10}
+                \item[Äquivalenzproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist gleich der Sprache B eines anderen Automaten“ oder „nein, Sprache A unterscheidet sich von Sprache B“. \vl{FS 10}
+                \item[Endlichkeitsproblem (DFA, NFA)] Entscheidung für „ja, erzeugte Sprache eines Automaten ist endlich“ oder „nein, erzeugte Sprache ist nicht endlich“ (z.B., wenn Zyklen auf dem Pfad von Start- zu Endzustand existieren). \vl{FS 10}
+                \item[Universalitätsproblem (DFA, NFA)] Entscheidung für „ja, erzeugte Sprache eines Automaten ist $\Sigma^*$“ oder „nein, erzeugte Sprache ist nicht $\Sigma^*$“ (heißt, Komplement der erzeugten Sprache ist leer). \vl{FS 10}
+                \item[Halteproblem (TM)] Entscheidet, ob eine Turingmaschine für eine Eingabe jemals hält oder nicht. Unentscheidbar. \vl{FS 19}
+            \end{description}
 
-    \vfill
-    \begin{tabular}{p{3cm} p{10cm}}
-        Professor & Prof. Krötzsch \\
-        Ort & TU Dresden \\
-        Semester & Sommer 2017 \\
-    \end{tabular}
+        \item[Church-Turing-These]
+            Die Turingmaschine kann alle Funktionen berechnen, die intuitiv berechenbar sind. Auch: „Eine Funktion ist genau dann
+            im intuitiven Sinne berechenbar, wenn es eine Turingmaschine gibt, die für jede mögliche Eingabe den Wert der Funktion auf
+            das Band schreibt und anschließend hält.“ \vl{FS 18}
+
+        \item[Entscheidbarkeit]
+            Eine Sprache L ist entscheidbar / berechenbar / rekursiv, wenn es eine Turingmaschine gibt, die das Wortproblem der Sprache L entscheidet.
+            D.h. die Turingmaschine ist Entscheider und die Sprache L ist gleich der durch die Turingmaschine erzeugten Sprache.
+            Andernfalls heißt die Sprache L unentscheidbar. \\
+            Die Sprache L ist semi-entscheidbar / Turing-erkennbar / rekursiv aufzählbar, wenn es eine Turingmaschine gibt, deren erzeugte Sprache zwar L ist, jedoch die Turingmaschine kein Entscheider ist. \vl{FS 19}
+
+        \item[Satz von Rice]
+            %Informell: „Jede nicht-triviale Frage über die von einer TM ausgeführte Berechnung ist unentscheidbar.“ \\
+            Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Anhand der Ausgabe wollen wir prüfen, ob die durch diese Turingmaschine erzeugte Sprache die Eigenschaft E besitzt. \vl{FS 20} \\
+            Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion auf das Halteproblem.
+
+    \end{description}
+
+    \newpage
+    \subsection{Aussagenlogik}
+        \begin{description}
+            \item[Logik] Eine kurze Motivationsübersicht zur Einleitung. \vl{FS 21}
+                \begin{itemize}
+                    \item „Wer rechnende Systeme verstehen und konstruieren will, der benötigt passende mathematische Modelle. Dieser Weg führt oftmals zur Logik.“ Ziel: Verifikation
+                    \item Logik ist die Wissenschaft vom folgerichtigen Denken. Ziel: Künstliche Intelligenz
+                    \item Logisches Schließen ist Problemlösen
+                    \item Logiken sind kodierte Beschreibungssprachen. Ziel: Wissensrepräsentation und Datenbanken
+                    \item „Logik“ ist ein allgemeiner Oberbegriff für viele mathematische und technische Formalismen
+                \end{itemize}
+            \item[Syntax] Sprache einer Logik (normalerweise Formeln mit logischen Operatoren)
+            \item[Semantik] Definition der Bedeutung (Worauf beziehen sich die Formeln? Wann ist eine Formel wahr oder falsch?)
+        \end{description}
 
 
     \newpage
-    \section{Begriffe}
-
+    \section{Theoretische Informatik}
     \begin{description}
-        \item[Chruch-Turing-These] Die Church-Turing-These
-        \item[Turingmaschine] DTM und NTM, besteht aus Tupel M mit (endlicher Menge von Zuständen, Eingabealphabet, Arbeitsalphabet, Übergangsfunktion, Startzustand und Menge von akzeptierenden Endzuständen). \vl{1}
-        \begin{description}
-            \item[Konfiguration]
-                der „Gesamtzustand“ einer TM, bestehend aus Zustand, Bandinhalt und Position des Lese-/Schreibkopfs;
-                geschrieben als Wort (Bandinhalt), in dem der Zustand vor der Position des Kopfes eingefügt ist
-            \item[Übergangsrelation]
-                Beziehung zwischen zwei Konfigurationen wenn die TM von der ersten in die zweite übergehen kann
-                (deterministisch oder nichtdeterministisch)
-            \item[Lauf]
-                mögliche Abfolge von Konfigurationen einer TM, beginnend mit der Startkonfiguration; kann endlich oder unendlich sein
-            \item[Halten]
-                Ende der Abarbeitung, wenn die TM in einer Konfiguration keinen Übergang mehr zur Verfügung hat
-        \end{description}
+        \item[Turingmaschine] DTM und NTM, besteht aus Tupel M mit (endlicher Menge von Zuständen, Eingabealphabet, Arbeitsalphabet, Übergangsfunktion, Startzustand und Menge von akzeptierenden Endzuständen). \vl{TIL 1}
+            \begin{description}
+                \item[Konfiguration]
+                    der „Gesamtzustand“ einer TM, bestehend aus Zustand, Bandinhalt und Position des Lese-/Schreibkopfs;
+                    geschrieben als Wort (Bandinhalt), in dem der Zustand vor der Position des Kopfes eingefügt ist
+                \item[Übergangsrelation]
+                    Beziehung zwischen zwei Konfigurationen wenn die TM von der ersten in die zweite übergehen kann
+                    (deterministisch oder nichtdeterministisch)
+                \item[Lauf]
+                    mögliche Abfolge von Konfigurationen einer TM, beginnend mit der Startkonfiguration; kann endlich oder unendlich sein
+                \item[Halten]
+                    Ende der Abarbeitung, wenn die TM in einer Konfiguration keinen Übergang mehr zur Verfügung hat
+            \end{description}
     \end{description}
 
 \end{document}
