@@ -1,0 +1,72 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tgpagella}
+\usepackage[hidelinks]{hyperref}
+
+\title{Notizen VL Theoretische Informatik und Logik}
+%\subtitle{}
+\author{Dominik Pataky}
+\date{\today}
+
+\definecolor{light-gray}{gray}{0.7}
+
+\newcommand{\vl}[1]{\colorbox{light-gray}{\textcolor{white}{\textbf{VL #1}}}}
+
+\begin{document}
+
+    % set pagestyle to fancy and set header chapter to lowercase
+    \pagestyle{fancy}
+
+    % Header and footer styles
+    \lhead{Notizen TheoLog SS 2017 - Dominik Pataky}
+    \rhead{\slshape\nouppercase{\leftmark}}
+    \cfoot{\thepage}
+
+    % begin document content
+    \maketitle
+
+
+    \begin{abstract}
+        Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}
+    \end{abstract}
+
+
+    \tableofcontents
+
+    \vfill
+    \begin{tabular}{p{3cm} p{10cm}}
+        Professor & Prof. Krötzsch \\
+        Ort & TU Dresden \\
+        Semester & Sommer 2017 \\
+    \end{tabular}
+
+
+    \newpage
+    \section{Begriffe}
+
+    \begin{description}
+        \item[Chruch-Turing-These] Die Church-Turing-These
+        \item[Turingmaschine] DTM und NTM, besteht aus Tupel M mit (endlicher Menge von Zuständen, Eingabealphabet, Arbeitsalphabet, Übergangsfunktion, Startzustand und Menge von akzeptierenden Endzuständen). \vl{1}
+        \begin{description}
+            \item[Konfiguration]
+                der „Gesamtzustand“ einer TM, bestehend aus Zustand, Bandinhalt und Position des Lese-/Schreibkopfs;
+                geschrieben als Wort (Bandinhalt), in dem der Zustand vor der Position des Kopfes eingefügt ist
+            \item[Übergangsrelation]
+                Beziehung zwischen zwei Konfigurationen wenn die TM von der ersten in die zweite übergehen kann
+                (deterministisch oder nichtdeterministisch)
+            \item[Lauf]
+                mögliche Abfolge von Konfigurationen einer TM, beginnend mit der Startkonfiguration; kann endlich oder unendlich sein
+            \item[Halten]
+                Ende der Abarbeitung, wenn die TM in einer Konfiguration keinen Übergang mehr zur Verfügung hat
+        \end{description}
+    \end{description}
+
+\end{document}
