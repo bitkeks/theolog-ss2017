@@ -1,10 +1,9 @@
-NAME=notizen
+NAME=til-vl-ss2017-notizen
 
 .phony: compile clean recompile
 
 compile:
 	latexmk -pdf $(NAME).tex
-	evince $(NAME).pdf
 
 clean:
 	latexmk -C $(NAME).tex

@@ -1,23 +1,28 @@
 \documentclass[a4paper,10pt]{article}
 
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{color}
-\usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{tgpagella}
 \usepackage{marginnote}
-\usepackage[hidelinks]{hyperref}
+\usepackage{amssymb}
 
-\title{Notizen zur Vorlesung Theoretische Informatik und Logik}
-\author{Dominik Pataky}
+\usepackage[
+    pdfauthor={Dominik Pataky},
+    pdftitle={Theoretische Informatik und Logik},
+    pdfsubject={Notizen und Begriffsklärungen aus dem Sommersemester 2017, TU Dresden},
+    colorlinks=true,linkcolor=black,urlcolor=link]{hyperref}
 
-\definecolor{light-gray}{gray}{0.7}
+\definecolor{light-gray}{gray}{0.5}
+\definecolor{vl}{RGB}{84,200,70}
+\definecolor{link}{RGB}{84,100,220}
 
-\newcommand{\vl}[1]{\colorbox{light-gray}{\textcolor{white}{\textbf{#1}}}}
+\newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
+\newcommand{\f}[1]{\textbf{#1}}
 
 \begin{document}
 
@@ -40,16 +45,17 @@
             Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}. \par
             Ich versuche möglichst ohne formelle Symbole und Definitionen zu arbeiten, daher verweisen die Markierungen jeweils auf die Vorlesungsnummer in \vl{FS} bzw. \vl{TIL}.
             Obwohl der Schwerpunkt auf TheoLog liegt, habe ich ein paar Definitionen aus Formale Systeme mit einbezogen, da TheoLog diese weiterverwendet. \\
-            Einige Formulierungen habe ich aus den hervorragenden Folien von Prof. Krötzsch geliehen. Quellen dieser Folien sind auf Github zu finden: \url{https://github.com/mkroetzsch}
+            Einige Formulierungen habe ich aus den hervorragenden Folien von Prof. Krötzsch geliehen. Quellen dieser Folien sind auf Github zu finden unter \url{https://github.com/mkroetzsch} und sind unter der Lizenz CC BY 3.0 DE verwendbar. Für diese gilt: „(C) Markus Krötzsch, \url{https://iccl.inf.tu-dresden.de/web/TheoLog2017}, CC BY 3.0 DE“.
         \end{abstract}
 
         \tableofcontents
 
         \vfill
         \begin{tabular}{p{3cm} p{10cm}}
-            Professor & Prof. Krötzsch \\
-            Ort & TU Dresden \\
-            Semester & Sommer 2017 \\
+            Autor & Dominik Pataky \\
+            Dozent & Prof. Krötzsch \\
+            Ort & Fakultät Informatik, TU Dresden \\
+            Zeit & Sommersemester 2017 \\
             Letztes Update & \today \\
             Lizenz & CC BY-SA 4.0
         \end{tabular}
@@ -58,6 +64,16 @@
 
     %\section{Motivation}
     % Hier Motivationstext über theoretische Informatik einfügen
+    % Hilbert wollte Anfang des 20. Jahrhunderts die Mathematik auf eine formelle Basis stellen.
+
+    %\item[Logik] Eine kurze Motivationsübersicht zur Einleitung.
+    %            \begin{itemize}
+    %                \item „Wer rechnende Systeme verstehen und konstruieren will, der benötigt passende mathematische Modelle. Dieser Weg führt oftmals zur Logik.“ Ziel: Verifikation
+    %                \item Logik ist die Wissenschaft vom folgerichtigen Denken. Ziel: Künstliche Intelligenz
+    %                \item Logisches Schließen ist Problemlösen
+    %                \item Logiken sind kodierte Beschreibungssprachen. Ziel: Wissensrepräsentation und Datenbanken
+    %                \item „Logik“ ist ein allgemeiner Oberbegriff für viele mathematische und technische Formalismen
+    %            \end{itemize}
 
     \section{Formale Systeme}
     \subsection{Sprachen und Automaten}
@@ -138,18 +154,102 @@
 
     \newpage
     \subsection{Aussagenlogik}
+        Die Aussagenlogik untersucht logische Verknüpfungen von atomaren Aussagen. \vl{FS 21}
+
         \begin{description}
-            \item[Logik] Eine kurze Motivationsübersicht zur Einleitung. \vl{FS 21}
-                \begin{itemize}
-                    \item „Wer rechnende Systeme verstehen und konstruieren will, der benötigt passende mathematische Modelle. Dieser Weg führt oftmals zur Logik.“ Ziel: Verifikation
-                    \item Logik ist die Wissenschaft vom folgerichtigen Denken. Ziel: Künstliche Intelligenz
-                    \item Logisches Schließen ist Problemlösen
-                    \item Logiken sind kodierte Beschreibungssprachen. Ziel: Wissensrepräsentation und Datenbanken
-                    \item „Logik“ ist ein allgemeiner Oberbegriff für viele mathematische und technische Formalismen
-                \end{itemize}
-            \item[Syntax] Sprache einer Logik (normalerweise Formeln mit logischen Operatoren)
-            \item[Semantik] Definition der Bedeutung (Worauf beziehen sich die Formeln? Wann ist eine Formel wahr oder falsch?)
+            \item[Atomare Aussage] Behauptungen, die wahr oder falsch sein können. \\ Auch: aussagenlogische Variablen, Propositionen, Atome
+            \item[Operatoren, Junktoren] Verknüpfung von atomaren Aussagen. \\ Negation, Konjunktion, Disjunktion, Implikation, Äquivalenz. \\
+                Können auch äquivalent durch andere Junktoren ausgedrückt werden (de Morgan). \vl{FS 22} \\
+                Eine Disjunktion von Literalen nennt man \f{Klausel}. \\
+                Eine Konjunktion von Literalen nennt man \f{Monom}.
+
+            \item[Formel] Jedes Atom ist eine Formel, jede durch Junktoren verknüpfte Formeln sind wieder Formeln.
+                Diese zusammengesetzten Formeln bestehen dann wieder aus Teilformeln (auch: Unterformeln, $Sub(F)$).
+                Eine Formel, die nur aus einem Atom besteht, nennt man auch \f{Literal}.
+                \begin{description}
+                    \item[unerfüllbar] Formel hat keine Modelle
+                    \item[erfüllbar] Formel hat mindestens ein Modell
+                    \item[allgemeingültig] alle Interpretationen sind Modelle für Formel. Auch: \f{Tautologie}, $\models F$
+                    \item[widerlegbar] Formel ist nicht allgemeingültig
+                \end{description}
+
+            \item[Syntax] Sprache einer Logik (Formeln mit logischen Operatoren). Wichtig: Klammerung.
+            \item[Semantik] Definition der Bedeutung. Wertzuweisung von Wahrheitswerten zu Atomen mit Hilfe der Interpretation.
+                „Die Bedeutung einer Formel besteht darin, dass sie uns Informationen darüber liefert, welche Wertzuweisungen möglich sind, wenn die Formel wahr sein soll.“
+                \begin{description}
+                    \item[Interpretation] eine Funktion w, die von einer Menge Atome auf die Menge \{0, 1\} abbildet.
+                    \item[Wahrheitstabelle] Schrittweise Auflösung einer Formel durch Lösen ihrer Teilformeln.
+                    \item[Modell] eine Interpretation, dessen Abbildung eine Formel nach 1 löst.
+                    \item[Logische Konsequenz] eine Formel G ist eine logische Konsequenz einer Formel F ($F \models G$), wenn jedes Modell von F auch ein Modell für G ist.
+                    \item[Logische Äquivalenz] zwei Formeln F und G sind semantisch äquivalent ($F \equiv G$), wenn sie genau dieselben Modelle haben \vl{FS 22}
+                \end{description}
+
+            \item[Normalform] jede Formel lässt sich in eine äquivalente Formel in Normalform umformen. \\ Für die Umformungen gibt es Algorithmen, siehe \vl{FS 22}
+                \begin{description}
+                    \item[Negationsnormalform (NNF)] enthält nur UND, ODER und Negation, wobei Negation nur direkt vor Atomen vorkommt.
+                    \item[Konjunktive Normalform (KNF)] Formel ist eine Konjunktion von Disjunktionen von Literalen.
+                    \item[Disjunktive Normalform (DNF)] Disjunktion von Konjunktionen von Literalen.
+                \end{description}
+
+            % Logisches Schließen: Resolution
+            % Horn-Klauseln
+
         \end{description}
+
+
+    \newpage
+    \subsection{Komplexität}
+    Turingmaschinen sind begrenzt durch die Anzahl ihrer Speicherzellen (Speicher) und der Anzahl möglicher Berechnungsschritte (Zeit).
+    Schranken sind Funktionen gerichtet nach der Länge der Angabe. \vl{FS 24}
+
+    \begin{description}
+        \item[$O$-Notation] charakterisiert Funktionen nach ihrem Verhalten und versteckt lineare Faktoren.
+        \item[$O(f)$-zeitbeschränkt] es gibt eine Funktion, so dass eine DTM bei beliebiger Eingabe nach einer maximalen Anzahl Schritte anhält
+        \item[$O(f)$-speicherbeschränkt] es gibt eine Funktion, os dass eine DTM bei beliebiger Eingabe nur eine maximale Anzahl Speicherzellen verwendet
+
+        \item[Sprachklassen] Einteilung von Sprachen nach der Möglichkeit der Entscheidbarkeit. \\
+            „Klasse aller Sprachen, welche…“
+            \begin{description}
+                \item[DTIME$f(n)$] …durch eine $O(f)$-zeitbeschränkte DTM entschieden werden können
+                \item[DSPACE$f(n)$] …durch eine $O(f)$-speicherbeschränkte DTM entschieden werden können
+
+                \item[NTIME$f(n)$] …durch eine $O(f)$-zeitbeschränkte NTM entschieden werden können
+                \item[NSPACE$f(n)$] …durch eine $O(f)$-speicherbeschränkte NTM entschieden werden können
+            \end{description}
+
+        \item[Komplexitätsklassen] erfassen Sprachklassen je nach ihrer Komplexität.
+            Stehen untereinander in Beziehung und bilden quasi Hierarchie. \vl{FS 24}
+            \begin{description}
+                \item[PTime (P)] deterministisch, polynomielle Zeit
+                \item[ExpTime (Exp)] deterministisch, exponentielle Zeit
+                \item[LogSpace (L)] deterministisch, logarithmischer Speicher
+                \item[PSpace] deterministisch, polynomieller Speicher
+
+                \item[NPTime (NP)] nichtdeterministisch, polynomielle Zeit
+                \item[NEexpTime (NExp)] nichtdeterministisch, exponentielle Zeit
+                \item[NLogSpace (NL)] nichtdeterministisch, logarithmischer Speicher
+                \item[NPSpace] nichtdeterministisch, polynomieller Speicher
+            \end{description}
+
+        \item[SAT] Boolean Satisfiability Problem. Problem, welches nach einem Modell für eine Formel sucht. In $NP$.
+            Interessant für Untersuchung, da SAT ein Problem darstellt, für welches es schwierig ist eine Lösung zu finden,
+            jedoch sehr einfach ist eine Lösung auf Korrektheit zu prüfen. \vl{FS 25}
+
+        \item[Reduktion] Rückführung eines Problems auf ein anderes. Beispiel Drei-Farben-Problem ist auf SAT reduzierbar, da sich die Farb-Zustände als
+            Formeln ausdrücken kodieren lassen. „Alle Probleme in NP können polynomiell auf SAT reduziert werden“ (\f{Cook, Levin})
+
+        \item[Härte und Vollständigkeit] für P und NP \vl{FS 25}
+            \begin{description}
+                \item[NP-hart] Sprache ist NP-hart, wenn jede Sprache in NP polynomiell darauf reduzierbar ist \\
+                    (Beispiel Halteproblem und jedes weitere unentscheidbare Problem).
+                \item[NP-vollständig] Sprache ist NP-hart und liegt selbst in NP (Beispiel SAT).
+
+                \item[P-hart] Sprache ist P-hart, wenn jede Sprache in P mit logarithmischem Speicherbedarf auf diese reduzierbar ist.
+                \item[P-vollständig] Sprache ist P-hart und liegt selbst in P (Beispiel HornSAT).
+            \end{description}
+    \end{description}
+
+    \textit{Zusammenfassung aller Themenkomplexe, Hierarchien und Zusammenhänge in \vl{FS 26}.}
 
 
     \newpage
@@ -169,5 +269,6 @@
                     Ende der Abarbeitung, wenn die TM in einer Konfiguration keinen Übergang mehr zur Verfügung hat
             \end{description}
     \end{description}
+
 
 \end{document}
