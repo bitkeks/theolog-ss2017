@@ -9,7 +9,7 @@
 \usepackage{fancyhdr}
 \usepackage{tgpagella}
 \usepackage{marginnote}
-%\usepackage{amssymb}
+\usepackage{nameref}
 \usepackage{amsmath,amssymb,amsfonts}
 
 \usepackage[
@@ -22,10 +22,16 @@
 \definecolor{vl}{RGB}{84,200,70}
 \definecolor{link}{RGB}{84,100,220}
 
+\setlength\parindent{0cm} % indentation of paragraphs
+
 \newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
 \newcommand{\f}[1]{\textbf{#1}}
 \newcommand{\blank}{\text{\textvisiblespace}}
 \newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
+\newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
+\newcommand{\prob}[1]{\textbf{#1}}
+\newcommand{\phalt}{$~\prob{P}_{Halt}~$}
+
 
 \begin{document}
 
@@ -33,9 +39,11 @@
     \pagestyle{fancy}
 
     % Header and footer styles
-    \lhead{Notizen TheoLog SS 2017 - Dominik Pataky}
-    \rhead{\slshape\nouppercase{\leftmark}}
+    \lhead{\slshape Theoretische Informatik und Logik SS2017}
+    \rhead{\slshape\nouppercase{\rightmark}}
     \cfoot{\thepage}
+    \lfoot{\footnotesize Dozent: Prof. Krötzsch, Autor: Pataky}
+    \rfoot{}
 
     \begin{titlepage}
         \centering
@@ -56,7 +64,7 @@
         \vfill
         \begin{tabular}{p{3cm} p{10cm}}
             Autor & Dominik Pataky \\
-            Dozent & Prof. Krötzsch \\
+            Dozent & Prof. Markus Krötzsch \\
             Ort & Fakultät Informatik, TU Dresden \\
             Zeit & Sommersemester 2017 \\
             Letztes Update & \today \\
@@ -80,6 +88,7 @@
 
     \section{Formale Systeme}
     \subsection{Sprachen und Automaten}
+    \label{subsec:fs-sprachen-automaten}
 
     \begin{description}
         \item[(formale) Sprache] Menge von Wörtern/Symbolen/Tokens, z.B. Programmiercode oder natürliche Sprache.
@@ -202,6 +211,7 @@
 
     \newpage
     \subsection{Komplexität}
+    \label{subsec:fs-komplexitaet}
     Turingmaschinen sind begrenzt durch die Anzahl ihrer Speicherzellen (Speicher) und der Anzahl möglicher Berechnungsschritte (Zeit).
     Schranken sind Funktionen gerichtet nach der Länge der Angabe. \vl{FS 24}
 
@@ -260,12 +270,12 @@
     \subsection{Turingmaschinen}
     \begin{description}
         \item[Turingmaschine] deterministisch als DTM oder nichtdeterministisch als NTM. \\
-			Definiert als Tupel $(Q,\Sigma,\Gamma,\delta,q_0,F)$ mit endlicher Menge von Zuständen $Q$, Eingabealphabet $\Sigma$, Arbeitsalphabet $\Gamma$, Übergangsfunktion $\delta$, Startzustand $q_0$ und Menge von akzeptierenden Endzuständen $F$. Können ein oder mehrere Bänder haben. Siehe auch Church-Turing-These. \vl{FS 18} \vl{TIL 1}
-			
+            Definiert als Tupel $(Q,\Sigma,\Gamma,\delta,q_0,F)$ mit endlicher Menge von Zuständen $Q$, Eingabealphabet $\Sigma$, Arbeitsalphabet $\Gamma$, Übergangsfunktion $\delta$, Startzustand $q_0$ und Menge von akzeptierenden Endzuständen $F$. Können ein oder mehrere Bänder haben. Siehe auch Church-Turing-These. \vl{FS 18} \vl{TIL 1}
+
             \begin{description}
-				\item[Funktion] Turingmaschine kann eine Funktion von Eingaben auf Ausgabewörter definieren. Wenn eine TM bei Eingabe $w$ anhält und die Ausgabe der Form $v\blank\blank$ entspricht, hat diese TM die Funktion berechnet.
-				\item[Sprache] die von einer Turingmaschine erkannte Sprache ist die Menge aller Wörter, die von dieser TM akzeptiert werden (d.h. in einem Endzustand hält).
-				
+                \item[Funktion] Turingmaschine kann eine Funktion von Eingaben auf Ausgabewörter definieren. Wenn eine TM bei Eingabe $w$ anhält und die Ausgabe der Form $v\blank\blank$ entspricht, hat diese TM die Funktion berechnet.
+                \item[Sprache] die von einer Turingmaschine erkannte Sprache ist die Menge aller Wörter, die von dieser TM akzeptiert werden (d.h. in einem Endzustand hält).
+
                 \item[Konfiguration]
                     der „Gesamtzustand“ einer TM, bestehend aus Zustand, Bandinhalt und Position des Lese-/Schreibkopfs;
                     geschrieben als Wort (Bandinhalt), in dem der Zustand vor der Position des Kopfes eingefügt ist. Beispiel $ \blank\blank q_0aaba \blank\blank$.
@@ -274,65 +284,167 @@
                     (deterministisch oder nichtdeterministisch)
                 \item[Lauf] mögliche Abfolge von Konfigurationen einer TM, beginnend mit der Startkonfiguration; kann endlich oder unendlich sein
                 \item[Halten] Ende der Abarbeitung, wenn die TM in einer Konfiguration keinen Übergang mehr zur Verfügung hat.
-                
-				\item[Transducer] Ausgabe der Turingmaschine ist Inhalt des Bandes, wenn TM hält, ansonsten undefiniert. Endzustände sind irrelevant.
-				\item[Entscheider] Ausgabe der Turingmaschine ist „Akzeptiert“, wenn TM in Endzustand hält, ansonsten „verwirft“ (beinhaltet auch „TM hält nicht“). Bandinhalt ist irrelevant.
-				\item[Aufzähler] ist eine DTM, die bei Eingabe des leeren Bandes immer wieder einen Zustand $q_{Ausgabe}$ erreicht, in welchem das aktuelle Band ein Wort aus der Sprache dieser DTM ist. Die Sprache dieser DTM ist dann die Menge der so erzeugten Wörter. Diese DTM muss nicht halten, die Sprache kann unendlich sein. Wörter dürfen mehrfach ausgegeben werden.
+
+                \item[Transducer] Ausgabe der Turingmaschine ist Inhalt des Bandes, wenn TM hält, ansonsten undefiniert. Endzustände sind irrelevant.
+                \item[Entscheider] Ausgabe der Turingmaschine ist „Akzeptiert“, wenn TM in Endzustand hält, ansonsten „verwirft“ (beinhaltet auch „TM hält nicht“). Bandinhalt ist irrelevant.
+                \item[Aufzähler] ist eine DTM, die bei Eingabe des leeren Bandes immer wieder einen Zustand $q_{Ausgabe}$ erreicht, in welchem das aktuelle Band ein Wort aus der Sprache dieser DTM ist. Die Sprache dieser DTM ist dann die Menge der so erzeugten Wörter. Diese DTM muss nicht halten, die Sprache kann unendlich sein. Wörter dürfen mehrfach ausgegeben werden.
             \end{description}
-            
-		\item[Berechenbarkeit] bezogen auf Funktionen. Eine Funktion $F$ heißt berechenbar, wenn es eine DTM gibt, die $F$ berechnet. Ist durch geeignete Kodierung (z.B. binär) erweiterbar auf natürliche Zahlen, Wörterlisten und andere Mengen. \vl{TIL 2}
-			\begin{description}
-				\item[rekursiv] eine berechenbare totale Funktion ist rekursiv.
-				\item[partiell rekursiv] eine berechenbare partielle Funktion ist partiell rekursiv.
-			\end{description}
-			
-		\item[Entscheidbarkeit] bezogen auf Sprachen. \vl{TIL 2}
-			\begin{description}
-				\item[entscheidbar / berechenbar / rekursiv] es existiert eine Turingmaschine, die das Wortproblem der Sprache entscheidet. D.h. die Turingmaschine ist Entscheider und die Sprache ist gleich der Sprache der TM.
-				\item[semi-entscheidbar / Turing-erkennbar / Turing-akzeptierbar / rekursiv aufzählbar] es existiert eine Turingmaschine, deren erzeugte Sprache gleich der Sprache ist, jedoch die TM kein Entscheider ist. \\
-				Eine Sprache ist semi-entscheidbar, wenn es einen Aufzähler für diese Sprache gibt.
-				\item[unentscheidbar] sonst. \\
-					„Es gibt Sprachen und Funktionen, die nicht berechenbar sind.“ Beweis anhand der abzählbaren Menge von Turingmaschinen im Vergleich zur Überabzählbarkeit der Menge der Sprachen über jedem Alphabet.
-			\end{description}
-		
-		\item[Probleme] der Kategorie „Unentscheidbar“. \vl{TIL 2}
-			\begin{description}
-				\item[Busy-Beaver-Funktion] ist nicht berechenbar und wächst sehr schnell. Die Funktion nimmt eine natürliche Zahl $n$ und gibt die maximale Anzahl $x$-Symbole, welche eine DTM mit $n$ Zuständen und dem Arbeitsalphabet $\{x,\blank\}$ bis zu ihrem Halt schreiben kann, zurück.
-			\end{description}
+
+        \item[Berechenbarkeit] bezogen auf Funktionen. Eine Funktion $F$ heißt berechenbar, wenn es eine DTM gibt, die $F$ berechnet. Ist durch geeignete Kodierung (z.B. binär) erweiterbar auf natürliche Zahlen, Wörterlisten und andere Mengen. \vl{TIL 2}
+            \begin{description}
+                \item[rekursiv] eine berechenbare totale Funktion ist rekursiv.
+                \item[partiell rekursiv] eine berechenbare partielle Funktion ist partiell rekursiv.
+            \end{description}
+
+        \item[Entscheidbarkeit] bezogen auf Sprachen. \vl{TIL 2}
+            \begin{description}
+                \item[entscheidbar / berechenbar / rekursiv] es existiert eine Turingmaschine, die das Wortproblem der Sprache entscheidet. D.h. die Turingmaschine ist Entscheider und die Sprache ist gleich der Sprache der TM.
+                \item[semi-entscheidbar / Turing-erkennbar / Turing-akzeptierbar / rekursiv aufzählbar] es existiert eine Turingmaschine, deren erzeugte Sprache gleich der Sprache ist, jedoch die TM kein Entscheider ist. \\
+                Eine Sprache ist semi-entscheidbar, wenn es einen Aufzähler für diese Sprache gibt.
+                \item[unentscheidbar] sonst. \\
+                    „Es gibt Sprachen und Funktionen, die nicht berechenbar sind.“ Beweis anhand der abzählbaren Menge von Turingmaschinen im Vergleich zur Überabzählbarkeit der Menge der Sprachen über jedem Alphabet.
+            \end{description}
+
+        \item[Probleme] der Kategorie „Unentscheidbar“. \vl{TIL 2}
+            \begin{description}
+                \item[Busy-Beaver-Funktion] ist nicht berechenbar und wächst sehr schnell. Die Funktion nimmt eine natürliche Zahl $n$ und gibt die maximale Anzahl $x$-Symbole, welche eine DTM mit $n$ Zuständen und dem Arbeitsalphabet $\{x,\blank\}$ bis zu ihrem Halt schreiben kann, zurück.
+            \end{description}
     \end{description}
-    
-    
+
+
     \subsection{LOOP und WHILE}
     LOOP und WHILE sind eine Erfindung von Schöning und sind quasi eine pädagogische Brücke zwischen den Ultra-low-level Turingmaschinen und High-level Programmiersprachen. WHILE baut auf LOOP auf. \vl{TIL 3}
     \begin{description}
-		\item[LOOP] Besteht aus Variablen, Wertzuweisungen und Schleifen. Die Eingabe einer Menge von natürlichen Zahlen wird in $x_1, x_2, …$ gespeichert. Die Ausgabe ist eine natürliche Zahl, gespeichert in $x_0$. Alle weiteren Variablen haben den Wert $0$. LOOP terminiert immer in endlich vielen Schritten. Berechnet eine totale Funktion. 
-			\begin{description}
-				\item[Variablen] Menge $\{x_0,x_1,…\}$ oder auch $\{x, y, myVariable\}$. Haben als Wert eine natürliche Zahl.
-				\item[Wertzuweisungen] in der Form $x := y + n$ oder $x := y - n$, wobei $n$ eine natürliche Zahl ist. Eine Wertzuweisung ist bereits ein LOOP-Programm.
-				\item[Schleifen] in der Form LOOP $x$ DO $P$ END, wobei $P$ wieder ein LOOP-Programm ist. Der Wert der Variable $x$ kann in $P$ nicht geändert werden. Daher terminiert ein LOOP-Programm immer in endlich vielen Schritten.
-				\item[Hintereinanderausführung] wenn $P_0$ und $P_1$ LOOP-Programme, dann auch $P_0;P_1$.
-				\item[Syntax-Erweiterung] Die Syntax lässt sich zur Vereinfachung erweitern.
-					\begin{description}
-						\item[Wertzuweisung \hili{$x:=y$}] $x:=y+0$
-						\item[Rücksetzen \hili{$x:=0$}] LOOP $x$ DO $x:=x-1$ END
-						\item[Wertzuweisung Zahl \hili{$x:=n$}] $x:=0;x:=x+n$. Alternativ $x:=null+n$
-						\item[Variablen-Addition \hili{$x:=y+z$}] $x:=y;$ LOOP $z$ DO $x:=x+1$ END
-						\item[Bedingung \hili{IF $x\neq0$ THEN}] LOOP $x$ DO $y:=1$ END $;$ LOOP $y$ DO $P$ END
-					\end{description}
-				\item[Berechenbarkeit] eine Funktion heißt LOOP-berechenbar, wenn es ein LOOP-Programm gibt, welches die Funktion berechnet. Auch hier ist mit geeigneter Kodierung wieder mehr machbar, als nur die natürlichen Zahlen in Betracht zu ziehen (Beispiel Wortproblem, Probleme in NP, gängige Algorithmen). Es gibt berechenbare totale Funktionen, die nicht LOOP-berechenbar sind (vgl. Ackermannfunktion).
-			\end{description}
-			
-		\item[WHILE] Basiert auf LOOP und erweitert dieses. Jedes LOOP-Programm ist auch ein WHILE-Programm. 
-			\begin{description}
-				\item[Schleifen] in der Form WHILE $x \neq 0$ DO $P$ WHEN, wobei $P$ wieder WHILE-Programm. Im Gegensatz zu LOOP kann in WHILE der Wert von $x$ in $P$ zur Laufzeit geändert werden. Es kann also passieren, dass das Programm nicht terminiert wenn $x$ nie auf $0$ gesetzt wird.
-				\item[Konvertierung] LOOP-Schleifen können in WHILE-Schleifen konvertiert werden. Eine DTM kann WHILE-Programme simulieren und ein WHILE-Programm DTMen simulieren.
-				\item[Berechenbarkeit] Eine partielle Funktion heißt WHILE-berechenbar, wenn es ein WHILE-Programm gibt, welches bei einem definierten $f(n_0,n_1,…)$ terminiert und bei einem nicht definierten Wertebereich nicht terminiert. Wenn eine partielle Funktion WHILE-berechenbar ist, ist sie \f{Turing-berechenbar}. 
-			\end{description}
-			
+        \item[LOOP] Besteht aus Variablen, Wertzuweisungen und Schleifen. Die Eingabe einer Menge von natürlichen Zahlen wird in $x_1, x_2, …$ gespeichert. Die Ausgabe ist eine natürliche Zahl, gespeichert in $x_0$. Alle weiteren Variablen haben den Wert $0$. LOOP terminiert immer in endlich vielen Schritten. Berechnet eine totale Funktion.
+            \begin{description}
+                \item[Variablen] Menge $\{x_0,x_1,…\}$ oder auch $\{x, y, myVariable\}$. Haben als Wert eine natürliche Zahl.
+                \item[Wertzuweisungen] in der Form $x := y + n$ oder $x := y - n$, wobei $n$ eine natürliche Zahl ist. Eine Wertzuweisung ist bereits ein LOOP-Programm.
+                \item[Schleifen] in der Form LOOP $x$ DO $P$ END, wobei $P$ wieder ein LOOP-Programm ist. Der Wert der Variable $x$ kann in $P$ nicht geändert werden. Daher terminiert ein LOOP-Programm immer in endlich vielen Schritten.
+                \item[Hintereinanderausführung] wenn $P_0$ und $P_1$ LOOP-Programme, dann auch $P_0;P_1$.
+                \item[Syntax-Erweiterung] Die Syntax lässt sich zur Vereinfachung erweitern.
+                    \begin{description}
+                        \item[Wertzuweisung \hili{$x:=y$}] $x:=y+0$
+                        \item[Rücksetzen \hili{$x:=0$}] LOOP $x$ DO $x:=x-1$ END
+                        \item[Wertzuweisung Zahl \hili{$x:=n$}] $x:=0;x:=x+n$. Alternativ $x:=null+n$
+                        \item[Variablen-Addition \hili{$x:=y+z$}] $x:=y;$ LOOP $z$ DO $x:=x+1$ END
+                        \item[Bedingung \hili{IF $x\neq0$ THEN}] LOOP $x$ DO $y:=1$ END $;$ LOOP $y$ DO $P$ END
+                    \end{description}
+                \item[Berechenbarkeit] eine Funktion heißt LOOP-berechenbar, wenn es ein LOOP-Programm gibt, welches die Funktion berechnet. Auch hier ist mit geeigneter Kodierung wieder mehr machbar, als nur die natürlichen Zahlen in Betracht zu ziehen (Beispiel Wortproblem, Probleme in NP, gängige Algorithmen). Es gibt berechenbare totale Funktionen, die nicht LOOP-berechenbar sind (vgl. Ackermannfunktion).
+            \end{description}
+
+        \item[WHILE] Basiert auf LOOP und erweitert dieses. Jedes LOOP-Programm ist auch ein WHILE-Programm.
+            \begin{description}
+                \item[Schleifen] in der Form WHILE $x \neq 0$ DO $P$ WHEN, wobei $P$ wieder WHILE-Programm. Im Gegensatz zu LOOP kann in WHILE der Wert von $x$ in $P$ zur Laufzeit geändert werden. Es kann also passieren, dass das Programm nicht terminiert wenn $x$ nie auf $0$ gesetzt wird.
+                \item[Konvertierung] LOOP-Schleifen können in WHILE-Schleifen konvertiert werden. Eine DTM kann WHILE-Programme simulieren und ein WHILE-Programm DTMen simulieren.
+                \item[Berechenbarkeit] Eine partielle Funktion heißt WHILE-berechenbar, wenn es ein WHILE-Programm gibt, welches bei einem definierten $f(n_0,n_1,…)$ terminiert und bei einem nicht definierten Wertebereich nicht terminiert. Wenn eine partielle Funktion WHILE-berechenbar ist, ist sie \f{Turing-berechenbar}.
+            \end{description}
+
     \end{description}
-    
+
     \subsection{Universalität}
-    
+    \begin{description}
+        \item[Universalmaschine $U$] eine Turingmaschine, die andere TM als Eingabe kodiert erhält und diese simuliert. Die Kodierung ist dabei z.B. binär, mit dem Trennsymbol $\#$. Hat vier Bänder: Eingabeband von $U$ mit kodierter TM und kodierter Eingabe $w$, Arbeitsband von $U$, Band 3 mit aktuellem Zustand der simulierten TM und Band 4 als Arbeitsband der simulierten TM. \\ Für die Arbeitsweise siehe \vl{TIL 4}
+    \end{description}
+
+    \newpage
+    \subsection{Unentscheidbare Probleme und Reduktionen}
+    Beweis durch Diagonalisierung, Reduktionen \vl{TIL 4}
+    \begin{description}
+        \item[Probleme] der Kategorie „unentscheidbar“.
+        \begin{description}
+            \item[Halteproblem \phalt] Frage: „Gegeben eine Turingmaschine $M$ und ein Wort $w$. Wird die Turingmaschine $M$ für die Eingabe $w$ jemals anhalten?“. Das Halteproblem \phalt der Turingmaschine $M$ für das Wort $w$ kann formal kodiert werden als $enc(M)\#\#enc(w)$ und einer universellen Turingmaschine zur Überprüfung übergeben werden. Beweise für Unentscheidbarkeit anhand Diagonalisierung und Reduktion in \vl{TIL 4}
+
+            \item[Goldbachsche Vermutung] Beispiel für ein unentscheidbares Halteproblem. Besagt, dass jede gerade Zahl $n \ge 4$ die Summe zweier Primzahlen ist. Zum Beispiel ist $4 = 2 + 2$ und $100 = 47 + 53$. Lässt man nun eine Turingmaschine diese Vermutung systematisch beginnend bei $4$ testen, würde ein Anhalten bei Misserfolg \phalt und „die Vermutung stimmt nicht“ gleichzeitig lösen. Gäbe es demnach ein Programm, welches \phalt lösen kann (entscheidet), wäre eine Überprüfung der Goldbachschen Vermutung nicht nötig. Die Frage von \phalt wäre sofort beantwortet.
+
+            \item[$\epsilon$~-Halteproblem] „Gegeben sei eine Turingmaschine. Wird diese TM für die leere Eingabe $\epsilon$ jemals anhalten?“. Unentscheidbar.
+        \end{description}
+
+        \item[Beweismethoden] zum Nachweis der Unentscheidbarkeit.
+        \begin{description}
+            \item[Kardinalität] Beweis von Aussagen anhand der unterschiedlichen Kardinalitäten.
+            \item[Diagonalisierung] Berechenbarkeit annehmen und einen paradoxen Algorithmus für das Problem konstruieren.
+            \item[Reduktion] Rückführung eines Problems auf ein anderes. Die Reduktion ist ein Entscheidbarkeitsalgorithmus. Siehe auch \verweis{subsec:fs-komplexitaet}. \vl{TIL 4}
+                \begin{description}
+                    \item[Turing-Reduktion] Ein Problem \prob{P} ist Turing-reduzierbar auf ein Problem \prob{Q} (in Symbolen: $\prob{P} \leq_T\prob{Q}$), wenn man \prob{P} mit einem Programm lösen kann, welches ein Programm für \prob{Q} als Unterprogramm (auch: Subroutine) aufrufen darf.
+                    \item[Many-One-Reduktion] Eine berechenbare totale Funktion $f: \Sigma^* \to \Sigma^*$ ist eine Many-One-Reduktion von einer Sprache $P$ auf eine Sprache $Q$ (in Symbolen: $P \leq_m Q$), wenn für alle Wörter $w \in \Sigma^*$ gilt: $w \in P$ gdw. $f(w) \in Q$. \\
+                    Schwächer als Turing-Reduktion, jede Many-One-Reduktion kann als Turing-Reduktion ausgedrückt werden.
+                \end{description}
+            \item[Satz von Rice] Siehe \verweis{subsec:fs-sprachen-automaten}. \vl{TIL 5} \\
+                „Praktisch alle interessanten Fragen zu Turingmaschinen sind unentscheibar“. \\
+                Eingabe ist eine Turingmaschine, Ausgabe „hat die Sprache der TM die Eigenschaft?“.
+        \end{description}
+
+    \end{description}
+
+
+    \subsection{Semi-Entscheidbarkeit}
+    \textit{Hinweis: Hierzu gibt es im Schöning gute graphische Darstellungen}. \vl{TIL 5}
+    \begin{description}
+        \item[Komplement] einer Sprache $L$: $\overline{L} = \{w \in \Sigma^* ~|~ w \notin L \}$. Die Turing-Reduktionen $\overline{L} \leq_T L$ bzw. $L \leq_T \overline{L}$ sind mit einer Turingmaschine überprüfbar. Für eine Eingabe $w$ entscheidet diese, ob $w \in L$ und invertiert das Ergebnis.
+        \item[Semi-Entscheidbarkeit] Beispiel anhand des Halteproblems: simuliere eine Turingmaschine und deren Eingabe, kodiert als $enc(M)\#\#enc(w)$. Wenn $M$ hält, hält auch die universelle Turingmaschine und akzeptiert. Eine Sprache $L$ ist entscheidbar, wenn sowohl $L$ als auch $\overline{L}$ semi-entscheidbar sind.
+        \item[Co-Semi-Entscheidbarkeit] Wenn eine Sprache $L$ unentscheidbar, jedoch semi-entscheidbar ist, kann $\overline{L}$ nicht semi-entscheidbar sein.
+    \end{description}
+
+
+    \newpage
+    \subsection{Postsches Korrespondenzproblem}
+    Auch: \f{PCP}. Ein unentscheidbares Problem ohne direkten Bezug zu einer Berechnung. \vl{TIL 5}
+    \begin{description}
+        \item[PCP] Bei diesem Problem nimmt man eine Reihe von 2-Tupeln (anschaulich vergleichbar mit Dominosteinen) mit je einem Wert oben und einem unten. Ziel der Lösung ist nun, die gegebenen Tupel so anzuordnen, dass oben und unten die gleiche Wortkette entsteht. Beispiel: wir haben die drei Tupel (AB, B), (B, BBB) und (BB, BA). Eine Anordnung mit zehn Tupeln ergibt dann die Lösung. Es kann vorkommen, dass das Problem keine Lösung besitzt.
+        \item[MPCP] Hilfskonstruktion. Wir nutzen MPCP, um das Halteproblem auf MPCP zu reduzieren. Folgend reduzieren wir MPCP auf PCP. Beim MPCP wird PCP verwendet, jedoch das Start-Tupel vorgegeben. Die Lösung eines MPCP ist auch eine Lösung des entsprechenden PCP, welche mit dem gegebenen Start-Tupel beginnt.
+    \end{description}
+
+
+    \subsection{Unentscheidbare Probleme formaler Sprachen}
+    In diesem Kapitel wird wieder auf \verweis{subsec:fs-sprachen-automaten} zurückgegriffen. Eine durch eine Grammatik $G$ erzeugte Sprache wird als $L(G)$ bezeichnet. Für Beweise der folgenden Sätze siehe Vorlesung. Siehe auch Chomsky-Hierarchie in \verweis{subsec:fs-sprachen-automaten}. \vl{TIL 6}
+    \begin{itemize}
+        \setlength\itemsep{0em}
+        \item Das Schnittproblem regulärer Grammatiken (Typ 3) ist entscheidbar.
+        \item Das Schnittproblem kontextfreier Grammatiken (Typ 2, \f{CFG}) ist unentscheidbar. Beweis durch Many-One-Reduktion vom PCP.
+        \item Das Leerheitsproblem für kontextfreie Grammatiken ist entscheidbar.
+        \item Kontextfreie Sprachen sind unter Vereinigung abgeschlossen.
+        \item Deterministische kontextfreie Sprachen sind unter Komplement abgeschlossen.
+        \item Das Äquivalenzproblem kontextfreier Grammatiken ist unentscheidbar.
+    \end{itemize}
+
+
+    \newpage
+    \subsection{Komplexitätstheorie}
+    Untersuchung von Problemkomplexitäten und Suche nach Methoden zur Bestimmung der Komplexität eines Problems. Klassierung zwischen „leicht lösbar“ bis „schwer lösbar“. Einteilung von berechenbaren Problemen entsprechend der Menge an Ressourcen, die zu ihrer Lösung nötig sind. Einführung anhand von Beispielen. \vl{TIL 7}
+    \begin{description}
+        \item[Eulerpfad] Ein Eulerpfad ist ein Pfad in einem Graphen, der jede Kante genau einmal durchquert. Ein Eulerkreis ist ein zyklischer Eulerpfad. Ein Graph hat genau dann einen Eulerschen Pfad, wenn er maximal zwei Knoten ungeraden Grades besitzt.
+        \item[Hamiltonpfad] Ein Hamiltonpfad ist ein Pfad in einem Graphen, der jeden Knoten genau einmal durchquert. Ein Hamiltonkreis ist ein zyklischer Hamiltonpfad.
+
+        \item[Schranken von Turingmaschinen] in Zeit und Raum. Siehe \verweis{subsec:fs-komplexitaet}.
+            \begin{description}
+                \item[Speicher] Zahl der verwendeten Speicherzellen
+                \item[Zeit] Zahl der durchgeführten Berechnungsschritte
+            \end{description}
+
+        \item[$O$-Notation] gibt Ressourcenschranken für Turingmaschinen an, versteckt konstante Faktoren.
+        \item[Linear Speedup Theorem] Sei $M$ eine Turingmaschine mit $k > 1$ Bändern, die bei Eingaben der Länge $n$ nach maximal $f(n)$ Schritten hält. Dann gibt es für jede natürliche Zahl $c > 0$ eine äquivalente $k$-Band Turingmaschine $M'$, die nach maximal $\frac{f(n)}{c} + n + 2$ Schritten hält. \\
+        Bedeutet: in der Theorie kann jedes Programm mit Hilfe mehrerer Bänder beliebig schnell gemacht werden. Dies ist praktisch nicht umsetzbar, da eine Turingmaschine nicht beliebig große Datenmengen in einem Schritt lesen und nicht beliebig komplexe Zustandsübergänge in konstanter Zeit realisieren kann.
+    \end{description}
+
+    \subsection{Beziehungen der Komplexitätsklassen}
+    Siehe \verweis{subsec:fs-komplexitaet} für eine Übersicht der Klassen. \vl{TIL 7}
+    \begin{description}
+        \item[Nichtdeterministische Klassen] $NL \subseteq NP \subseteq NPSpace \subseteq NExp$
+        \item[DTM auch als NTM, d.h. nichtdet. stärker] $L \subseteq NL$, $P \subseteq NP$, $PSpace \subseteq NPSpace$, $Exp \subseteq NExp$
+        \item[Satz von Savich] Speicherbeschränkte NTM können durch DTMs nur mit  quadratischen Mehrkosten simuliert werden. Insbesondere gilt damit $PSpace = NPSpace$.
+    \end{description}
+
+    Zusammenfassend: $L \subseteq NL \subseteq P \subseteq NP \subseteq PSpace = NPSpace \subseteq Exp \subseteq NExp$. \\
+    Jedoch ist zu beachten:
+
+    \begin{itemize}
+        \setlength\itemsep{0em}
+        \item Wir wissen nicht, ob irgendeines dieser $\subseteq$ sogar $\subsetneq$ ist.
+        \item Insbesondere wissen wir nicht, ob $P \subsetneq NP$ oder $P = NP$.
+        \item Wir wissen nicht einmal, ob $L \subsetneq NP$ oder $L = NP$.
+    \end{itemize}
+
+
     \newpage
     \section{Übungen}
 
