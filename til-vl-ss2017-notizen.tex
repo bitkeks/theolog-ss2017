@@ -11,6 +11,7 @@
 \usepackage{marginnote}
 \usepackage{nameref}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{enumitem}
 
 \usepackage[
     pdfauthor={Dominik Pataky},
@@ -24,13 +25,18 @@
 
 \setlength\parindent{0cm} % indentation of paragraphs
 
+% set enumeration style
+\setlist[enumerate, 1]{label=\textbf{\alph*)}, leftmargin=2em}
+
 \newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
 \newcommand{\f}[1]{\textbf{#1}}
 \newcommand{\blank}{\text{\textvisiblespace}}
 \newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
 \newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
 \newcommand{\prob}[1]{\textbf{#1}}
+\newcommand{\prspec}[1]{$~\prob{P}_{#1}~$}
 \newcommand{\phalt}{$~\prob{P}_{Halt}~$}
+\newcommand{\N}{\mathbb{N}}
 
 
 \begin{document}
@@ -445,8 +451,74 @@
     \end{itemize}
 
 
+    %\newpage
+    %\section{Übungen}
+
     \newpage
-    \section{Übungen}
+    \section{Repetitorien}
+    \subsection{Repetitorium I}
+    \subsubsection*{Aufgabe A}
+        Wiederholung von Begriffen Einband Turing-Maschine, Mehrband Turing-Maschine, Entscheidungsproblem, Unentscheidbarkeit, Aufzählbarkeit, Abzählbarkeit und Halteproblem.
+
+    \subsubsection*{Aufgabe B}
+        Zeigen Sie: Wenn es möglich ist, für zwei beliebige Turing-Maschinen zu entscheiden, ob sie dieselbe Sprache akzeptieren, so ist es auch möglich, für beliebige Turing-Maschinen zu entscheiden, ob sie die leere Sprache akzeptieren. Seien $K, M_1, M_2$ Turingmaschinen, so dass $K(enc(M_1)\#\#enc(M_2))$ akzeptiert $\Leftrightarrow$ $L(M_1) = L(M_2)$ und $K$ hält auf jeder Eingabe. \\
+        \textbf{Lösung:} Sei $M$ Turingmaschine und sei $M_\emptyset$ eine Turingmaschine, so dass $L(M_\emptyset) = \emptyset$. \\
+        Dann gilt $K(enc(M)\#\#enc(M_\emptyset))$ akzeptiert $\Leftrightarrow$ $L(M) = \emptyset$, also \prspec{Leer} $\leq_m$ \prspec{"Aquiv}.
+
+    \subsubsection*{Aufgabe C}
+        Zeigen Sie, dass $\{1\}^*$ unentscheidbare Teilmengen besitzt. \\
+        \textbf{Lösung:} $\{1\}^*$ ist abzählbar unendlich, also ist $P(\{1\}^*)$ überabzählbar. Es gibt aber nur abzählbar unendlich viele entscheidbare Sprachen (auch: abzählbar viele nicht-äquivalente Turingmaschinen). Also sind einige (fast alle) dieser Sprachen unentscheidbar.
+
+    \subsubsection*{Aufgabe D}
+        \begin{enumerate}
+            \item „Jedes LOOP-Programm terminiert.“ – Richtig. Definition von LOOP sagt, dass Anzahl Durchläufe nicht mehr während der Laufzeit geändert werden kann, demnach gibt es eine endliche Anzahl Durchläufe.
+
+            \item „Zu jedem WHILE-Programm gibt es ein äquivalentes LOOP-Programm.“ – Falsch, nicht zu jedem WHILE-Programm gibt es immer ein äquivalentes LOOP-Programm. Dies liegt daran, dass LOOP keine partiellen Funktionen verarbeiten kann. \\
+            Beispiel anhand von Division: LOOP terminiert immer, jedoch wäre Division durch $0$ (ebenfalls in $\mathbb{N}$) undefiniert. Kann demnach nur mit WHILE gelöst werden (Fall $x_2 = 0$ für $div(x_1, x_2)$ landet in Endlosschleife).
+
+            \item „Die Anzahl der Ausführungen von $P$ in der LOOP-Schleife LOOP $x_i$ DO $P$ END kann beeinflusst werden, indem $x_i$ in $P$ entsprechend modifiziert wird.“ – Falsch, Anzahl Schleifen kann laut Definition von LOOP nicht während Laufzeit geändert werden.
+
+            \item „Die Ackermannfunktion ist total und damit LOOP-berechenbar.“ – Falsch, die Ackermannfunktion ist zwar total, jedoch nicht LOOP-berechenbar (jedoch berechenbar). Die Funktion wurde erfunden, um genau diesen Fall zu zeigen.
+        \end{enumerate}
+
+    \subsubsection*{Aufgabe E}
+        Geben Sie eine Turing-Maschine $A_{mod2}$ an, die die Funktion  $f: \mathbb{N} \to \mathbb{N}$ mit $f(x) = (x~mod~ 2)$ berechnet. Stellen Sie dabei die Zahlen in unärer Kodierung dar. \\
+        \textbf{Lösung:} $A_{mod2} = (\{q_0,…,q_f\}, \{x\}, \{x, \blank\}, \delta, q_0, \{q_f\})$. Die Turingmaschine liest die eingegebenen $x$ (unäre Kodierung) und wechselt zwischen $q_0$ und $q_1$. Sobald auf ein $\blank$ gestoßen wird, weiß die TM, ob eine gerade oder ungerade Anzahl $x$ eingegeben wurde. Wenn gerade, lösche alle $x$ und ende in leerem Band. Wenn ungerade, lösche alle $x$ und schreibe zum Abschluss ein $x$ auf das Band.
+
+    \subsubsection*{Aufgabe F}
+        Es sei $f:\N\to\N$ mit $f(x)=\lfloor\log_{10}(x)\rfloor$. Geben Sie ein WHILE-Programm an, welches $f$ berechnet. \\
+        \textbf{Lösung:} Erst eine endlose WHILE-Schleife für die Eingabe $x=0$. Dann Lösung mit $div(x, 10)$.
+
+    \subsubsection*{Aufgabe G}
+        \begin{enumerate}
+            \item „Die Menge der Instanzen des Postschen Korrespondenzproblems, welche eine Lösung haben, ist semi-entscheidbar.“ – Richtig. Wenn eine Lösung existiert, kann diese (z.B. durch Breitensuche) auch gefunden werden.
+
+            \item „Das Postsche Korrespondenzproblem ist bereits über dem Alphabet $\Sigma = \{a,b\}$ nicht entscheidbar.“ – Richtig, denn Instanzen können über $\Sigma$ kodiert werden, ohne die Entscheidbarkeit zu beeinflussen.
+
+            \item „Es ist entscheidbar, ob eine Turingmaschine nur Wörter akzeptiert, die Palindrome sind.“ – Falsch, Satz von Rice (die Akzeptanz von Palindromen ist eine \f{Eigenschaft}). Eigenschaft $E$ ist „$L$ besteht nur aus Palindromen“, diese Eigenschaft ist nicht-trivial: erfüllt z.B. durch $L = \emptyset$, jedoch nicht durch $L = \{ab\}$.
+
+            \item „\prspec{Halt} ist semi-entscheidbar“ – Richtig, da es universelle Turingmaschine gibt, die beliebige TM simulieren können.
+
+            \item „Es ist nicht entscheidbar, ob die von einer deterministischen Turing-Maschine berechnete Funktion total ist.“ – Richtig, denn sonst wäre das Halteproblem entscheidbar (\prspec{Halt} $\leq_m$ \prspec{Total}). \\
+            Reduktion: $M, w$ gegeben, baue Turingmaschine $M'$ mit \\
+            $M' =$ bei Eingabe $x$ \\
+            $\to$ simuliere $M$ auf $w$ \\
+            $\to$ akzeptiere mit leerem Band \\
+            M hält auf $w \Rightarrow M'$ berechnet $f(x)= \epsilon$ \\
+            M hält nicht auf $w \Rightarrow M'$ berechnet Abbildung, die nirgends definiert ist. \\
+            Reduktion demnach $enc(M)\#\#enc(w) \rightarrow enc(M')$.
+
+            \item „Es gibt reguläre Sprachen, die nicht semi-entscheidbar sind.“ – Falsch. Reguläre Sprachen sind immer entscheidbar, da Turingmaschinen endliche Automaten simulieren können.
+        \end{enumerate}
+
+    \subsubsection*{Aufgabe H}
+        Sei $L$ eine unentscheidbare Sprache. Zeigen Sie:
+
+        \begin{enumerate}
+            \item „$L$ hat eine Teilmenge $T \subseteq L$, die entscheidbar ist.“: $T = \emptyset$.
+            \item „$L$ hat eine Obermenge $O \supseteq L$, die entscheidbar ist.“: $O = \Sigma^*$.
+            \item „Es gibt jeweils nicht nur eine sondern unendlich viele entscheidbare Teilmengen bzw. Obermengen wie in (a) und (b).“ – Es gilt: $L$ ist unendlich. Dann ist die Menge der endlichen Teilmengen von $L$ unendlich. Alles diese sind entscheidbar. Genauso für \textbf{b)}, z.B. muss $\Sigma^*\setminus L$ unendlich sein. Die Menge der endlichen Teilmengen $E$ von $\Sigma^*\setminus L$ ist unendlich, für jede ist $\Sigma^*\setminus E$ entscheidbar.
+        \end{enumerate}
 
 
 \end{document}
