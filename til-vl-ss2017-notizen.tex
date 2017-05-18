@@ -122,7 +122,7 @@
                     Speicher, kann beliebig auf Speicher zugreifen (im Gegensatz zu LIFO bei PDA).
                     Kann ein Band oder mehrere Bänder haben.
                     Kann deterministisch (DTM) oder nichtdeterministisch (NTM) sein.
-                    Alle Varianten der TM können die selben Funktionen berechnen - einzig der Aufwand ist unterschiedlich (NTM kann DTM darstellen, NTM kann durch DTM simuliert werden etc.).
+                    Alle Varianten der TM können die selben Funktionen berechnen (Probleme lösen) - einzig der Aufwand ist unterschiedlich (NTM kann DTM darstellen, NTM kann durch DTM simuliert werden etc.).
                     Siehe auch Church-Turing-These. \vl{FS 18}
             \end{description}
 
@@ -143,7 +143,7 @@
 
         \item[Probleme] Probleme formulieren Berechnungsfragen.
             \begin{description}
-                \item[Wortproblem] Wortproblem für eine Sprache über einem Alphabet ist die Berechnung der Ausgabe „ja, Wort ist in Sprache“ oder „nein, Wort ist nicht in Sprache“, für die Eingabe eines Wortes gebildet aus dem Alphabet \vl{FS 3}
+                \item[Wortproblem] Wortproblem für eine Sprache über einem Alphabet ist die Bestimmung der Ausgabe „ja, Wort ist in Sprache“ oder „nein, Wort ist nicht in Sprache“, für die Eingabe eines Wortes gebildet aus dem Alphabet \vl{FS 3}
                 \item[Leerheitsproblem (DFA, NFA)] Entscheidung für „ja, Automat erzeugt Sprache“ oder „nein, durch den Automaten erzeugte Sprache ist leer“ (es wird nie ein Endzustand erreicht). \vl{FS 10}
                 \item[Inklusionsproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist eine Teilmenge der Sprache B eines anderen Automaten“ oder „nein, Sprache A ist keine Teilmenge der Sprache B“. \vl{FS 10}
                 \item[Äquivalenzproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist gleich der Sprache B eines anderen Automaten“ oder „nein, Sprache A unterscheidet sich von Sprache B“. \vl{FS 10}
@@ -159,14 +159,13 @@
 
         \item[Entscheidbarkeit]
             Eine Sprache L ist entscheidbar / berechenbar / rekursiv, wenn es eine Turingmaschine gibt, die das Wortproblem der Sprache L entscheidet.
-            D.h. die Turingmaschine ist Entscheider und die Sprache L ist gleich der durch die Turingmaschine erzeugten Sprache.
+            D.h. die Turingmaschine ist Entscheider und die Sprache L ist gleich der durch die Turingmaschine erkannten Sprache.
             Andernfalls heißt die Sprache L unentscheidbar. \\
-            Die Sprache L ist semi-entscheidbar / Turing-erkennbar / rekursiv aufzählbar, wenn es eine Turingmaschine gibt, deren erzeugte Sprache zwar L ist, jedoch die Turingmaschine kein Entscheider ist. \vl{FS 19}
+            Die Sprache L ist semi-entscheidbar / Turing-erkennbar / rekursiv aufzählbar, wenn es eine Turingmaschine gibt, deren erkannte Sprache zwar L ist, jedoch die Turingmaschine kein Entscheider sein muss. \vl{FS 19}
 
         \item[Satz von Rice]
             %Informell: „Jede nicht-triviale Frage über die von einer TM ausgeführte Berechnung ist unentscheidbar.“ \\
-            Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Anhand der Ausgabe wollen wir prüfen, ob die durch diese Turingmaschine erzeugte Sprache die Eigenschaft E besitzt. \vl{FS 20} \\
-            Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion auf das Halteproblem.
+            Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Wir wollen prüfen, ob die durch diese Turingmaschine erkannte Sprache die Eigenschaft E besitzt. Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion vom Halteproblem. \vl{FS 20}
 
     \end{description}
 
@@ -183,7 +182,7 @@
 
             \item[Formel] Jedes Atom ist eine Formel, jede durch Junktoren verknüpfte Formeln sind wieder Formeln.
                 Diese zusammengesetzten Formeln bestehen dann wieder aus Teilformeln (auch: Unterformeln, $Sub(F)$).
-                Eine Formel, die nur aus einem Atom besteht, nennt man auch \f{Literal}.
+                Eine Formel, die nur aus einem Atom besteht, nennt man auch \f{Literal}. Literale können die Form $x$ oder $\neg x$ (für $x$ Atom) annehmen.
                 \begin{description}
                     \item[unerfüllbar] Formel hat keine Modelle
                     \item[erfüllbar] Formel hat mindestens ein Modell
@@ -191,7 +190,7 @@
                     \item[widerlegbar] Formel ist nicht allgemeingültig
                 \end{description}
 
-            \item[Syntax] Sprache einer Logik (Formeln mit logischen Operatoren). Wichtig: Klammerung.
+            \item[Syntax] „Sprache einer Logik“ (Formeln mit logischen Operatoren). Wichtig: Klammerung.
             \item[Semantik] Definition der Bedeutung. Wertzuweisung von Wahrheitswerten zu Atomen mit Hilfe der Interpretation.
                 „Die Bedeutung einer Formel besteht darin, dass sie uns Informationen darüber liefert, welche Wertzuweisungen möglich sind, wenn die Formel wahr sein soll.“
                 \begin{description}
@@ -222,18 +221,18 @@
     Schranken sind Funktionen gerichtet nach der Länge der Angabe. \vl{FS 24}
 
     \begin{description}
-        \item[$O$-Notation] charakterisiert Funktionen nach ihrem Verhalten und versteckt lineare Faktoren.
-        \item[$O(f)$-zeitbeschränkt] es gibt eine Funktion, so dass eine DTM bei beliebiger Eingabe nach einer maximalen Anzahl Schritte anhält
-        \item[$O(f)$-speicherbeschränkt] es gibt eine Funktion, os dass eine DTM bei beliebiger Eingabe nur eine maximale Anzahl Speicherzellen verwendet
+        \item[$O$-Notation] charakterisiert Funktionen nach ihrem Verhalten und versteckt Summanden kleinerer Ordnung und lineare Faktoren. Beispiel: ein Polynom $n^{4} + 2n^{2} + 150$ wird zu $O(n^{4})$.
+        \item[$O(f)$-zeitbeschränkt] es gibt eine Funktion $g \in O(f)$, so dass eine DTM/NTM bei beliebiger Eingabe der Länge $n$ nach einer maximalen Anzahl Schritte $g(n)$ anhält.
+        \item[$O(f)$-speicherbeschränkt] es gibt eine Funktion $g \in O(f)$, so dass eine DTM/NTM bei beliebiger Eingabe der Länge $n$ nur eine maximale Anzahl Speicherzellen $g(n)$ verwendet.
 
         \item[Sprachklassen] Einteilung von Sprachen nach der Möglichkeit der Entscheidbarkeit. \\
             „Klasse aller Sprachen, welche…“
             \begin{description}
-                \item[DTIME$f(n)$] …durch eine $O(f)$-zeitbeschränkte DTM entschieden werden können
-                \item[DSPACE$f(n)$] …durch eine $O(f)$-speicherbeschränkte DTM entschieden werden können
+                \item[DTIME$(f(n))$] …durch eine $O(f)$-zeitbeschränkte DTM entschieden werden können
+                \item[DSPACE$(f(n))$] …durch eine $O(f)$-speicherbeschränkte DTM entschieden werden können
 
-                \item[NTIME$f(n)$] …durch eine $O(f)$-zeitbeschränkte NTM entschieden werden können
-                \item[NSPACE$f(n)$] …durch eine $O(f)$-speicherbeschränkte NTM entschieden werden können
+                \item[NTIME$(f(n))$] …durch eine $O(f)$-zeitbeschränkte NTM entschieden werden können
+                \item[NSPACE$(f(n))$] …durch eine $O(f)$-speicherbeschränkte NTM entschieden werden können
             \end{description}
 
         \item[Komplexitätsklassen] erfassen Sprachklassen je nach ihrer Komplexität.
@@ -245,13 +244,13 @@
                 \item[PSpace] deterministisch, polynomieller Speicher
 
                 \item[NPTime (NP)] nichtdeterministisch, polynomielle Zeit
-                \item[NEexpTime (NExp)] nichtdeterministisch, exponentielle Zeit
+                \item[NExpTime (NExp)] nichtdeterministisch, exponentielle Zeit
                 \item[NLogSpace (NL)] nichtdeterministisch, logarithmischer Speicher
-                \item[NPSpace] nichtdeterministisch, polynomieller Speicher
+                \item[NPSpace] nichtdeterministisch, polynomieller Speicher (gleich PSpace)
             \end{description}
 
-        \item[SAT] Boolean Satisfiability Problem. Problem, welches nach einem Modell für eine Formel sucht. In $NP$.
-            Interessant für Untersuchung, da SAT ein Problem darstellt, für welches es schwierig ist eine Lösung zu finden,
+        \item[SAT] Boolean Satisfiability Problem. Problem, welches ein Modell für eine Formel auf Erfüllbarkeit untersucht. In $NP$.
+            Interessant für Untersuchung, da SAT ein Problem darstellt, für welches es wahrscheinlich schwierig ist eine Lösung zu finden,
             jedoch sehr einfach ist eine Lösung auf Korrektheit zu prüfen. \vl{FS 25}
 
         \item[Reduktion] Rückführung eines Problems auf ein anderes. Beispiel Drei-Farben-Problem ist auf SAT reduzierbar, da sich die Farb-Zustände als
@@ -279,7 +278,7 @@
             Definiert als Tupel $(Q,\Sigma,\Gamma,\delta,q_0,F)$ mit endlicher Menge von Zuständen $Q$, Eingabealphabet $\Sigma$, Arbeitsalphabet $\Gamma$, Übergangsfunktion $\delta$, Startzustand $q_0$ und Menge von akzeptierenden Endzuständen $F$. Können ein oder mehrere Bänder haben. Siehe auch Church-Turing-These. \vl{FS 18} \vl{TIL 1}
 
             \begin{description}
-                \item[Funktion] Turingmaschine kann eine Funktion von Eingaben auf Ausgabewörter definieren. Wenn eine TM bei Eingabe $w$ anhält und die Ausgabe der Form $v\blank\blank$ entspricht, hat diese TM die Funktion berechnet.
+                \item[Funktion] Turingmaschine kann eine Funktion von Eingaben auf Ausgabewörter definieren. Wenn eine TM bei Eingabe $w$ anhält und die Ausgabe der Form $v\blank\blank\dots$ entspricht, hat diese TM die Funktion berechnet.
                 \item[Sprache] die von einer Turingmaschine erkannte Sprache ist die Menge aller Wörter, die von dieser TM akzeptiert werden (d.h. in einem Endzustand hält).
 
                 \item[Konfiguration]
@@ -293,7 +292,7 @@
 
                 \item[Transducer] Ausgabe der Turingmaschine ist Inhalt des Bandes, wenn TM hält, ansonsten undefiniert. Endzustände sind irrelevant.
                 \item[Entscheider] Ausgabe der Turingmaschine ist „Akzeptiert“, wenn TM in Endzustand hält, ansonsten „verwirft“ (beinhaltet auch „TM hält nicht“). Bandinhalt ist irrelevant.
-                \item[Aufzähler] ist eine DTM, die bei Eingabe des leeren Bandes immer wieder einen Zustand $q_{Ausgabe}$ erreicht, in welchem das aktuelle Band ein Wort aus der Sprache dieser DTM ist. Die Sprache dieser DTM ist dann die Menge der so erzeugten Wörter. Diese DTM muss nicht halten, die Sprache kann unendlich sein. Wörter dürfen mehrfach ausgegeben werden.
+                \item[Aufzähler] ist eine DTM, die bei Eingabe des leeren Bandes immer wieder (d.h. bis zum letzten Wort bei endlichen Sprachen) einen Zustand $q_{Ausgabe}$ erreicht, in welchem das aktuelle Band ein Wort aus der Sprache dieser DTM ist. Die Sprache dieser DTM ist dann die Menge der so erzeugten Wörter. Diese DTM muss nicht halten, die Sprache kann unendlich sein. Wörter dürfen mehrfach ausgegeben werden.
             \end{description}
 
         \item[Berechenbarkeit] bezogen auf Funktionen. Eine Funktion $F$ heißt berechenbar, wenn es eine DTM gibt, die $F$ berechnet. Ist durch geeignete Kodierung (z.B. binär) erweiterbar auf natürliche Zahlen, Wörterlisten und andere Mengen. \vl{TIL 2}
@@ -306,12 +305,12 @@
             \begin{description}
                 \item[entscheidbar / berechenbar / rekursiv] es existiert eine Turingmaschine, die das Wortproblem der Sprache entscheidet. D.h. die Turingmaschine ist Entscheider und die Sprache ist gleich der Sprache der TM.
                 \item[semi-entscheidbar / Turing-erkennbar / Turing-akzeptierbar / rekursiv aufzählbar] es existiert eine Turingmaschine, deren erzeugte Sprache gleich der Sprache ist, jedoch die TM kein Entscheider ist. \\
-                Eine Sprache ist semi-entscheidbar, wenn es einen Aufzähler für diese Sprache gibt.
+                Eine Sprache ist genau dann semi-entscheidbar, wenn es einen Aufzähler für diese Sprache gibt.
                 \item[unentscheidbar] sonst. \\
                     „Es gibt Sprachen und Funktionen, die nicht berechenbar sind.“ Beweis anhand der abzählbaren Menge von Turingmaschinen im Vergleich zur Überabzählbarkeit der Menge der Sprachen über jedem Alphabet.
             \end{description}
 
-        \item[Probleme] der Kategorie „Unentscheidbar“. \vl{TIL 2}
+        \item[Probleme] der Kategorie „Unentscheidbar bzw. unberechenbar, nicht berechenbar“. \vl{TIL 2}
             \begin{description}
                 \item[Busy-Beaver-Funktion] ist nicht berechenbar und wächst sehr schnell. Die Funktion nimmt eine natürliche Zahl $n$ und gibt die maximale Anzahl $x$-Symbole, welche eine DTM mit $n$ Zuständen und dem Arbeitsalphabet $\{x,\blank\}$ bis zu ihrem Halt schreiben kann, zurück.
             \end{description}
@@ -323,7 +322,7 @@
     \begin{description}
         \item[LOOP] Besteht aus Variablen, Wertzuweisungen und Schleifen. Die Eingabe einer Menge von natürlichen Zahlen wird in $x_1, x_2, …$ gespeichert. Die Ausgabe ist eine natürliche Zahl, gespeichert in $x_0$. Alle weiteren Variablen haben den Wert $0$. LOOP terminiert immer in endlich vielen Schritten. Berechnet eine totale Funktion.
             \begin{description}
-                \item[Variablen] Menge $\{x_0,x_1,…\}$ oder auch $\{x, y, myVariable\}$. Haben als Wert eine natürliche Zahl.
+                \item[Variablen] Menge $\{x_0,x_1,…\}$ oder auch $\{x, y, \mathit{myVariable}\}$. Haben als Wert eine natürliche Zahl.
                 \item[Wertzuweisungen] in der Form $x := y + n$ oder $x := y - n$, wobei $n$ eine natürliche Zahl ist. Eine Wertzuweisung ist bereits ein LOOP-Programm.
                 \item[Schleifen] in der Form LOOP $x$ DO $P$ END, wobei $P$ wieder ein LOOP-Programm ist. Der Wert der Variable $x$ kann in $P$ nicht geändert werden. Daher terminiert ein LOOP-Programm immer in endlich vielen Schritten.
                 \item[Hintereinanderausführung] wenn $P_0$ und $P_1$ LOOP-Programme, dann auch $P_0;P_1$.
@@ -360,7 +359,7 @@
         \begin{description}
             \item[Halteproblem \phalt] Frage: „Gegeben eine Turingmaschine $M$ und ein Wort $w$. Wird die Turingmaschine $M$ für die Eingabe $w$ jemals anhalten?“. Das Halteproblem \phalt der Turingmaschine $M$ für das Wort $w$ kann formal kodiert werden als $enc(M)\#\#enc(w)$ und einer universellen Turingmaschine zur Überprüfung übergeben werden. Beweise für Unentscheidbarkeit anhand Diagonalisierung und Reduktion in \vl{TIL 4}
 
-            \item[Goldbachsche Vermutung] Beispiel für ein unentscheidbares Halteproblem. Besagt, dass jede gerade Zahl $n \ge 4$ die Summe zweier Primzahlen ist. Zum Beispiel ist $4 = 2 + 2$ und $100 = 47 + 53$. Lässt man nun eine Turingmaschine diese Vermutung systematisch beginnend bei $4$ testen, würde ein Anhalten bei Misserfolg \phalt und „die Vermutung stimmt nicht“ gleichzeitig lösen. Gäbe es demnach ein Programm, welches \phalt lösen kann (entscheidet), wäre eine Überprüfung der Goldbachschen Vermutung nicht nötig. Die Frage von \phalt wäre sofort beantwortet.
+            \item[Goldbachsche Vermutung] Beispiel für ein auf das Halteproblem reduzierbares Problem. Besagt, dass jede gerade Zahl $n \ge 4$ die Summe zweier Primzahlen ist. Zum Beispiel ist $4 = 2 + 2$ und $100 = 47 + 53$. Lässt man nun eine Turingmaschine diese Vermutung systematisch beginnend bei $4$ testen, würde ein Anhalten bei Misserfolg \phalt und „die Vermutung stimmt nicht“ gleichzeitig lösen. Gäbe es demnach ein Programm, welches \phalt lösen kann (entscheidet), wäre eine separate Überprüfung der Goldbachschen Vermutung nicht nötig. Die Frage der Goldbachschen Vermutung wäre sofort beantwortet.
 
             \item[$\epsilon$~-Halteproblem] „Gegeben sei eine Turingmaschine. Wird diese TM für die leere Eingabe $\epsilon$ jemals anhalten?“. Unentscheidbar.
         \end{description}
@@ -369,14 +368,14 @@
         \begin{description}
             \item[Kardinalität] Beweis von Aussagen anhand der unterschiedlichen Kardinalitäten.
             \item[Diagonalisierung] Berechenbarkeit annehmen und einen paradoxen Algorithmus für das Problem konstruieren.
-            \item[Reduktion] Rückführung eines Problems auf ein anderes. Die Reduktion ist ein Entscheidbarkeitsalgorithmus. Siehe auch \verweis{subsec:fs-komplexitaet}. \vl{TIL 4}
+            \item[Reduktion] Rückführung eines unentscheidbaren Problems auf das gegebene. Die Reduktion ist ein Entscheid\-bar\-keits\-algorithmus. Siehe auch \verweis{subsec:fs-komplexitaet}. \vl{TIL 4}
                 \begin{description}
-                    \item[Turing-Reduktion] Ein Problem \prob{P} ist Turing-reduzierbar auf ein Problem \prob{Q} (in Symbolen: $\prob{P} \leq_T\prob{Q}$), wenn man \prob{P} mit einem Programm lösen kann, welches ein Programm für \prob{Q} als Unterprogramm (auch: Subroutine) aufrufen darf.
-                    \item[Many-One-Reduktion] Eine berechenbare totale Funktion $f: \Sigma^* \to \Sigma^*$ ist eine Many-One-Reduktion von einer Sprache $P$ auf eine Sprache $Q$ (in Symbolen: $P \leq_m Q$), wenn für alle Wörter $w \in \Sigma^*$ gilt: $w \in P$ gdw. $f(w) \in Q$. \\
-                    Schwächer als Turing-Reduktion, jede Many-One-Reduktion kann als Turing-Reduktion ausgedrückt werden.
+                    \item[Turing-Reduktion] Ein Problem \prob{P} ist Turing-reduzierbar auf ein Problem \prob{Q} (in Symbolen: $\prob{P} \leq_T\prob{Q}$), wenn man \prob{P} mit einem Programm lösen könnte, welches ein Programm für \prob{Q} als Unterprogramm (auch: Subroutine) aufrufen darf. Das Programm für \prob{Q} muss hierbei nicht existieren.
+                    \item[Many-One-Reduktion] Eine berechenbare totale Funktion $f: \Sigma^* \to \Sigma^*$ ist eine Many-One-Reduktion von einer Sprache \prob{P} auf eine Sprache \prob{Q} (in Symbolen: $\prob{P} \leq_m \prob{Q}$), wenn für alle Wörter $w \in \Sigma^*$ gilt: $w \in \prob{P}$ gdw. $f(w) \in \prob{Q}$. \\
+                    Schwächer als Turing-Reduktion, jede Many-One-Reduktion kann als Turing-Reduktion ausgedrückt werden (dies gilt jedoch nicht andersherum).
                 \end{description}
             \item[Satz von Rice] Siehe \verweis{subsec:fs-sprachen-automaten}. \vl{TIL 5} \\
-                „Praktisch alle interessanten Fragen zu Turingmaschinen sind unentscheibar“. \\
+                „Praktisch alle interessanten Fragen zu Sprachen von Turingmaschinen sind unentscheibar“. \\
                 Eingabe ist eine Turingmaschine, Ausgabe „hat die Sprache der TM die Eigenschaft?“.
         \end{description}
 
@@ -386,7 +385,7 @@
     \subsection{Semi-Entscheidbarkeit}
     \textit{Hinweis: Hierzu gibt es im Schöning gute graphische Darstellungen}. \vl{TIL 5}
     \begin{description}
-        \item[Komplement] einer Sprache $L$: $\overline{L} = \{w \in \Sigma^* ~|~ w \notin L \}$. Die Turing-Reduktionen $\overline{L} \leq_T L$ bzw. $L \leq_T \overline{L}$ sind mit einer Turingmaschine überprüfbar. Für eine Eingabe $w$ entscheidet diese, ob $w \in L$ und invertiert das Ergebnis.
+        \item[Komplement] einer Sprache $L$: $\overline{L} = \{w \in \Sigma^* ~|~ w \notin L \}$ (Achtung: auf Kontext achten. Komplement des Halteproblems ist z.B. anderer Form). Die Turing-Reduktionen $\overline{L} \leq_T L$ bzw. $L \leq_T \overline{L}$ sind mit einer Turingmaschine überprüfbar. Für eine Eingabe $w$ entscheidet diese, ob $w \in L$ und invertiert das Ergebnis.
         \item[Semi-Entscheidbarkeit] Beispiel anhand des Halteproblems: simuliere eine Turingmaschine und deren Eingabe, kodiert als $enc(M)\#\#enc(w)$. Wenn $M$ hält, hält auch die universelle Turingmaschine und akzeptiert. Eine Sprache $L$ ist entscheidbar, wenn sowohl $L$ als auch $\overline{L}$ semi-entscheidbar sind.
         \item[Co-Semi-Entscheidbarkeit] Wenn eine Sprache $L$ unentscheidbar, jedoch semi-entscheidbar ist, kann $\overline{L}$ nicht semi-entscheidbar sein.
     \end{description}
@@ -418,7 +417,7 @@
     \subsection{Komplexitätstheorie}
     Untersuchung von Problemkomplexitäten und Suche nach Methoden zur Bestimmung der Komplexität eines Problems. Klassierung zwischen „leicht lösbar“ bis „schwer lösbar“. Einteilung von berechenbaren Problemen entsprechend der Menge an Ressourcen, die zu ihrer Lösung nötig sind. Einführung anhand von Beispielen. \vl{TIL 7}
     \begin{description}
-        \item[Eulerpfad] Ein Eulerpfad ist ein Pfad in einem Graphen, der jede Kante genau einmal durchquert. Ein Eulerkreis ist ein zyklischer Eulerpfad. Ein Graph hat genau dann einen Eulerschen Pfad, wenn er maximal zwei Knoten ungeraden Grades besitzt.
+        \item[Eulerpfad] Ein Eulerpfad ist ein Pfad in einem Graphen, der jede Kante genau einmal durchquert. Ein Eulerkreis ist ein zyklischer Eulerpfad. Ein Graph hat genau dann einen Eulerschen Pfad, wenn er maximal zwei Knoten ungeraden Grades besitzt und zusammenhängend ist.
         \item[Hamiltonpfad] Ein Hamiltonpfad ist ein Pfad in einem Graphen, der jeden Knoten genau einmal durchquert. Ein Hamiltonkreis ist ein zyklischer Hamiltonpfad.
 
         \item[Schranken von Turingmaschinen] in Zeit und Raum. Siehe \verweis{subsec:fs-komplexitaet}.
@@ -427,9 +426,9 @@
                 \item[Zeit] Zahl der durchgeführten Berechnungsschritte
             \end{description}
 
-        \item[$O$-Notation] gibt Ressourcenschranken für Turingmaschinen an, versteckt konstante Faktoren.
+        \item[$O$-Notation] Siehe \verweis{subsec:fs-komplexitaet}.
         \item[Linear Speedup Theorem] Sei $M$ eine Turingmaschine mit $k > 1$ Bändern, die bei Eingaben der Länge $n$ nach maximal $f(n)$ Schritten hält. Dann gibt es für jede natürliche Zahl $c > 0$ eine äquivalente $k$-Band Turingmaschine $M'$, die nach maximal $\frac{f(n)}{c} + n + 2$ Schritten hält. \\
-        Bedeutet: in der Theorie kann jedes Programm mit Hilfe mehrerer Bänder beliebig schnell gemacht werden. Dies ist praktisch nicht umsetzbar, da eine Turingmaschine nicht beliebig große Datenmengen in einem Schritt lesen und nicht beliebig komplexe Zustandsübergänge in konstanter Zeit realisieren kann.
+        Bedeutet: in der Theorie kann jedes Programm mit Hilfe mehrerer Bänder „beliebig schneller“ gemacht werden. Dies ist praktisch nicht umsetzbar, da eine Turingmaschine nicht beliebig große Datenmengen in einem Schritt lesen und nicht beliebig komplexe Zustandsübergänge in konstanter Zeit realisieren kann.
     \end{description}
 
     \subsection{Beziehungen der Komplexitätsklassen}
@@ -437,7 +436,7 @@
     \begin{description}
         \item[Nichtdeterministische Klassen] $NL \subseteq NP \subseteq NPSpace \subseteq NExp$
         \item[DTM auch als NTM, d.h. nichtdet. stärker] $L \subseteq NL$, $P \subseteq NP$, $PSpace \subseteq NPSpace$, $Exp \subseteq NExp$
-        \item[Satz von Savich] Speicherbeschränkte NTM können durch DTMs nur mit  quadratischen Mehrkosten simuliert werden. Insbesondere gilt damit $PSpace = NPSpace$.
+        \item[Satz von Savitch] Speicherbeschränkte NTM können durch DTMs nur mit  quadratischen Mehrkosten simuliert werden. Insbesondere gilt damit $PSpace = NPSpace$.
     \end{description}
 
     Zusammenfassend: $L \subseteq NL \subseteq P \subseteq NP \subseteq PSpace = NPSpace \subseteq Exp \subseteq NExp$. \\
@@ -467,7 +466,7 @@
 
     \subsubsection*{Aufgabe C}
         Zeigen Sie, dass $\{1\}^*$ unentscheidbare Teilmengen besitzt. \\
-        \textbf{Lösung:} $\{1\}^*$ ist abzählbar unendlich, also ist $P(\{1\}^*)$ überabzählbar. Es gibt aber nur abzählbar unendlich viele entscheidbare Sprachen (auch: abzählbar viele nicht-äquivalente Turingmaschinen). Also sind einige (fast alle) dieser Sprachen unentscheidbar.
+        \textbf{Lösung:} $\{1\}^*$ ist abzählbar unendlich, also ist $\mathfrak{P}(\{1\}^*)$ überabzählbar. Es gibt aber nur abzählbar unendlich viele entscheidbare Sprachen (auch: abzählbar viele nicht-äquivalente Turingmaschinen). Also sind einige (fast alle) dieser Sprachen unentscheidbar.
 
     \subsubsection*{Aufgabe D}
         \begin{enumerate}
@@ -478,7 +477,7 @@
 
             \item „Die Anzahl der Ausführungen von $P$ in der LOOP-Schleife LOOP $x_i$ DO $P$ END kann beeinflusst werden, indem $x_i$ in $P$ entsprechend modifiziert wird.“ – Falsch, Anzahl Schleifen kann laut Definition von LOOP nicht während Laufzeit geändert werden.
 
-            \item „Die Ackermannfunktion ist total und damit LOOP-berechenbar.“ – Falsch, die Ackermannfunktion ist zwar total, jedoch nicht LOOP-berechenbar (jedoch berechenbar). Die Funktion wurde erfunden, um genau diesen Fall zu zeigen.
+            \item „Die Ackermannfunktion ist total und damit LOOP-berechenbar.“ – Falsch, die Ackermannfunktion ist zwar total, jedoch nicht LOOP-berechenbar (jedoch berechenbar). Die Funktion wurde gezielt gesucht und gefunden, um genau diesen Fall zu zeigen.
         \end{enumerate}
 
     \subsubsection*{Aufgabe E}
@@ -497,7 +496,7 @@
 
             \item „Es ist entscheidbar, ob eine Turingmaschine nur Wörter akzeptiert, die Palindrome sind.“ – Falsch, Satz von Rice (die Akzeptanz von Palindromen ist eine \f{Eigenschaft}). Eigenschaft $E$ ist „$L$ besteht nur aus Palindromen“, diese Eigenschaft ist nicht-trivial: erfüllt z.B. durch $L = \emptyset$, jedoch nicht durch $L = \{ab\}$.
 
-            \item „\prspec{Halt} ist semi-entscheidbar“ – Richtig, da es universelle Turingmaschine gibt, die beliebige TM simulieren können.
+            \item „\prspec{Halt} ist semi-entscheidbar“ – Richtig, da es universelle Turingmaschinen gibt, die beliebige TM simulieren können.
 
             \item „Es ist nicht entscheidbar, ob die von einer deterministischen Turing-Maschine berechnete Funktion total ist.“ – Richtig, denn sonst wäre das Halteproblem entscheidbar (\prspec{Halt} $\leq_m$ \prspec{Total}). \\
             Reduktion: $M, w$ gegeben, baue Turingmaschine $M'$ mit \\
@@ -506,7 +505,7 @@
             $\to$ akzeptiere mit leerem Band \\
             M hält auf $w \Rightarrow M'$ berechnet $f(x)= \epsilon$ \\
             M hält nicht auf $w \Rightarrow M'$ berechnet Abbildung, die nirgends definiert ist. \\
-            Reduktion demnach $enc(M)\#\#enc(w) \rightarrow enc(M')$.
+            Reduktion demnach $enc(M)\#\#enc(w) \mapsto enc(M')$.
 
             \item „Es gibt reguläre Sprachen, die nicht semi-entscheidbar sind.“ – Falsch. Reguläre Sprachen sind immer entscheidbar, da Turingmaschinen endliche Automaten simulieren können.
         \end{enumerate}
