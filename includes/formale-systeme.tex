@@ -1,0 +1,176 @@
+\section{Formale Systeme}
+\subsection{Sprachen und Automaten}
+\label{subsec:fs-sprachen-automaten}
+
+\begin{description}
+    \item[(formale) Sprache] Menge von Wörtern/Symbolen/Tokens, z.B. Programmiercode oder natürliche Sprache.
+        Zusätzliche Begriffe: Konkatenation, Präfix/Suffix/Infix, leeres Wort \vl{FS 1}
+        \begin{description}
+            \item[Symbol] Token der Sprache, z.B. if/else, +/-, True/False, ''Hello World''-String
+            \item[Alphabet] nichtleere, endliche Menge von Symbolen
+            \item[Wort] endliche Sequenz von Symbolen
+            \item[Grammatik] formelle Spezifikation einer Sprache. Aus einer Grammatik kann man widerum eine Sprache erzeugen \vl{FS 2}
+            \item[Rechenoperationen] Vereinigung, Schnitt, Komplement, Produkt, Potenz, Kleene-Abschluss
+            \item[Abschlusseigenschaft] Beispiel: Wenn Sprache A und Sprache B regulär sind, wäre dann auch der Schnitt der beiden Sprachen wieder regulär? \vl{FS 5}
+        \end{description}
+
+    \item[Automat]
+        Beginnt von einem Startzustand und folgt je nach Eingabe seinen Übergängen in die jeweiligen Zustände.
+        Akzeptiert, wenn letzter Zustand ein akzeptierter Endzustand.
+        \begin{description}
+            \item[Deterministischer endlicher Automat (DFA)] erkennen reguläre Sprachen \vl{FS 3}
+            \item[nichtdeterministischer endlicher Automat (NFA)] „rät“ die richtigen Übergänge, arbeitet parallel. Nichtdeterminismus sinnvoll? Kompaktere Darstellungen, Start für Entwicklung DFA, kann bei Untersuchung Komplexität/Berechenbarkeit helfen \vl{FS 4}
+            \item[Kellerautomat (PDA)]
+                PDA erweitern endliche Automaten um einen unbeschränkt großen Speicher, der aber nur nach dem LIFO-Prinzip verwendet werden
+                kann. PDAs erkennen genau die kontextfreien Sprachen. \vl{FS 15}
+            \item[Turingmaschine (TM)]
+                liefert allgemeines Modell der Berechnung. Liest und schreibt in einem Schritt, hat unendlichen
+                Speicher, kann beliebig auf Speicher zugreifen (im Gegensatz zu LIFO bei PDA).
+                Kann ein Band oder mehrere Bänder haben.
+                Kann deterministisch (DTM) oder nichtdeterministisch (NTM) sein.
+                Alle Varianten der TM können die selben Funktionen berechnen (Probleme lösen) - einzig der Aufwand ist unterschiedlich (NTM kann DTM darstellen, NTM kann durch DTM simuliert werden etc.).
+                Siehe auch Church-Turing-These. \vl{FS 18}
+        \end{description}
+
+
+    \item[Kardinalität] Unterscheidung abzählbar (mit natürlichen Zahlen) und überabzählbar
+
+    \item[Chomsky-Hierarchie]
+        Kategorische Einteilung von Sprachen je nach Komplexität ihrer Grammatik. \\
+        Hierarchie 0 > 1 > 2 > 3.
+        These: „Die meisten Sprachen können nicht mit Grammatiken beschrieben
+        werden (abzählbar viele Grammatiken vs. überabzählbar viele Sprachen)“. \vl{FS 2}
+        \begin{description}
+            \item[Typ 0] beliebige Grammatiken (Turingmaschinen)
+            \item[Typ 1] kontextsensitive Grammatiken
+            \item[Typ 2] kontextfreie Grammatiken (CYK, Kellerautomaten)
+            \item[Typ 3] reguläre Grammatiken (DFA, NFA, Pumping Lemma)
+        \end{description}
+
+    \item[Probleme] Probleme formulieren Berechnungsfragen.
+        \begin{description}
+            \item[Wortproblem] Wortproblem für eine Sprache über einem Alphabet ist die Bestimmung der Ausgabe „ja, Wort ist in Sprache“ oder „nein, Wort ist nicht in Sprache“, für die Eingabe eines Wortes gebildet aus dem Alphabet \vl{FS 3}
+            \item[Leerheitsproblem (DFA, NFA)] Entscheidung für „ja, Automat erzeugt Sprache“ oder „nein, durch den Automaten erzeugte Sprache ist leer“ (es wird nie ein Endzustand erreicht). \vl{FS 10}
+            \item[Inklusionsproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist eine Teilmenge der Sprache B eines anderen Automaten“ oder „nein, Sprache A ist keine Teilmenge der Sprache B“. \vl{FS 10}
+            \item[Äquivalenzproblem (DFA, NFA)] Entscheidung für „ja, Sprache A eines Automaten ist gleich der Sprache B eines anderen Automaten“ oder „nein, Sprache A unterscheidet sich von Sprache B“. \vl{FS 10}
+            \item[Endlichkeitsproblem (DFA, NFA)] Entscheidung für „ja, erzeugte Sprache eines Automaten ist endlich“ oder „nein, erzeugte Sprache ist nicht endlich“ (z.B., wenn Zyklen auf dem Pfad von Start- zu Endzustand existieren). \vl{FS 10}
+            \item[Universalitätsproblem (DFA, NFA)] Entscheidung für „ja, erzeugte Sprache eines Automaten ist $\Sigma^*$“ oder „nein, erzeugte Sprache ist nicht $\Sigma^*$“ (heißt, Komplement der erzeugten Sprache ist leer). \vl{FS 10}
+            \item[Halteproblem (TM)] Entscheidet, ob eine Turingmaschine für eine Eingabe jemals hält oder nicht. Unentscheidbar. \vl{FS 19}
+        \end{description}
+
+    \item[Church-Turing-These]
+        Die Turingmaschine kann alle Funktionen berechnen, die intuitiv berechenbar sind. Auch: „Eine Funktion ist genau dann
+        im intuitiven Sinne berechenbar, wenn es eine Turingmaschine gibt, die für jede mögliche Eingabe den Wert der Funktion auf
+        das Band schreibt und anschließend hält.“ \vl{FS 18}
+
+    \item[Entscheidbarkeit]
+        Eine Sprache L ist entscheidbar / berechenbar / rekursiv, wenn es eine Turingmaschine gibt, die das Wortproblem der Sprache L entscheidet.
+        D.h. die Turingmaschine ist Entscheider und die Sprache L ist gleich der durch die Turingmaschine erkannten Sprache.
+        Andernfalls heißt die Sprache L unentscheidbar. \\
+        Die Sprache L ist semi-entscheidbar / Turing-erkennbar / rekursiv aufzählbar, wenn es eine Turingmaschine gibt, deren erkannte Sprache zwar L ist, jedoch die Turingmaschine kein Entscheider sein muss. \vl{FS 19}
+
+    \item[Satz von Rice]
+        %Informell: „Jede nicht-triviale Frage über die von einer TM ausgeführte Berechnung ist unentscheidbar.“ \\
+        Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Wir wollen prüfen, ob die durch diese Turingmaschine erkannte Sprache die Eigenschaft E besitzt. Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion vom Halteproblem. \vl{FS 20}
+
+\end{description}
+
+\newpage
+\subsection{Aussagenlogik}
+    Die Aussagenlogik untersucht logische Verknüpfungen von atomaren Aussagen. \vl{FS 21}
+
+    \begin{description}
+        \item[Atomare Aussage] Behauptungen, die wahr oder falsch sein können. \\ Auch: aussagenlogische Variablen, Propositionen, Atome
+        \item[Operatoren, Junktoren] Verknüpfung von atomaren Aussagen. \\ Negation, Konjunktion, Disjunktion, Implikation, Äquivalenz. \\
+            Können auch äquivalent durch andere Junktoren ausgedrückt werden (de Morgan). \vl{FS 22} \\
+            Eine Disjunktion von Literalen nennt man \f{Klausel}. \\
+            Eine Konjunktion von Literalen nennt man \f{Monom}.
+
+        \item[Formel] Jedes Atom ist eine Formel, jede durch Junktoren verknüpfte Formeln sind wieder Formeln.
+            Diese zusammengesetzten Formeln bestehen dann wieder aus Teilformeln (auch: Unterformeln, $Sub(F)$).
+            Eine Formel, die nur aus einem Atom besteht, nennt man auch \f{Literal}. Literale können die Form $x$ oder $\neg x$ (für $x$ Atom) annehmen.
+            \begin{description}
+                \item[unerfüllbar] Formel hat keine Modelle
+                \item[erfüllbar] Formel hat mindestens ein Modell
+                \item[allgemeingültig] alle Interpretationen sind Modelle für Formel. Auch: \f{Tautologie}, $\models F$
+                \item[widerlegbar] Formel ist nicht allgemeingültig
+            \end{description}
+
+        \item[Syntax] „Sprache einer Logik“ (Formeln mit logischen Operatoren). Wichtig: Klammerung.
+        \item[Semantik] Definition der Bedeutung. Wertzuweisung von Wahrheitswerten zu Atomen mit Hilfe der Interpretation.
+            „Die Bedeutung einer Formel besteht darin, dass sie uns Informationen darüber liefert, welche Wertzuweisungen möglich sind, wenn die Formel wahr sein soll.“
+            \begin{description}
+                \item[Interpretation] eine Funktion w, die von einer Menge Atome auf die Menge \{0, 1\} abbildet.
+                \item[Wahrheitstabelle] Schrittweise Auflösung einer Formel durch Lösen ihrer Teilformeln.
+                \item[Modell] eine Interpretation, dessen Abbildung eine Formel nach 1 löst.
+                \item[Logische Konsequenz] eine Formel G ist eine logische Konsequenz einer Formel F ($F \models G$), wenn jedes Modell von F auch ein Modell für G ist.
+                \item[Logische Äquivalenz] zwei Formeln F und G sind semantisch äquivalent ($F \equiv G$), wenn sie genau dieselben Modelle haben \vl{FS 22}
+            \end{description}
+
+        \item[Normalform] jede Formel lässt sich in eine äquivalente Formel in Normalform umformen. \\ Für die Umformungen gibt es Algorithmen, siehe \vl{FS 22}
+            \begin{description}
+                \item[Negationsnormalform (NNF)] enthält nur UND, ODER und Negation, wobei Negation nur direkt vor Atomen vorkommt.
+                \item[Konjunktive Normalform (KNF)] Formel ist eine Konjunktion von Disjunktionen von Literalen.
+                \item[Disjunktive Normalform (DNF)] Disjunktion von Konjunktionen von Literalen.
+            \end{description}
+
+        % Logisches Schließen: Resolution
+        % Horn-Klauseln
+
+    \end{description}
+
+
+\newpage
+\subsection{Komplexität}
+\label{subsec:fs-komplexitaet}
+Turingmaschinen sind begrenzt durch die Anzahl ihrer Speicherzellen (Speicher) und der Anzahl möglicher Berechnungsschritte (Zeit).
+Schranken sind Funktionen gerichtet nach der Länge der Angabe. \vl{FS 24}
+
+\begin{description}
+    \item[$O$-Notation] charakterisiert Funktionen nach ihrem Verhalten und versteckt Summanden kleinerer Ordnung und lineare Faktoren. Beispiel: ein Polynom $n^{4} + 2n^{2} + 150$ wird zu $O(n^{4})$.
+    \item[$O(f)$-zeitbeschränkt] es gibt eine Funktion $g \in O(f)$, so dass eine DTM/NTM bei beliebiger Eingabe der Länge $n$ nach einer maximalen Anzahl Schritte $g(n)$ anhält.
+    \item[$O(f)$-speicherbeschränkt] es gibt eine Funktion $g \in O(f)$, so dass eine DTM/NTM bei beliebiger Eingabe der Länge $n$ nur eine maximale Anzahl Speicherzellen $g(n)$ verwendet.
+
+    \item[Sprachklassen] Einteilung von Sprachen nach der Möglichkeit der Entscheidbarkeit. \\
+        „Klasse aller Sprachen, welche…“
+        \begin{description}
+            \item[DTIME$(f(n))$] …durch eine $O(f)$-zeitbeschränkte DTM entschieden werden können
+            \item[DSPACE$(f(n))$] …durch eine $O(f)$-speicherbeschränkte DTM entschieden werden können
+
+            \item[NTIME$(f(n))$] …durch eine $O(f)$-zeitbeschränkte NTM entschieden werden können
+            \item[NSPACE$(f(n))$] …durch eine $O(f)$-speicherbeschränkte NTM entschieden werden können
+        \end{description}
+
+    \item[Komplexitätsklassen] erfassen Sprachklassen je nach ihrer Komplexität.
+        Stehen untereinander in Beziehung und bilden quasi Hierarchie. \vl{FS 24}
+        \begin{description}
+            \item[PTime (P)] deterministisch, polynomielle Zeit
+            \item[ExpTime (Exp)] deterministisch, exponentielle Zeit
+            \item[LogSpace (L)] deterministisch, logarithmischer Speicher
+            \item[PSpace] deterministisch, polynomieller Speicher
+
+            \item[NPTime (NP)] nichtdeterministisch, polynomielle Zeit
+            \item[NExpTime (NExp)] nichtdeterministisch, exponentielle Zeit
+            \item[NLogSpace (NL)] nichtdeterministisch, logarithmischer Speicher
+            \item[NPSpace] nichtdeterministisch, polynomieller Speicher (gleich PSpace)
+        \end{description}
+
+    \item[SAT] Boolean Satisfiability Problem. Problem, welches ein Modell für eine Formel auf Erfüllbarkeit untersucht. In $NP$.
+        Interessant für Untersuchung, da SAT ein Problem darstellt, für welches es wahrscheinlich schwierig ist eine Lösung zu finden,
+        jedoch sehr einfach ist eine Lösung auf Korrektheit zu prüfen. \vl{FS 25}
+
+    \item[Reduktion] Rückführung eines Problems auf ein anderes. Beispiel Drei-Farben-Problem ist auf SAT reduzierbar, da sich die Farb-Zustände als
+        Formeln ausdrücken kodieren lassen. „Alle Probleme in NP können polynomiell auf SAT reduziert werden“ (\f{Cook, Levin})
+
+    \item[Härte und Vollständigkeit] für P und NP \vl{FS 25}
+        \begin{description}
+            \item[NP-hart] Sprache ist NP-hart, wenn jede Sprache in NP polynomiell darauf reduzierbar ist \\
+                (Beispiel Halteproblem und jedes weitere unentscheidbare Problem).
+            \item[NP-vollständig] Sprache ist NP-hart und liegt selbst in NP (Beispiel SAT).
+
+            \item[P-hart] Sprache ist P-hart, wenn jede Sprache in P mit logarithmischem Speicherbedarf auf diese reduzierbar ist.
+            \item[P-vollständig] Sprache ist P-hart und liegt selbst in P (Beispiel HornSAT).
+        \end{description}
+\end{description}
+
+\textit{Zusammenfassung aller Themenkomplexe, Hierarchien und Zusammenhänge in \vl{FS 26}.}
