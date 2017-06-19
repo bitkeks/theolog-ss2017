@@ -12,6 +12,7 @@
 \usepackage{nameref}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{enumitem}
+\usepackage{sectsty}
 
 \usepackage[
     pdfauthor={Dominik Pataky},
@@ -22,8 +23,10 @@
 \definecolor{light-gray}{gray}{0.9}
 \definecolor{vl}{RGB}{84,200,70}
 \definecolor{link}{RGB}{84,100,220}
+\definecolor{sectionblue}{RGB}{0,64,114}
+\definecolor{subsectionblue}{RGB}{0,94,167}
+\definecolor{subsubsectionblue}{RGB}{0,110,195}
 
-\setlength\parindent{0cm} % indentation of paragraphs
 
 % set enumeration style
 \setlist[enumerate, 1]{label=\textbf{\alph*)}, leftmargin=2em}
@@ -40,10 +43,6 @@
 
 
 \begin{document}
-
-    % set pagestyle to fancy and set header chapter to lowercase
-    \pagestyle{fancy}
-
     % Header and footer styles
     \lhead{\slshape Theoretische Informatik und Logik SS2017}
     \rhead{\slshape\nouppercase{\rightmark}}
@@ -92,14 +91,16 @@
     %                \item „Logik“ ist ein allgemeiner Oberbegriff für viele mathematische und technische Formalismen
     %            \end{itemize}
 
+    \setlength\parindent{0cm} % indentation of paragraphs
+    \sectionfont{\color{sectionblue}\Large}
+    \subsectionfont{\color{subsectionblue}\large}
+    \subsubsectionfont{\color{subsubsectionblue}\normalsize}
+
     \include{includes/formale-systeme}
-
-    \newpage
     \include{includes/theoretische-informatik}
+    \include{includes/plogik}
 
-    %~ \include{includes/logik}
-
-    \newpage
     \include{includes/rep1}
+    \include{includes/rep2}
 
 \end{document}

@@ -136,8 +136,6 @@
         \item Das Äquivalenzproblem kontextfreier Grammatiken ist unentscheidbar.
     \end{itemize}
 
-
-\newpage
 \subsection{Komplexitätstheorie}
     Untersuchung von Problemkomplexitäten und Suche nach Methoden zur Bestimmung der Komplexität eines Problems. Klassierung zwischen „leicht lösbar“ bis „schwer lösbar“. Einteilung von berechenbaren Problemen entsprechend der Menge an Ressourcen, die zu ihrer Lösung nötig sind. Einführung anhand von Beispielen. \vl{TIL 7}
     \begin{description}
@@ -172,3 +170,19 @@
         \item Insbesondere wissen wir nicht, ob $P \subsetneq NP$ oder $P = NP$.
         \item Wir wissen nicht einmal, ob $L \subsetneq NP$ oder $L = NP$.
     \end{itemize}
+
+\subsection{Zeit und Raum}
+    Zusammenhänge zwischen Zeitklassen und Speicherklassen bzw. deren Beschränkungen. \vl{TIL 8} \\
+    Es gilt für beliebige Funktionen $f: \mathbb{N} \to \mathbb{R}$ :
+    \begin{itemize}
+        \item $\mathrm{DTIME}(f) \subseteq \mathrm{DSPACE}(f)$
+        \item $\mathrm{DSPACE}(f) \subseteq \mathrm{DTIME}(2^{O(f)})$
+    \end{itemize}
+    \begin{description}
+        \item[Robustheit von Zeitklassen] Setzt sich aus zwei Erkenntnissen zusammen:
+            \begin{itemize}
+                \item Konstante Faktoren haben keinen Einfluss auf die Probleme, die eine zeitbeschränkte Mehrband-TM lösen kann, sofern mindestens lineare Zeit erlaubt ist (Linear Speedup Theorem). Sofern nicht einmal lineare Zeit zur Verfügung stände, könnte die TM nicht einmal die Eingabe lesen!
+                \item Die Anzahl der Bänder hat lediglich einen polynomiellen (quadratischen) Einfluss auf die Probleme, die eine zeitbeschränkte TM lösen kann.
+            \end{itemize}
+        \item[Robustheit von Speicherklassen] Weder konstante Faktoren, noch die Anzahl der Bänder haben Einfluss auf die Probleme, welche eine speicherbeschränkte TM lösen kann.
+    \end{description}

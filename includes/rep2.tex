@@ -1,0 +1,94 @@
+\subsection{Repetitorium II (02.06.2017)}
+\subsubsection*{Aufgabe $\alpha$}
+    \begin{enumerate}
+        \item $P$: Menge aller Entscheidungsprobleme, die von einer deterministischen TM in polynomieller Zeit entschieden werden können. (entschieden: der Algorithmus hält immer)
+        \item $NP$: Wie $P$, nur mit NTM. Menge aller Entscheidungsprobleme, so dass für Instanzen ein Zertifikat in polynomieller Zeit geraten und überprüft werden kann. (NP ist Menge aller Suchprobleme, bei denen ich weiß wann ich angekommen bin)
+        \item $PSpace$: Menge aller Entscheidungsprobleme, die von einer DTM in polynomiellem Platz entschieden werden können.
+        \item $P \subseteq NP \subseteq PSpace$: DTM „sind“ auch NTM $\to P \subseteq NP$. NTP, die polynomiell-zeitbeschränkt sind, können in deterministisch polynomiellem Platz simuliert werden $\to NP \subseteq PSpace$. (Auch anhand der Anzahl möglicher Lesevorgänge begründbar). Außerdem Satz von Savitch: $NP \subseteq NPSpace \subseteq PSpace$.
+        \item $\mathcal{C}$-hart: ein Entscheidungsproblem ist $\mathcal{C}$-hart, wenn alle Probleme in in $\mathcal{C}$ in polynomieller Zeit auf dieses reduzierbar sind. Es ist $\mathcal{C}$-vollständig, wenn es $\mathcal{C}$-hart ist und selbst in $\mathcal{C}$ liegt. Am Beispiel von SAT sehen wir, dass SAT $\mathcal{C}$-vollständig ist, da es selbst in $NP$ liegt und kein Problem in $NP$ schwerer ist (und somit alle auf SAT reduzierbar sind) als SAT. Es kann vorkommen, dass mehrere Probleme $\mathcal{C}$-vollständig sind, wenn diese in polynomiell äquivalenter Zeit lösbar sind.
+    \end{enumerate}
+
+\subsubsection*{Aufgabe $\beta$}
+    Zeigen, dass $NP$ unter Kleene-Stern abgeschlossen. $\forall L \in \mathit{NP}: L^{*} \in \mathit{NP}$ \\
+    Sei $L \in \mathit{NP}$ und sei $M$ eine polynomiell-zeitbeschränkte TM, so dass $L = L(M)$. \\
+    Definiere $N = $ bei Eingabe $\omega$
+    \begin{itemize}
+        \item rate Zerlegung $\omega = \omega_{1},\dots,\omega_{n}$ (beim leeren Wort: $n=0$) (nicht-deterministisch)
+        \item simuliere $M$ auf $\omega_{i}$ für $i = 1,\dots,n$ (nicht-deterministisch)
+        \item akzeptiere, falls alle Simulationen akzeptieren
+    \end{itemize}
+    $N$ ist polynomiell-zeitbeschränkt und $L(N) = L^{*}$
+
+
+\subsubsection*{Aufgabe $\gamma$}
+    Aufgabe mit Problem \prob{K}: zwei gerichtete Graphen $G_{1}$ und $G_{2}$ sowie eine Zahl $k \in \N$. Gesucht: Teilmengen und Bijektion.
+    \begin{enumerate}
+        \item $K \in \mathit{NP}$ da Teilmengen $V^{'}_{1}$ und $V^{'}_{2}$ und die Zuordnung $f$ geraten werden kann und in polynomieller Zeit überprüfbar ist ob $f: V_{1} \to V_{2}$ eine Bijektion ist, so dass $(u,v) \in E_{1} \implies (f(u), f(v)) \in E_{2}$.
+
+        \item Sei $G$ ein Graph und $n \in \N$. Gefragt ist dann, ob $G$ eine \prob{CLIQUE} der Größe $n$ als Untergraph enthält.\\
+        Sei $f(enc(G)\#\#enc(n)) := enc(G)\#\#enc(K_{n})\#\#enc(n)$ wobei $K_{n}$ der vollständige Graph auf $n$ Knoten ist. Dann gilt: $f$ ist polynomiell-zeitbeschränkt und $G$ hat \prob{CLIQUE} der Größe \\ $n \Longleftrightarrow enc(G)\#\#enc(K_{n})\#\#enc(n) \in K$. Also ist $f$ eine polynomiell-zeitbeschränkte Many-One-Reduktion von \prob{CLIQUE} auf $K$ und damit ist $K$ auch $NP$-hart. \\
+        Liste bekannter Probleme: SAT/3SAT/CNFSAT, CLIQUE/IndepententSet/HamiltonCircle, 3-Färbbarkeit
+    \end{enumerate}
+
+\newpage
+\subsubsection*{Aufgabe $\delta$}
+    \begin{enumerate}
+        \item Entscheider für $L_{1}$: $N =$ bei Eingabe $\omega$
+            \begin{itemize}
+                \item berechne Reduktion $f(\omega)$ (polynomielle Zeit)
+                \item entscheide, ob $f(\omega) \in L_{2}$
+            \end{itemize}
+        $N$ ist polynomiell-platzbeschränkt, da:
+        \begin{itemize}
+            \item $f$ polynomiell-zeitbeschränkt
+            \item $f(\omega) \in L_{2}$ kann in polynomiellem Platz entschieden werden.
+        \end{itemize}
+        $N$ ist auch Entscheider, da es einen polynomiell-platzbeschränkten Entscheider für $L_{2}$ gibt. Also ist $L_{1} \in \mathit{PSpace}$.
+
+        \item Sei $L \in \mathit{PSpace}$. Dann ist $L \leq_{p} L_{1} \leq_{p} L_{2}$ also $L \leq_{p} L_{2}$ (transitiv). Also ist jedes Problem in PSpace auf $L_{2}$ in polynomieller Zeit reduzierbar und $L_{2}$ damit PSpace-hart.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe $\epsilon$}
+    \begin{enumerate}
+        \item „Jedes PSpace-harte Problem ist NP-hart“ – Richtig, da $\mathit{NP} \subseteq \mathit{PSpace}$.
+        \item „Es gibt kein NP-hartes Problem, welches in PSpace liegt“ – Falsch, z.B. gilt $\mathit{SAT} \in \mathit{PSpace}$ und SAT ist NP-hart.
+        \item „Jedes NP-vollständige Problem liegt in PSpace“ – Richtig, da $\mathit{NP} \subseteq \mathit{PSpace}$ und alle NP-vollständigen Probleme liegen in NP.
+
+        \item „Es gilt $\mathit{NP} = \mathit{PSpace}$, wenn es ein PSpace-hartes Problem in NP gibt“ – Richtig, $\mathit{NP} \subseteq \mathit{PSpace}$ ist bekannt. Sei $L$ ein PSpace-hartes Problem in NP. Sei $L^{'} \in \mathit{PSpace}$. Dann gilt $L^{'} \leq_{p} L$ und da NP unter polynomieller Zeitreduktion abgeschlossen ist, folgt $L^{'} \in \mathit{NP}$. Also gilt $\mathit{PSpace} \subseteq \mathit{NP}$ und damit auch $\mathit{NP} = \mathit{PSpace}$.
+
+        \item „Wenn $P \neq NP$ gilt, dann gibt es kein NP-hartes Problem in P“ – Richtig, sonst wäre $P = NP$.
+
+        \item „Sei L ein PSpace-vollständiges Problem. Dann gilt $L \in P \Longleftrightarrow P = PSpace$“ – Richtig. % TODO Lösung fehlt
+    \end{enumerate}
+
+\subsubsection*{Aufgabe $\zeta$}
+    Tic-Tac-Toe-Spiel. Die Beschreibung einer Gewinnstrategie erfolgt mit Hilfe eines Baumes, auf dem die möglichen Abläufe skizziert werden. Alle Möglichen Spielzüge von X und O führen zum Sieg von X.
+
+\subsubsection*{Aufgabe $\eta$}
+    „Zeigen Sie, dass für jedes PSpace-vollständige Problem \prob{L} auch das Komplement $\overline{\prob{L}}$ ein PSpace-vollständiges Problem ist.“
+    $\prob{L} \in \mathit{PSpace} \to \overline{\prob{L}} \in \mathit{PSpace}$. $\overline{\prob{L}}$ ist PSpace-hart:
+
+    \hspace{.52cm} $\prob{H} \in PSpace \Longrightarrow \overline{\prob{H}} \in PSpace$
+
+    \hspace{2.55cm} $\Longrightarrow \overline{\prob{H}} \leq_{p} L$
+
+    \hspace{2.55cm} $\Longrightarrow \prob{H} \leq_{p} \overline{\prob{L}}$
+
+    Also ist $\overline{\prob{L}}$ PSpace-vollständig.
+
+
+\subsubsection*{Aufgabe $\theta$}
+    „Zeigen Sie: ist $P = NP$, dann sind alle Sprachen $\prob{L} \in P\setminus\{\emptyset, \Sigma^{*}\}$ NP-vollständig.“ \\
+    Sei $\prob{L} \in P\setminus\{\emptyset, \Sigma^{*}\}$. Sei $K \in NP$. Wir zeigen, dass $\prob{K} \leq_{p} \prob{L}$, unter der Annahme, dass $P=NP$.\\
+
+    Seien $x_{1} \in \prob{L}, x_{2} \in \Sigma^{*}\setminus\prob{L}$.
+    Definiere $
+        f(\omega) =
+        \begin{cases}
+            x_{1}\ \mathit{falls}\ \omega \in \prob{K}\\
+            x_{2}\ \mathit{sonst}
+        \end{cases}
+    $ \\
+
+    Da $\prob{K} \in P$ ist die Abbildung $f$ in polynomieller Zeit berechenbar. Es gilt $\omega \in \prob{K} \Longleftrightarrow f(\omega) \in \prob{L}$. Also ist $f$ eine polynomiell-zeitbeschränkte Many-One-Reduktion von \prob{K} auf \prob{L}. Also ist \prob{L} auch NP-vollständig.

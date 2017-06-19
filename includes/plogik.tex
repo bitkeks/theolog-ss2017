@@ -1,0 +1,19 @@
+\section{Prädikatenlogik}
+Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, \f{C} und \f{P} kommen der Allquantor $\forall$ und der Existenzquantor $\exists$ hinzu. \f{Hinweis:} In dieser Vorlesung entfallen Funktionssymbole! \vl{TIL 13}
+\subsection{Syntax}
+    Im Gegensatz zu der unendlichen Menge von Atomen in der Aussagenlogik gibt es in der Prädikatenlogik mehrere betrachtete Mengen. Diese Mengen sind abzählbar unendlich und die Elemente disjunkt. Formeln sind, ausgenommen genannter Ausnahmen, eindeutig zu klammern.
+    \begin{description}
+        \item[Variablen] Die Menge \f{V}, bestehend aus $x, y, z\dots$. Variablen können frei oder gebunden vorkommen (oder bei mehrfachem Auftreten einer Variable in einer Formel auch beides). \f{Freie} Variablen sind durch keinen Quantor gebunden. \f{Gebundene} Variablen befinden sich innerhalb des „Scope“ eines Quantors. Beispiel: in der Formel $p(x) \land \exists x.q(x)$ kommt $x$ sowohl frei ($p(x)$) als auch gebunden ($q(x)$) vor.
+
+        \item[Konstanten] Die Menge \f{C}, bestehend aus $a,b,c,\dots${}
+
+        \item[Prädiktensymbole] Die Menge \f{P}, bestehene aus $p,q,r,\dots${}. Bei nullstelligen Prädiktensymbolen lassen wir die leeren Klammern weg.
+
+        \item[Quantoren] Der Allquantor $\forall$ beschreibt, dass die betreffende Formel für alle möglichen Interpretationen der Variable gelten muss. Der Existenzquantor $\exists$ beschreibt, dass es mindestens eine gültige Interpretation der Variable geben muss. Wenn ein Quantor vor einer Formel mehrere Variablen betrifft, schreiben wir diese als Liste ($\forall x,y.F$ statt $\forall x.\forall y.F$).
+
+        \item[Atom] Ein prädikatenlogisches Atom ist ein Ausdruck $p(t_{1},\dots,t_{n})$ für ein $n$-stelliges Prädiktensymbol $p \in \mathbf{P}$ und \f{Terme} $t_{1},\dots,t_{n} \in \mathbf{V} \cup \mathbf{C}$
+
+        \item[Formel] Jedes Atom ist eine Formel. Wenn nun $x\in\f{V}$ und $F$ und $G$ Formeln, dann sind auch $\neg F$, $(F\land G)$, $(F\lor G)$, $(F\to G)$, $(F\leftrightarrow G)$, $\exists x.F$ und $\forall x.F$ Formeln. Die äußersten Klammern von Formeln dürfen weggelassen werden. Klammern innerhalb von mehrfachen Konjunktionen oder Disjunktionen dürfen weggelassen werden. Hat eine Formel keine freie Variablen ist sie \f{geschlossen} und wird \f{Satz} genannt, ansonsten ist sie eine \f{offene} Formel.
+
+        \item[Teilformel] Teilformeln einer Formel sind alle Teilausdrücke einer Formel, welche selbst Formeln sind.
+    \end{description}
