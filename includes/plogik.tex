@@ -1,7 +1,11 @@
+\newcommand{\INT}{\mathcal{I}}
+\newcommand{\ZUW}{\mathcal{Z}}
+\newcommand{\FM}{\mathcal{T}}
+
 \section{Prädikatenlogik}
 Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, \f{C} und \f{P} kommen der Allquantor $\forall$ und der Existenzquantor $\exists$ hinzu. \f{Hinweis:} In dieser Vorlesung entfallen Funktionssymbole! \vl{TIL 13}
 \subsection{Syntax}
-    Im Gegensatz zu der unendlichen Menge von Atomen in der Aussagenlogik gibt es in der Prädikatenlogik mehrere betrachtete Mengen. Diese Mengen sind abzählbar unendlich und die Elemente disjunkt. Formeln sind, ausgenommen genannter Ausnahmen, eindeutig zu klammern.
+    Im Gegensatz zu der unendlichen Menge von Atomen in der Aussagenlogik gibt es in der Prädikatenlogik mehrere betrachtete Mengen. Diese Mengen sind abzählbar unendlich und die Elemente disjunkt. Formeln sind, ausgenommen genannter Ausnahmen, eindeutig zu klammern. \vl{TIL 13}
     \begin{description}
         \item[Variablen] Die Menge \f{V}, bestehend aus $x, y, z\dots$. Variablen können frei oder gebunden vorkommen (oder bei mehrfachem Auftreten einer Variable in einer Formel auch beides). \f{Freie} Variablen sind durch keinen Quantor gebunden. \f{Gebundene} Variablen befinden sich innerhalb des „Scope“ eines Quantors. Beispiel: in der Formel $p(x) \land \exists x.q(x)$ kommt $x$ sowohl frei ($p(x)$) als auch gebunden ($q(x)$) vor.
 
@@ -17,3 +21,107 @@ Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, 
 
         \item[Teilformel] Teilformeln einer Formel sind alle Teilausdrücke einer Formel, welche selbst Formeln sind.
     \end{description}
+
+
+\subsection{Semantik}
+    Der Wahrheitswert von Formeln ergibt sich aus den Wahrheitswerten der Atome in dieser Formel. \vl{TIL 13}
+    \begin{description}
+        \item[Interpretation] Interpretation $\INT$  ist ein Paar $\langle\Delta^{\INT}, \cdot^{\INT}\rangle$.\\
+            Die nichtleere Menge $\Delta^{\INT}$ wird auch \f{Domäne} genannt. \\
+            Die Funktion $\cdot^{\INT}$ heißt \f{Interpretationsfunktion}. Diese bildet jede Konstante $a \in \f{C}$ auf ein Element $a^{\INT} \in \Delta^{\INT}$ und jedes $n$-stellige Prädiktensymbol $p \in \f{P}$ auf eine Relation $p^{\INT} \in (\Delta^{\INT})^{n}$ ab.
+
+        \item[Zuweisung] Zuweisung $\ZUW$ für eine Interpretation $\INT$ ist eine Funktion $\ZUW: \f{V} \to \Delta^{\INT}$, sie bildet also Variablen auf Elemente der Domäne ab.
+            Bei $x \in \f{V}$ und $\delta \in \Delta^{\INT}$ schreiben wir für die Zuweisung von $x$ auf $\delta$ und für alle $y \neq x$ auf $\ZUW (y)$: $\ZUW[x \mapsto \delta]$.{}
+
+        \item[Wahrheitsbestimmung] Die Wahrheitsbestimmung von Atomen und Formeln unter einer Interpretation und einer Zuweisung werden rekursiv aufgelöst.
+            \begin{itemize}
+                \item Für Konstanten $c$ benötigen wir nur die Interpretation: $c^{\INT,\ZUW} = c^{\INT}$
+                \item Für Variablen $x$ benötigen wir nur die Zuweisung: $x^{\INT,\ZUW} = \ZUW(x)${}
+                \item Für Prädikate/Atome $p(t_{1},\dots,t_{n})$ setzen wir nun rekursiv: \\
+                    $p(t_{1},\dots,t_{n})^{\INT,\ZUW} = 1$ wenn $\langle t_{1}^{\INT,\ZUW},\dots,t_{n}^{\INT,\ZUW} \rangle \in p^{\INT}$ bzw. \\
+                    $p(t_{1},\dots,t_{n})^{\INT,\ZUW} = 0$ wenn $\langle t_{1}^{\INT,\ZUW},\dots,t_{n}^{\INT,\ZUW} \rangle \notin p^{\INT}$
+            \end{itemize}
+
+            Für eine Formel gilt nun: \\
+            eine Interpretation $\INT$ und eine Zuweisung $\ZUW$ \f{erfüllen} eine Formel $F$, geschrieben „$\INT, \ZUW \models F$“, wenn die Rekursion mit Atomen, Operationen und Quantoren zu Wahr auflöst.
+    \end{description}
+
+\newpage
+\subsection{Semantische Grundbegriffe}
+    Wir wollen in der Prädikatenlogik wenn möglich nur mit Sätzen arbeiten, d.h. mit geschlossenen Formeln ohne ungebundene Variablen. \vl{TIL 14}
+    \begin{description}
+        \item[Modelltheorie] Wir unterscheiden grob zwischen der Prädikatenlogik mit und ohne offenen Formeln. Bei der Prädikatenlogik mit Sätzen können wir auf Zuweisungen verzichten. Formeln sind Behauptungen, die wahr oder falsch sein können. Modelle sind mögliche Welten (prädikatenlogische Interpretationen und ggf. Zuweisungen), in denen manche Behauptungen gelten und andere nicht. (\f{Intuition})
+
+        \item[Typen von Formeln]
+            Siehe hierzu auch die Graphen „Modelle $\models$ Formeln“ in \vl{TIL 14}
+            \begin{itemize}
+                \item allgemeingültig (tautologisch): Eine Formel, die in allen Modellen wahr ist
+                \item widersprüchlich (inkonsistent): Eine Formel, die in keinem Modell wahr ist
+                \item erfüllbar: Eine Formel, die in einem Modell wahr ist
+                \item widerlegbar: Eine Formel, die in einem Modell falsch ist
+            \end{itemize}
+
+        \item[Logisches Schließen] Bei der Analyse von Modellen für Formeln und andersherum können in Wechselwirkung Konsequenzen hergestellt werden.
+            \begin{enumerate}
+                \item Wenn $\INT$ die Formel $F$ erfüllt, also $\INT \models F$, dann ist $\INT$ ein Modell für $F$.
+                \item $\INT$ kann mehrere Formeln erfüllen, d.h. sie kann Modell für eine Formelmenge $\FM$ sein, wenn $\INT$ alle Formen in $\FM$ erfüllt.
+
+                \item Eine Formel $F$ ist nun eine \f{logische Konsequenz} aus einer Formel bzw. Formelmenge $G$, d.h. $G \models F$, wenn jedes Modell $\INT$ von $G$ auch ein Modell von $F$ ist, d.h. $\INT \models G \implies \INT \models F$. \\
+                Sonderfall: Ist $F$ eine Tautologie, dann schreiben wir nur $\models F$. \\
+
+                Beispiel 1: Gegeben sind vier Modelle $\INT_{i}$ und vier Formeln $F_{j}$. $\INT_{2}$ und $\INT_{3}$ sind alle erfüllenden Modelle für $F_{3}$. $\INT_{2}$ und $\INT_{3}$ sind aber u.a. auch Modelle für $F_{2}$. Das bedeutet, wenn $F_{3}$ erfüllt ist, ist auch immer $F_{2}$ erfüllt. Es gilt $F_{3} \models F_{2}$. \\
+
+                Beispiel 2: Im Beispiel der Logelei „Wir sind alle vom gleichen Typ“ haben wir fünf Formeln gegeben. Drei davon ergeben sich aus den gegebenen Aussagen („gegebene Theorie“) und die anderen beiden sind Allquantor-Behauptungen für „alle sagen die Wahrheit“ bzw. „alle lügen.“. Wir können anhand der Modelle „LL“, „WL“ und „WW“ und der Theorie Konsequenzen erstellen und somit über das Modell „WW“ die Behauptung „$\forall x.W(x)$“ als logische Konsequenz für unsere Theorie identifizieren.
+
+                \item Zwei Formelmengen $F$ und $G$ können auch semantisch äquivalent sein, d.h. $F \equiv G$, wenn sie genau die gleichen Modelle haben ($\INT \models F$ gdw. $\INT \models G$ für alle Modelle $\INT$).
+            \end{enumerate}
+        \item[Semantische Äquivalenz] Eine Äquivalenzrelation $\equiv$ ist reflexiv, symmetrisch und transitiv. Alle Tautologien sind semantisch äquivalent. Alle unerfüllbaren Formeln sind semantisch äquivalent. \\ Äquivalenz $F \equiv G$ gdw. $F\models G$ und $G \models F$.
+        \item[Problem logischen Schließens in der Prädikatenlogik] Die zwei Fragen „Model checking“ (Überprüfung eines Modells auf Erfüllung einer Formel) und „Logische Folgerung (Entailment)“ (Überprüfung ob zwei Formeln oder Formelmengen eine logische Konsequenz sind) sind in der Prädikatenlogik schwerer zu lösen als in der Aussagenlogik.
+        \item[Monotonie und Tautologie] Aus der Definition von $\models$ folgt die Monotonie: je mehr Sätze in einer logischen Theorie gegeben sind, desto weniger Modelle können die gesamte Theorie erfüllen und desto mehr Schlussfolgerungen kann man aus der logischen Theorie ziehen. D.h. mehr Annahmen führen zu mehr Schlussfolgerungen. Extremfälle sind hierbei Tautologien (sind in jedem Modell wahr und daher logische Konsequenz jeder Theorie) und unerfüllbare Formeln (sind in keinem Modell wahr und haben daher alle anderen Sätze als Konsequenz).
+
+        %\item[Beziehung zur Aussagenlogik] In der Semantik wird nur die Wertzuweisung ersetzt. Hier gibt es nun Interpretationen und Zuweisungen.
+
+        \item[Gleichheit] Es gibt ein spezielles Gleichheitsprädikat $\approx$. In Interpretationen $\INT$ gilt $\approx^{\INT} = \{\langle\delta,\delta\rangle|\delta\in\Delta^{\INT}\}$.
+        Dies kann z.B. zum Erzwingen von gleicher Interpretation von Konstanten verwendet werden. Auch gibt es $\not\approx$, Definition $\forall x,y.(x\not\approx y \leftrightarrow \neg x\approx y)$. Man kann aber mit Hilfe anderer Definitionen der Prädikatenlogik sowohl Gleichheit als auch Ungleichheit einsparen. \vl{TIL 14} \vl{TIL 15}
+    \end{description}
+
+
+\subsection{Prädikatenlogik als Universalsprache}
+    Die Entwicklung der Logik hat ein zentrales Motiv: Logik als eine universelle, präzise Sprache. Die Entwicklung begann bei Aristoteles als Grundlage der philosophischen Argumentation, ging in Leibniz Sinne in Richtung „rechnen“ und wurde von Hilbert und Russell schließlich zusammen mit der Mathematik formalisiert. Wenn nun die Mathematik in logischen Formeln formuliert wird, wird logisches Schließen zur Kernaufgabe der Mathematik. Eine zentrale Frage des Schließens ist hierbei die Überprüfung auf Erfüllbarkeit einer Formel bzw. einer Formelmenge. \vl{TIL 15}
+    \begin{description}
+        \item[Strukturelle Induktion] Diese Induktion kann man über jede induktiv definierte syntaktische Struktur durchführen (z.B. Formeln, Terme, Programme,\dots).
+            \begin{itemize}
+                \item In der „klassischen Induktion“ wird eine Eigenschaft $E$ untersucht, wobei (1) „0 hat $E$“ geprüft und darauf aufbauend (2) für alle $n>0$ im Falle von „$n-1$ hat $E$“ geprüft wird.
+                \item In der \f{strukturellen Induktion auf Formeln} prüfen wir nun ob (1) alle atomaren Formeln $E$ haben und (2) alle nicht-atomaren Formeln $F$ ebenfalls $E$ haben, wenn alle ihre echten Teilformeln $E$ haben.
+            \end{itemize}
+
+        Im Beispiel „Induktion auf der Insel der Wahrheitssager und Lügner. Ein Einwohner verkündet: 'Was ich jetzt sage, das habe ich schon einmal gesagt.' Welchen Typ hat er?“ muss der Einwohner ein Lügner sein, da er mindestens beim ersten Mal lügt.
+    \end{description}
+
+
+\subsection{Unentscheidbarkeit des logischen Schließens}
+    Erinnerung: $F$ ist logische Konsequenz von $G$ ($F\models G$), wenn alle Modelle von $F$ auch Modelle von $G$ sind. (1) Es ist nicht offensichtlich, wie man das überprüfen sollte, denn es gibt unendliche viele Modelle. (2) Ebenso schwer erscheinen die gleichwertigen Probleme der Erfüllbarkeit und Allgemeingültigkeit. \\
+
+    Intuition: prädikatenlogisches Schließen ist unentscheidbar. Beweis durch Reduktion eines bekannten unentscheidbaren Problems, z.B. Halteproblem, PCP, Äquivalenz kontextfreier Sprachen u.a. \\
+
+    Der Beweis in der Vorlesung zeigt die Reduktion vom CFG-Schnittproblem. Hierfür werden Wörter $\omega$ aus der Modellmenge (Modellstruktur) $\INT$ als Ketten von binären Relationen kodiert und untersucht, ob das Wort $\omega$ in der Schnittmenge zweier kontextfreier Grammatiken $G_{1}$ und $G_{2}$ vorkommt. \\
+    Beispiel: wir haben auf der Insel z.B. das Modell mit Kombination „LLWWW“ (drei sagen die Wahrheit, zwei lügen), und wir wollen wissen ob $F \models G$. Wir kodieren die erfüllenden Modelle der Formeln $F$ und $G$ wie o.g. und erhalten $G_{1}$ und $G_{2}$. Nach Kodierung müssten also in beiden Grammatiken die Übergänge $\langle L_{1},L_{2} \rangle, \langle L_{2},W_{1} \rangle, \langle W_{1},W_{2} \rangle, \langle W_{2},W_{3} \rangle$ vorkommen. Ist dies der Fall, dann erfüllt dieses Modell beide Formeln.  (\textit{Vergleich und Notation nicht nach VL!}) \\
+    Zusammenfassend lassen sich demnach logische Konsequenzen auf diese Probleme reduzieren und da CFG unentscheidbar gilt auch: Logisches Schließen (Erfüllbarkeit, Allgemeingültigkeit, logische Konsequenz) in der Prädikatenlogik ist unentscheidbar. \vl{TIL 15}
+
+\subsection{Gödel}
+    Gödelscher Vollständigkeitssatz und Unvollständigkeitssätze. \vl{TIL 15}
+    \begin{description}
+        \item[Gödelscher Vollständigkeitssatz] „Es gibt ein konsistentes Verfahren, das alle Konsequenzen einer prädikatenlogischen Theorie effektiv beweisen kann.“ (1) Alle wahren Sätze können endlich bewiesen werden. (2) Prädikatenlogisches Schließen ist semi-entscheidbar.
+        \item[1. Gödelscher Unvollständigkeitssatz] „Es gibt kein konsistentes Verfahren, das alle Konsequenzen der elementaren Arithmetik effektiv beweisen kann.“ (1) Für jedes Verfahren gibt es Sätze über elementare arithmetische Zusammenhänge, die weder bewiesen noch widerlegt werden können. (2) Die Wahrheit elementarer arithmetischer Zusammenhänge ist nicht semi-entscheidbar.
+        \item[2. Gödelscher Unvollständigkeitssatz]
+    \end{description}
+
+\subsection{Algorithmen zum logischen Schließen}
+    Resolution \vl{TIL 16}
+
+\subsection{Syntaktische Umformungen}
+    Ersetzungstheorem, Junktoren wie in Aussagenlogik. \\
+    Neu: Äquivalenzen mit Quantoren \vl{TIL 16} \\
+    Negationsnormalform (NNF), bereinigte Formel \vl{TIL 16} \\
+    Pränexform, Skolemisierung, Einführung Funktionssymbole \vl{TIL 17} \\
+    Konjunktive NF, Klauselform \vl{TIL 17}
