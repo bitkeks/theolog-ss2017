@@ -1,0 +1,117 @@
+\subsection*{Übungsblatt 1}
+
+\subsubsection*{Aufgabe 1}
+    $|\N|$ bezeichnet die Kardinalität (Mächtigkeit) der Menge $\N$.
+    \begin{enumerate}
+        \item $|\N| = |\N \times \N|$: wir vergleichen hier die Kardinalität zweier Mengen. Um die Gültigkeit der Gleichung zu zeigen, betrachten wir also quasi $|A| = |B|$. Wir vergleichen also die Menge $\{0, 1, 2, 3, \dots\}$ mit der Menge $\{(0,0), (1,0), (0,1), (2,0), \dots\}$ und stellen fest, dass wir $1 \mapsto (0,0), 2\mapsto(1,0), \dots$ „mappen“ können. \\
+        Als Hilfe kann man eine Matrix verwenden, die in x- bzw. y-Richtung x bzw. y im (x,y)-Tupel hochzählt. Die Elemente aus $|\N|$ werden nun diagonal darübergelegt.
+        Zu zeigen ist, dass zwischen den Mengen $|A|$ und $|B|$ eine Bijektive Abbildung existiert.
+        \begin{itemize}
+            \item Injektiv: die Aufzählung ist ohne Wiederholung, d.h. in der Matrix steht an verschiedenen Stellen unterschiedliche Tupel
+            \item Surjektiv: jedes Tupel der Menge existiert an einer Position in der Matrix.
+        \end{itemize}
+
+
+        \item $|\N| = |\Q|$: wie a), nur dass in $\Q$ negative Zahlen ebenfalls mit in die Matrix einbezogen werden. D.h. x besteht nun aus $\{1,-1,2,-2,\dots\}$. In dieser Menge erscheinen nun Duplikate, z.B. $\frac{1}{1}$ und $\frac{2}{2}$, welche wir einfach löschen. Die Abbildung $f(n)$ trifft also das $n$-te Element der Aufzählung nach Streichen von sich wiederholenden Elementen. Damit ist $f$ sowohl surjektiv als auch injektiv, da der Bruch $\frac{i}{j}$ spätestens an der Position $(i, j)$ vorkommt.
+
+        \item $|\N| = |\R|$: wir zeigen hier nun Überabzählbarkeit. Dazu verwenden wir $|(0,1]| > |\N|$ und nehmen das Gegenteil an, d.h. $|(0,1]| = |\N|$. Dann gäbe es eine Aufzählung $r_{0}, r_{1}, r_{2},\dots$ von $(0,1]$. \\
+            Sei $r_{i} = 0,b_{i1}b_{i2}b_{i3}$ (wobei $b_{ij} \in \{0,\dots,9\}$) die Dezimaldarstellung von $r_{i}$, die nicht schließlich $0$ ist. \\
+            Nun nehmen wir eine Tabelle und verwenden die Diagonalisierung.
+
+            \begin{tabular}{|l|l|}
+                \hline
+                $r_{0}$ & $0,b_{11}b_{12}b_{13}\dots$ \\
+                $r_{1}$ & $0,b_{21}b_{22}b_{23}\dots$ \\
+                $r_{2}$ & $0,b_{31}b_{32}b_{33}\dots$ \\
+                \dots & \dots \\
+                \hline
+            \end{tabular}
+
+            Betrachten wir nun die Zahl $\overline{r_{i}} = 0,\overline{b_{11}}\overline{b_{22}}\overline{b_{33}}$, wobei $\overline{b_{ij}} =
+            \begin{cases}
+                1\ wenn\ b_{ij} \neq 1 \\
+                2\ sonst
+            \end{cases}
+            $
+
+            Dann ist $\overline{r} \neq r_{i}$ für alle $i$, da sie sich in der $i$-ten Stelle unterscheiden.
+    \end{enumerate}
+
+\subsubsection*{Aufgabe 2}
+    Sei $M$ eine Menge. Zeigen Sie, dass es keine surjektive Funktion $f: M \to \POT(M)$ gibt. Folgern Sie daraus, dass stets $|M| < |\POT(M)|$ gilt.
+
+    \LOES Wir verwenden hierzu eine Matrix und zeigen anhand der Menge $D = \{x \in M | x \not\in f(x) \}$ einen Widerspruch. Zuerst die beliebig gefüllte Matrix: \\
+
+        \begin{figure}[h]
+            \centering{}
+            \begin{tabular}{l|llll}
+                M & $m_{0}$ & $m_{1}$ & $m_{2}$ & $m_{3}$ \\
+                \hline
+                $f(m_{0})$ & \cellcolor{light-red} x & & & x \\
+                $f(m_{1})$ & & \cellcolor{light-red} & x & \\
+                $f(m_{2})$ & & x & \cellcolor{light-red} & \\
+                $f(m_{3})$ & x & & & \cellcolor{light-red} x \\
+                \hline
+                $D$ & & x & x & \\
+                \hline
+            \end{tabular}
+        \end{figure}
+
+    Die $x$ an Stellen $(m_{i}, f(m_{i}))$ bedeuten, dass das jeweilige $m_{i}$ in der abgebildeten Menge von $f(m_{i})$ enthalten ist. Die konstruierte Menge $D$ besteht nun zum Schluss aus genau den gegenteiligen Elementen zu jedem $m_{i}$.
+    Angenommen, $f: M \to \POT(M)$ sei surjektiv. Dann gäbe es ein $y \in M$ mit $f(y) = D$. Es gilt dann $y \in D \Rightarrow y \not\in f(y) = D$ und $y \not\in D \Rightarrow y \in f(y) = D$. Widerspruch, es kann $f$ nicht geben.
+
+
+\subsubsection*{Aufgabe 3}
+    Konstruieren Sie eine Turing-Maschine $\mathcal{A}_{mul}$ , welche die Multiplikation zweier natürlicher Zahlen implementiert. Dabei sollen sowohl die Eingaben als auch die Ausgabe unär kodiert sein.
+
+    \LOES Die Maschine erhält eine Eingabe, z.B. $000 \# 0000$ und soll demnach $3 * 4 = 12$ berechnen. Dafür kopiert sie pro Symbol vor dem $\#$ den unären Wert hinter dem Symbol auf das Band dahinter und löscht dann die ursprüngliche Eingabe.
+
+    $000 \# 0000 \blank\blank  \mapsto^{*} \blank\blank 0 \# 0000 \blank 000000000 \blank  \mapsto^{*}  \blank 000000000000$
+
+    \begin{figure}[h]
+        \centering
+        \begin{tabular}{ll}
+            $q_{0}, 0, q_{1}, \blank, R$        & Auftrag: kopiere zweiten Faktor an das Ende \\
+            $q_{1}, 0, q_{1}, 0, R$             & überspringe ersten Faktor \\
+            $q_{1}, \# q_{2}, \#, R$            & Ende des ersten Faktors erreicht \\
+            $q_{2}, 0, q_{3}, \hat{0}, R$       & Markiere das zu kopierende Zeichen \\
+            $q_{3}, 0, q_{3}, 0, R$             & 0 überspringen \\
+            $q_{3}, \blank, q_{4}, \blank, R$   & Trenner hinter zweiten Faktor \\
+            $q_{4}, 0, q_{4}, 0, R$             & Ans Ende des Zwischenergebnisses \\
+            $q_{4}, \blank, q_{5}, 0, L$        & Ende erreicht, Null schreiben und zurück \\
+            $q_{5}, 0/\blank, q_{5}, 0/\blank, L$ & Zurück zum nächsten zu kopierenden Zeichen \\
+            $q_{5}, \hat{0}, q_{2}, 0, R$       & Nächstes Zeichen kopieren \\
+            $q_{2}, \blank, q_{6}, \blank, L$   & Zweiten Faktor fertig kopiert, zurück zum ersten \\
+            $q_{6}, 0, q_{6}, 0, L$             & Zweiten Faktor überspringen \\
+            $q_{6}, \blank, q_{0}, \blank, R$   & Anfang erreicht, bearbeite nächste Ziffer \\
+            $q_{0}, \#, q_{7}, \blank, R$       & Erster Faktor aufgebraucht \\
+            $q_{7}, 0, q_{7}, \blank, R$        & Löschen des zweiten Faktors \\
+            $q_{7}, \blank, q_{f}, \blank, N$   & Alles gelöscht, Berechnung abgeschlossen \\
+        \end{tabular}
+    \end{figure}
+
+    Daraus ergibt sich die TM: $\mathcal{A}_{mul} = (\{q_{0},\dots,q_{f}\}, \{0,\#\}, \Sigma \cup \{\hat{0}, \blank\}, \delta, q_{0}, \{q_{f}\})$
+
+\subsubsection*{Aufgabe 4}
+    Zeigen Sie: Wenn es möglich ist, für zwei beliebige Turing-Maschinen zu entscheiden, ob sie dieselbe Sprache akzeptieren, so ist es auch möglich, für beliebige Turing-Maschinen zu entscheiden, ob sie auf der leeren Eingabe halten. \\
+
+    \LOES Wir konstruieren zwei TM, erstens $\TMM{\emptyset}$, welche die leere Sprache erkennt, und $\TMM{}$. Diese beiden werden dann in den gegebenen Algorithmus eingegeben und auf Äquivalenz getestet.
+    Gegeben ist TM $\mathcal{K}$ die entscheidet, ob zwei TM $\TMM{1}$ und $\TMM{2}$ dieselbe Sprache akzeptieren. D.h. \\
+    \boxed{\mathcal{K}(enc(\TMM{1}),enc(\TMM{2}))$ akzeptiert $\Leftrightarrow \LANG(\TMM{1}) = \LANG(\TMM{2})}. \\
+
+    Gesucht ist eine TM $\mathcal{K}'$, die entscheidet, ob eine TM $\TMM{}$ auf $\epsilon$ hält, d.h.
+    \boxed{\mathcal{K}'(enc(\TMM{}))$ akzeptiert $\Leftrightarrow M$ hält auf $\epsilon}. \\
+
+    Idee: finde für $\TMM{}$ zwei TM $\TMM{1}$ und $\TMM{2}$, so dass \boxed{\TMM{}$ hält auf $\epsilon \Leftrightarrow \LANG(\TMM{1}) = \LANG(\TMM{2})}. \\
+    Definiere $\TMM{1}$ als die TM, die alle Eingaben akzeptiert. \\
+    Definiere $\TMM{2}$ als TM, die bei Eingabe $\epsilon$ die TM $\TMM{}$ auf $\epsilon$ simuliert und anschließend akzeptiert, und ansonsten akzeptiert. \\
+    Simuliere $\mathcal{K}(enc(\TMM{1}), enc(\TMM{2}))$ und gib das Ergebnis zurück. \\
+
+    Ablauf:
+    \begin{itemize}
+        \item $\mathcal{K}'$ hält auf jeder Eingabe
+        \item Hält $\TMM{}$ auf $\epsilon$, dann ist \boxed{\LANG(\TMM{2}) = \Sigma^{*} = \LANG(\TMM{1})} und $\mathcal{K}'(enc(\TMM{}))$ akzeptiert
+        \item Hält $\TMM{}$ auf $\epsilon$ nicht, dann ist \boxed{\LANG(\TMM{2}) = \Sigma^{*} \setminus \{\epsilon\} \neq \LANG(\TMM{1})} und $\mathcal{K}'(enc(\TMM{}))$ verwirft
+    \end{itemize}
+
+    Gezeigt: Äquivalenz von TM ist nicht entscheidbar.

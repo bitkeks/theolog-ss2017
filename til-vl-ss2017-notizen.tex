@@ -5,7 +5,7 @@
 \usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\usepackage{color}
+\usepackage[table]{xcolor}
 \usepackage{fancyhdr}
 \usepackage{tgpagella}
 \usepackage{marginnote}
@@ -13,6 +13,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{enumitem}
 \usepackage{sectsty}
+\usepackage{wrapfig}
 
 \usepackage[
     pdfauthor={Dominik Pataky},
@@ -21,6 +22,7 @@
     colorlinks=true,linkcolor=black,urlcolor=link]{hyperref}
 
 \definecolor{light-gray}{gray}{0.9}
+\definecolor{light-red}{RGB}{255,105,105}
 \definecolor{vl}{RGB}{84,200,70}
 \definecolor{link}{RGB}{84,100,220}
 \definecolor{sectionblue}{RGB}{0,64,114}
@@ -40,6 +42,13 @@
 \newcommand{\prspec}[1]{$~\prob{P}_{#1}~$}
 \newcommand{\phalt}{$~\prob{P}_{Halt}~$}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\POT}{\mathcal{P}}
+\newcommand{\LOES}{\f{Lösung:~}}
+\newcommand{\TMM}[1]{\mathcal{M}_{#1}}
+\newcommand{\LANG}{\mathcal{L}}
+
 
 
 \begin{document}
@@ -99,6 +108,9 @@
     \include{includes/formale-systeme}
     \include{includes/theoretische-informatik}
     \include{includes/plogik}
+
+    \newpage
+    \input{includes/uebungen}
 
     \include{includes/rep1}
     \include{includes/rep2}

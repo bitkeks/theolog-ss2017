@@ -1,4 +1,13 @@
 \section{Theoretische Informatik}
+
+\subsection{Allgemeines}
+    \begin{description}
+        \item[Surjektiv, Injektiv, Bijektiv] Betrifft Abbildungen zwischen zwei Mengen. \f{Surjektiv} bedeutet, jedes Element in der Zielmenge wird mindestens einmal getroffen. \f{Injektiv} bedeutet, jedes Element in der Zielmenge wird höchstens einmal getroffen. \f{Bijektiv} bedeutet, die Abbildungen sind sowohl surjektiv als auch injektiv, es besteht eine eindeutige Zuordnung. \textit{Merkhilfe: Paare „(Injektiv höchstens), (mindestens surjektiv)“ $\to$ IHMS in alphabetischer Reihenfolge}
+
+        \item[Kardinalität, Mächtigkeit] Die Menge der Elemente in einer Menge. \\
+            Eine unendliche Zielmenge ist \f{abzählbar}, wenn es eine bijektive Abbildung von der Menge $\N$ auf die Zielmenge gibt. Ist die Zielmenge endlich, ist sie natürlich ebenfalls abzählbar. \f{Überabzählbare} Mengen hingegen haben mehr Elemente, als Elemente in $\N$ sind.
+    \end{description}
+
 \subsection{Turingmaschinen}
     \begin{description}
         \item[Turingmaschine] deterministisch als DTM oder nichtdeterministisch als NTM. \\
@@ -76,7 +85,6 @@
         \item[Universalmaschine $U$] eine Turingmaschine, die andere TM als Eingabe kodiert erhält und diese simuliert. Die Kodierung ist dabei z.B. binär, mit dem Trennsymbol $\#$. Hat vier Bänder: Eingabeband von $U$ mit kodierter TM und kodierter Eingabe $w$, Arbeitsband von $U$, Band 3 mit aktuellem Zustand der simulierten TM und Band 4 als Arbeitsband der simulierten TM. \\ Für die Arbeitsweise siehe \vl{TIL 4}
     \end{description}
 
-\newpage
 \subsection{Unentscheidbare Probleme und Reduktionen}
     Beweis durch Diagonalisierung, Reduktionen \vl{TIL 4}
     \begin{description}
@@ -115,7 +123,6 @@
     \end{description}
 
 
-\newpage
 \subsection{Postsches Korrespondenzproblem}
     Auch: \f{PCP}. Ein unentscheidbares Problem ohne direkten Bezug zu einer Berechnung. \vl{TIL 5}
     \begin{description}
