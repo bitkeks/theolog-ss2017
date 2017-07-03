@@ -1,0 +1,121 @@
+\lstset{
+    frame=single,
+    basicstyle=\footnotesize,
+    %~ backgroundcolor=\color{light-gray},
+    rulecolor=\color{gray},
+    %~ linewidth=220pt,
+    xleftmargin=0.3cm,
+    xrightmargin=3cm,
+}
+
+\subsection*{Übung 2}
+\subsubsection*{Aufgabe 1}
+Zeigen Sie, dass die folgenden Funktionen $f: \N^{2} \to \N$ LOOP-berechenbar sind:
+
+    \begin{enumerate}
+        \item $f(x,y) := max(x-y, 0)$
+            \begin{lstlisting}
+x := x1 + 0; y := x2 + 0
+LOOP y DO  x := x - 1  END
+x0 := x + 0
+            \end{lstlisting}
+
+        \item $f(x,y) := x \cdot y$
+            \begin{lstlisting}
+x := x1 + 0; y := x2 + 0
+LOOP y DO                 # Fuer jedes y
+    LOOP x DO             # addiere jedes x
+        res := res + 1    # Ist bei Beginn 0
+    END
+END
+x0 := res + 0
+            \end{lstlisting}
+
+        \item $f(x,y) := max(x,y)$
+            \begin{lstlisting}
+x3 := x1 + 0
+LOOP x2 DO  x3 := x3 - 1  END
+x0 := x2 + 0
+LOOP x3 DO  x0 := x1  END
+            \end{lstlisting}
+
+            Fallunterscheidung $x1 \leq x2$ (dann ist $x3$ gleich $0$ nach der Schleife und $x0 = x2$) \\ und $x1 > x2$ (dann $x3 \neq 0$ und $x0 = x1$).
+
+        \item $f(x,y) := ggT(x,y)$, wobei $ggT(x,y)$ den größten gemeinsamen Teiler von $x$ und $y$ bezeichnet.
+            \begin{lstlisting}
+x3 := max(x1, x2); x4 := min(x1, x2)
+LOOP x3 DO
+    x5 := max(x3-x4, x4)
+    x6 := min(x3-x4, x4)
+    x3 := x5
+    x4 := x6
+END
+x0 := x3
+            \end{lstlisting}
+
+            Wobei $min(x,y)$ einfach $max(x, y)$ mit umgedrehter Ausgabe ist. LOOP statt WHILE, da die Durchläufe beschränkt werden müssen. $x3$ wird verwendet, da $ggT(n,1)$ mindestens einmal laufen soll.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 2}
+    Mit $kgV(x_{1}, x_{2})$ bezeichnen wir das kleinste gemeinsame Vielfache zweier natürlicher Zahlen $x_{1}$ und $x_{2}$. Geben Sie ein WHILE-Programm an, das die Funktion $f: \N^{2} \to \N, (x_{1}, x_{2}) \mapsto kgV(x_{1}, x_{2})$ berechnet und erklären Sie seine Arbeitsweise.
+
+    \LOES Wir nehmen hier die Funktion $kgV(x,y) = (x \cdot y) / ggT(x, y)$.
+    \begin{lstlisting}
+kgV(x1, x2) =
+    IF x1 != 0 THEN
+        IF x2 != 0 THEN
+            x3 := x1 * x2
+            x4 := ggT(x1, x2)
+            x0 := div(x3, x4)
+        END
+    END
+
+div(x1, x2) =
+    x3 := x1 + 0
+    x4 := x3 + 1        # Addiere 1, um Sonderfall x2==0 abzudecken
+    x4 := x4 - x2       # Hier wuerde x2 nie dekrementiert, d.h. x4 nie 0
+    WHILE x4 != 0 DO
+        x0 := x0 + 1
+        x3 := x3 - x2
+        x4 := x3 + 1    # Wenn x2==0, dann nie x4=0 -> "Fehlercode"
+        x4 := x4 - x2   #   fuer Division durch 0
+    END
+    \end{lstlisting}
+
+
+\subsubsection*{Aufgabe 3}
+    Es sei $\Sigma$ ein fest gewähltes Alphabet mit mindestens zwei Elementen. Wir betrachten eine Programmiersprache $L$ über $\Sigma$, die in der Lage ist, Turing-Maschinen zu simulieren. Für ein Wort $w \in \Sigma^{*}$ ist die Kolmogorov-Komplexität $K_{L}(w)$ die Länge des kürzesten Programms in $L$, welches bei leerer Eingabe das Wort $w$ als Ausgabe produziert. Zeigen Sie folgende Aussagen:
+    \begin{enumerate}
+        \item Es gibt für jede natürliche Zahl $n \in \N$ ein Wort $w \in \Sigma^{*}$ der Länge $|w| = n$, so dass $K_{L}(w) \geq n$.\\
+            \LOES Gegenfrage: wie viele $w$ mit $|w| = n$ gibt es, so dass $K_{L}(w) < n$? \\
+            Wir betrachten den Spezialfall $|\Sigma| = 2$, d.h. $\Sigma$ hat die minimal geforderten zwei Elemente.
+            Dann gibt es höchstens $\sum\limits_{i=0}^{n-1} 2^{i} = 2^{n} - 1$ Wörter $w$ mit $K_{L}(w) < n$. Es gibt aber $2^{n}$ Wörter $w$ mit $|w| = n$, d.h. mindestens eines dieser $w$ erfüllt $K_{L}(w) \geq n$.
+
+        \item Es gibt eine Konstante $c \in \N$, so dass gilt: Ist $w$ das Ergebnis der Berechnung einer Turing-Maschine $M$ mit Eingabe $x$, dann $K_{L}(w) \leq |\langle M, x \rangle| + c$, wobei $\langle M, x \rangle$ eine (effektive) Kodierung der Maschine $M$ und der Eingabe $x$ als ein Wort über $\Sigma$ ist. \\
+            \LOES Idee: simuliere $M$ auf Eingabe $x$ als Programm in $L$. Betrachte folgendes Programm in $L$:
+                %~ \begin{lstlisting}
+%~ Simuliere $enc(M)$ auf $enc(x)$
+%~ Gib das Ergebnis aus
+                %~ \end{lstlisting}
+                \begin{itemize}
+                    \item Simuliere $enc(M)$ auf $enc(x)$
+                    \item Gib das Ergebnis aus
+                \end{itemize}
+            Ist dann $c$ die Länge des Programms ohne $enc(M) + enc(x)$, dann ist $K_{L}(w) \leq |enc(M)\#\#enc(x)| + c$.
+
+        \item Die Abbildung $w \mapsto K_{L}(w)$ ist nicht berechenbar. \\
+            \LOES Annahme, $K_{L}(w)$ wäre berechenbar für alle $w \in \Sigma^{*}$. Dann konstruieren wir eine TM $M$, die für Eingaben $n \in \N$ Wörter $w$ mit $|w| = n$ und $K_{L}(w) \geq n$ ausgibt.
+            Wir definieren $M$ wie folgt: \\
+            $M =$ bei Eingabe $n$
+            \begin{itemize}
+                \item zähle Wörter $w \in \Sigma^{*}$, $|w| = n$ auf
+                \item falls $K_{L}(w) \geq n$, gib $w$ aus
+            \end{itemize}
+            Wegen a) gibt $M$ für jede Eingabe $n$ ein Wort $w_{n}$ zurück. \\
+            Dann ist $[n \leq K_{L}(w_{n}) \leq |enc(M)\#\#enc(n)| + c]$. \\
+            $\to n \leq K_{L}(w_{n}) = c' + |enc(n)| = c' + log_{2}n$ (wobei $c' = c + |enc(M)\#\#|$).{}
+            Diese Ungleichung gilt jedoch nicht für alle $n$. $n$ wächst schneller als $log_{2}n + c'$, stetig vs. logarithmisch.
+    \end{enumerate}
+    Damit ist insbesondere gezeigt, dass es niemals einen Compiler geben kann, der ein gegebenes Programm in ein kleinstmögliches übersetzt.
+

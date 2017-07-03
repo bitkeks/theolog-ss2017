@@ -10,7 +10,14 @@
             \item[Alphabet] nichtleere, endliche Menge von Symbolen
             \item[Wort] endliche Sequenz von Symbolen
             \item[Grammatik] formelle Spezifikation einer Sprache. Aus einer Grammatik kann man widerum eine Sprache erzeugen \vl{FS 2}
-            \item[Rechenoperationen] Vereinigung, Schnitt, Komplement, Produkt, Potenz, Kleene-Abschluss
+            \item[Rechenoperationen] ~ \\
+                Vereinigung $L_{1} \cup L_{2}$, \\
+                Schnitt $L_{1} \cap L_{2}$, \\
+                Komplement $\overline{L} = \Sigma^{*} \setminus L$, \\
+                Produkt $L_{1} \circ L_{2} = \{w_{1} w_{2}\ |\ w_{1} \in L_{1}, w_{2} \in L_{2}\}$, \\
+                Potenz $L^{0} = \{ \epsilon \}$ und $L^{n+1} = L \circ L^{n}$, \\
+                Kleene-Abschluss $L^{*} = L^{0} \cup L^{1} \cup L^{2} \cup \dots = \bigcup_{i \geq 0} L^{i}$
+
             \item[Abschlusseigenschaft] Beispiel: Wenn Sprache A und Sprache B regulär sind, wäre dann auch der Schnitt der beiden Sprachen wieder regulär? \vl{FS 5}
         \end{description}
 
@@ -47,6 +54,7 @@
             \item[Typ 3] reguläre Grammatiken (DFA, NFA, Pumping Lemma)
         \end{description}
 
+    \newpage
     \item[Probleme] Probleme formulieren Berechnungsfragen.
         \begin{description}
             \item[Wortproblem] Wortproblem für eine Sprache über einem Alphabet ist die Bestimmung der Ausgabe „ja, Wort ist in Sprache“ oder „nein, Wort ist nicht in Sprache“, für die Eingabe eines Wortes gebildet aus dem Alphabet \vl{FS 3}
@@ -71,7 +79,7 @@
 
     \item[Satz von Rice]
         %Informell: „Jede nicht-triviale Frage über die von einer TM ausgeführte Berechnung ist unentscheidbar.“ \\
-        Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Wir wollen prüfen, ob die durch diese Turingmaschine erkannte Sprache die Eigenschaft E besitzt. Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion vom Halteproblem. \vl{FS 20}
+        Sei E eine Eigenschaft von Sprachen, die für manche Turing-erkennbare Sprachen gilt und für manche Turing-erkennbare Sprachen nicht gilt (= „nicht-triviale Eigenschaft“). \\ Dann ist das folgende Problem unentscheidbar: die Eingabe besteht aus einer Turingmaschine. Wir wollen prüfen, ob die durch diese Turingmaschine erkannte Sprache die Eigenschaft E besitzt. Der Beweis für die Unentscheidbarkeit dieses Problems ist eine Reduktion auf das Halteproblem. \vl{FS 20}
 
 \end{description}
 
@@ -152,7 +160,7 @@ Schranken sind Funktionen gerichtet nach der Länge der Angabe. \vl{FS 24}
             \item[NPTime (NP)] nichtdeterministisch, polynomielle Zeit
             \item[NExpTime (NExp)] nichtdeterministisch, exponentielle Zeit
             \item[NLogSpace (NL)] nichtdeterministisch, logarithmischer Speicher
-            \item[NPSpace] nichtdeterministisch, polynomieller Speicher (gleich PSpace)
+            \item[NPSpace] nichtdeterministisch, polynomieller Speicher (gleich PSpace, siehe Savitch)
         \end{description}
 
     \item[SAT] Boolean Satisfiability Problem. Problem, welches ein Modell für eine Formel auf Erfüllbarkeit untersucht. In $NP$.
