@@ -1,0 +1,58 @@
+\subsection*{Übung 3}
+\subsubsection*{Aufgabe 1}
+    Zeigen Sie, dass es keine Many-One-Reduktion vom Halteproblem $P_{halt}$ von Turing-Maschinen auf des Leerheitsproblem $P_{leer} := \{enc(M)\ |\ \LANG(M) = \emptyset\}$ von Turing-Maschinen gibt. \\
+
+    \LOES Aussage ist demnach $P_{halt} \not\leq_{m} P_{leer}$. Idee zum Beweis ist ein Widerspruch.
+    \begin{itemize}
+        \item Wenn $A \leq_{m} B$, und $B$ co-semi-entscheidbar (d.h. das Komplement des Problems ist semi-entscheidbar), dann muss auch $A$ co-semi-entscheidbar sein
+        \item $P_{halt}$ ist unentscheidbar, jedoch semi-entscheidbar, demnach nicht co-semi-entscheidbar
+        \item $P_{leer}$ ist unentscheidbar, aber co-semi-entscheidbar
+    \end{itemize}
+    Beweis mit Annahme $P_{halt} \leq P_{leer}$. Da $P_{leer}$ co-semi-entscheidbar ist, ist auch $P_{halt}$ co-semi-entscheidbar. Widerspruch!
+    Es bleibt zu zeigen, dass $P_{leer}$ co-semi-entscheidbar ist. Dazu geben wir eine TM $M$ an, die $\overline{P_{leer}}$ erkennt. \textit{(Anmerkung: Es handelt sich hier um das Komplement des Problems, nicht um das Komplement einer Menge)} \\
+
+    $M$ erhält Eingabe $enc(N)$, ist NTM (andere Eingaben verwerfen) \\
+    Sei $w_{0}, w_{1}, w_{2}, \dots$ eine Aufzählung von $\Sigma^{*}$. Definiere $M$ wie folgt:
+    \begin{itemize}
+        \item Für $i = 0, 1, 2, \dots${}
+        \item Simuliere $N$ auf $w_{0}, w_{1}, \dots, w_{i}$ für $i$ Schritte
+        \item akzeptiere, falls $N$ eines dieser Wörter akzeptiert
+    \end{itemize}
+    Durch das Probieren aller $w_{i}$ muss irgendwann ein Wort akzeptiert werden. Entsprechend ist $\exists w \in \overline{\LANG(N)}$ bewiesen und somit das Komplement entschieden. \\
+    Simuliert $M$ die TM $N$ ohne die Begrenzung der Ausführungsschritte, kann es passieren, dass $N$ in eine Endlosschleife gerät bevor $M$ ein gültiges Wort testen konnte.
+
+
+\subsubsection*{Aufgabe 2}
+    Es sei $T := \{\ enc(M)\ |\ \mathit{M\ ist\ eine\ TM,\ welche\ w^{R}\ akzeptiert,\ falls\ sie\ w\ akzeptiert}\}$, wobei $w^{R}$ das zu $w$ umgekehrte Wort ist. Zeigen Sie, dass $T$ nicht entscheidbar ist. \\
+
+    \LOES Wir verwenden hier den Satz von Rice und das Wissen, dass $P_{leer}$ unentscheidbar ist. \\
+    Sei E eine nicht-triviale Eigenschaft (d.h. eine Eigenschaft die sowohl zutreffen kann als auch nicht zutreffen kann) semi-entscheidbarer Sprachen (d.h. nicht Turingmaschinen!). Dann ist $\{enc(M)\ |\ \LANG(M)\ erfüllt\ E\}$ unentscheidbar. \\
+    Für $P_{leer}$ bedeutet dies: $L$ erfüllt $E \Longleftrightarrow L = \emptyset$ \\
+    Für $T$: $L$ erfüllt $E \Longleftrightarrow (\forall w: w \in L \Leftrightarrow w^{R} \in L)$ \\
+    $E$ ist nicht-trivial: $L = \emptyset, L = \{a\}$ erfüllen $E$; $L = \{ab\}$ erfüllt $E$ jedoch nicht
+
+
+\subsubsection*{Aufgabe 3}
+    Es sei $L := \{enc(G)\#\#enc(x)\ |\ \mathit{G\ kontextfreie\ Grammatik\ und\ x\ Teilwort\ eines\ Wortes\ aus\ \LANG(G)}\}$, wobei $enc(G)$ eine Kodierung von $G$ ist. Zeigen Sie, dass $\LANG$ auf das Komplement des Leerheitsproblems kontextfreier Grammatiken many-one-reduziert werden kann. Hinweis: der Schnitt einer regulären (Typ 3) mit einer kontextfreien Sprache (Typ 2) ist wieder kontextfrei. \\
+
+    \LOES Hier $w_{1} \times w_{2} \in \LANG(G) \longrightarrow \SIGS \times \SIGS \cap \LANG(G) \neq \emptyset$. \\
+    Also $enc(G)\#\#enc(x) \in \LANG \Longleftrightarrow \SIGS \times \SIGS \cap \LANG(G) \neq \emptyset$ \\
+    Reduktion: $f(enc(G) \#\# enc(x)) = enc(G')$
+
+
+\subsubsection*{Aufgabe 4}
+    Zeigen Sie, dass jede semi-entscheidbare Sprache $L$ auf das Halteproblem $P_{halt}$ many-one-reduziert werden kann. \\
+
+    \LOES Aussage demnach: ist $L$ semi-entscheidbar, dann gilt $L \leq_{m} P_{halt}$. Es gibt also eine TM $M$ mit $\LANG(M) = L$ und für die many-one-Reduktion muss es eine berechenbare Funktion $f$ von $L$ nach $P_{halt}$ geben. \\
+
+    Idee: $w \in \LANG \Leftrightarrow M\ akzeptiert\ w \longrightarrow M'\ h"alt\ auf\ w'$ . \\
+    Ziel: $f(w) = enc(M')\#\#enc(w')$ so dass $w \in L \Leftrightarrow M'$ hält auf $w'$. \\
+    Definiere $M' =$ bei Eingabe $x$
+    \begin{itemize}
+        \item Simuliere $M$ auf $x$
+        \item Falls $M$ akzeptiert, akzeptiere (halte)
+        \item Ansonsten loop (Endlosschleife)
+    \end{itemize}
+
+    Beweis: Sei $L$ eine semi-entscheidbare Sprache. Sei $M$ TM mit $\LANG(M) = L$. Definiere für $w \in \SIGS$ den Wert $f(w) = enc(M')\#\#enc(w)$, mit $M'$ wie oben.
+    Dann ist $f$ berechenbar. Es gilt $w \in L \Leftrightarrow f(w) \in P_{halt}$ und damit ist $L \leq_{m} P_{halt}$.
