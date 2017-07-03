@@ -34,6 +34,9 @@
 \setlist[enumerate, 1]{label=\textbf{\alph*)}, leftmargin=2em}
 \setlist{itemsep=0em}
 
+% Small line under top header
+\renewcommand{\headrulewidth}{0.1pt}
+
 \newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
 \newcommand{\f}[1]{\textbf{#1}}
 \newcommand{\blank}{\text{\textvisiblespace}}
@@ -54,10 +57,12 @@
 
 \begin{document}
     % Header and footer styles
-    \lhead{\slshape Theoretische Informatik und Logik SS2017}
-    \rhead{\slshape\nouppercase{\rightmark}}
+    \pagestyle{fancy}
+    \lhead{\footnotesize Theoretische Informatik und Logik SS2017}
+    \chead{}
+    \rhead{\footnotesize Dozent: Prof. Krötzsch, Autor: Pataky, CC BY-SA 4.0}
+    \lfoot{}
     \cfoot{\thepage}
-    \lfoot{\footnotesize Dozent: Prof. Krötzsch, Autor: Pataky}
     \rfoot{}
 
     \begin{titlepage}
@@ -68,8 +73,8 @@
         \vspace{1cm}
 
         \begin{abstract}
-            Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}. \par
-            Ich versuche möglichst ohne formelle Symbole und Definitionen zu arbeiten, daher verweisen die Markierungen jeweils auf die Vorlesungsnummer in \vl{FS} bzw. \vl{TIL}.
+            Notizen zur Vorlesung \url{https://iccl.inf.tu-dresden.de/web/Theoretische_Informatik_und_Logik_(SS2017)}.
+            Die Markierungen verweisen jeweils auf die Vorlesungsnummer in \vl{FS} bzw. \vl{TIL}.
             Obwohl der Schwerpunkt auf TheoLog liegt, habe ich ein paar Definitionen aus Formale Systeme mit einbezogen, da TheoLog diese weiterverwendet. \\
             Einige Formulierungen habe ich aus den hervorragenden Folien von Prof. Krötzsch geliehen. Quellen dieser Folien sind auf Github zu finden unter \url{https://github.com/mkroetzsch} und sind unter der Lizenz CC BY 3.0 DE verwendbar. Für diese gilt: „(C) Markus Krötzsch, \url{https://iccl.inf.tu-dresden.de/web/TheoLog2017}, CC BY 3.0 DE“.
         \end{abstract}
