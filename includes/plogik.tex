@@ -1,6 +1,8 @@
 \newcommand{\INT}{\mathcal{I}}
 \newcommand{\ZUW}{\mathcal{Z}}
 \newcommand{\FM}{\mathcal{T}}
+\newcommand{\HU}{\Delta_{F}}
+
 
 \section{Prädikatenlogik}
 Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, \f{C} und \f{P} kommen der Allquantor $\forall$ und der Existenzquantor $\exists$ hinzu. \vl{TIL 13}
@@ -142,12 +144,9 @@ Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, 
 
         \item[Negationsnormalform (NNF)] Enthält nur Quantoren und die Junktoren $\land$, $\lor$ und $\neg$. \\
             Der Negator $\neg$ befindet sich nur noch direkt vor Atomen (Literalen). \\
-            Zum Umformeln beginnen wir zuerst mit der Ersetzung von $\to$ und $\leftrightarrow$:{}
-            \begin{itemize}
-                \item $(F \to G) \equiv (\neg F \lor G)$
-                \item $(F \leftrightarrow G) \equiv (\neg F \lor G) \land (\neg G \lor F)$
-            \end{itemize}
-            Folgend wird NNF(F) rekursiv umgeformelt. Hierbei können z.B. Quantoren, die in ihrem Scope keine freie Variable binden, entfernt werden.
+            Zum Umformeln beginnen wir zuerst mit der Ersetzung von $\to$ und $\leftrightarrow$: \\
+            $(F \to G) \equiv (\neg F \lor G)$ und $(F \leftrightarrow G) \equiv (\neg F \lor G) \land (\neg G \lor F)$. \\
+            Folgend wird NNF($F$) rekursiv umgeformelt. Hierbei können z.B. Quantoren, die in ihrem Scope keine freie Variable binden, entfernt werden.
 
         \item[Bereinigte Formel, Variablenumbenennung] Gebundene und freie Variablen in Formeln können umbenannt werden, so lange die neue Bezeichnung nicht bereits in der Formel vorkommt. Eine Formel ist \f{bereinigt}, wenn in ihr (1) keine Variable sowohl ungebunden als auch gebunden vorkommt und (2) keine Variable von mehr als einem Quantor gebunden wird. Beispiel: \\
             Die Formel $\forall y.p(x,y) \to \exists x.(r(y,x) \land \forall y.q(x,y))$ wird zu $\forall y.p(x,y) \to \exists z.(r(y,z) \land \forall v.q(z,v))$.
@@ -182,7 +181,59 @@ Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, 
 
 \subsection{Algorithmen zum logischen Schließen}
     \begin{description}
-        \item[Substitution]
-        \item[Unifikation]
+        \item[Substitution] In der Substitution werden freie Variablen $x \in V$ durch Terme $t \in T$ ersetzt.
+            Eine Substitution wird durch $\sigma$ o.ä. definiert, z.B. $\sigma = \{x_{1} \mapsto t_{1}, \dots \}$. Wird diese Substitution dann auf eine Formel $A$ angewandt, d.h. $A\sigma$, nennt man dies \f{Instanz} von $A$ unter $\sigma$. Man kann mehrere Substitutionen hintereinander ausführen. Dann gilt $A(\sigma\circ\theta) = (A\sigma)\theta$.{}
+
+        \item[Unifikation] \vl{TIL 18}
+            Ein Unifikationsproblem ist eine endliche Menge von Gleichungen der Form \\ $G = \{s_{1} \doteq t_{1}, \dots , s_{n} \doteq t_{n} \}$.
+            Eine Substitution $\sigma$ ist ein Unifikator für $G$ falls $s_{i}\sigma = t_{i}\sigma$ für alle $i \in \{ 1, \dots , n \}$ gilt.
+
+            Es kann mehrere Substitutionen geben, die diese Anforderung erfüllen. Dann kann durch Vergleich ein \f{allgemeinster Unifikator} gefunden werden.
+
+            Eine Substitution $\sigma$ ist \f{allgemeiner} als eine Substitution $\theta$, in Symbolen $\sigma \preceq \theta$, wenn es eine Substitution $\lambda$ gibt, so dass $\sigma \circ \lambda = \theta$. Der allgemeinste Unifikator für ein Unifikationsproblem $G$ ist ein Unifikator $\sigma$ für $G$, so dass $\sigma \circ \theta$ für alle Unifikatoren $\theta$ für $G$. Die englische Bezeichnung des allgemeinsten Unifikators ist \f{most general unifier (mgu)}.
+
+            Ein Unifikationsproblem $G = \{x_{1} \doteq t_{1}, \dots , x_{n} \doteq t_{n} \}$ ist in \f{gelöster Form}, wenn $x_{1}, \dots, x_{n}$ paarweise verschiedene Variablen sind, die nicht in den Termen $t_{1}, \dots, t_{n}$ vorkommen. In diesem Fall definieren wir eine Substitution $\sigma_{G} := \{ x_{1} \mapsto t_{1}, \dots , x_{n}\mapsto t_{n} \}$. Dann ist $\sigma_{G}$ ein allgemeinster Unifikator für $G$.
+
+            \f{Algorithmus:}
+            \begin{itemize}
+                \item Löschen (überflüssige $\doteq$ löschen, z.B. $\{ f(x) \doteq f(x) \}$)
+                \item Zerlegung (Parameter gleicher Funktionen auflösen, \\
+                    z.B. $\{g(a, f(x)) \doteq g(b, f(x))\}$ wird $\{a \doteq b, f(x) \doteq f(x) \}$)
+                \item Orientierung (Variablen auf die linke Seite)
+                \item Eliminierung (gegebene Variablen durch Wert ersetzen, \\
+                    z.B. $\{ x \doteq f(a), g(x) \doteq g(y) \}$ wird $\{ x \doteq f(a), g(f(a)) \doteq g(y)\}$).
+            \end{itemize}
+
         \item[Resolution]
+            Mit dem Resolutionsalgorithmus versuchen wir aus einer gegebenen Klauselmenge (d.h. eine Formel in Klauselform) eine leere Klausel zu erzeugen (abzuleiten). Diese leere Klausel wäre eine unerfüllbare Behauptung, d.h. sobald wir eine solche leere Klausel finden haben wir die Unerfüllbarkeit der Formel bewiesen. Die Erfüllbarkeit ist hierbei eine „zentrale Frage des Schließens“.
+
+            \f{Algorithmus:} gegeben eine Klauselmenge, welche nummeriert angeordnet sind.
+            Nachfolgend nehmen wir immer zwei Klauseln, welche in Kombination wahre und falsche Aussagen resolvieren. Hierbei müssen die Variablen der neu erzeugten Klauseln umbenannt werden, es entstehen \f{Varianten}. \vl{TIL 15} \vl{TIL 16} \vl{TIL 19}
+
+            Beispiel: gegeben sind (1) und (2), neu erzeugt wird (3) \\
+            (1) $\{ W(x_{1}), L(x_{2}) \}$ \hspace{1cm}
+            (2) $\{ \neg W(a)\}$ \hspace{1cm}
+            (3) $\{ L(x_{2}')\}$ \textcolor{blue}{(1) + (2), $\{ x_{1} \mapsto a \}$} \\
+            %~ \textit{(Dieses Beispiel zeigt nicht die vollständige Resolution mit einer leeren Klausel)}
+
+        \item[Herbrand] Herbranduniversum, Herbrandinterpretationen und Herbrandmodelle. \vl{TIL 19} \\
+            Das Herbranduniversum ist eine Erzeugung einer „Semantik aus Syntax“, einer Konstruktion von Modellen direkt aus Formeln.
+
+            Sei $a$ eine beliebige Konstante. Das Herbranduniversum $\HU$ für eine Formel $F$ ist die Menge aller variablenfreien Terme, die man mit Konstanten und Funktionssymbolen in $F$ und der zusätzlichen Konstante $a$ bilden kann:
+            \begin{itemize}
+                \item $a \in \HU$
+                \item $c \in \HU$ für jede Konstante aus F
+                \item $f(t_{1}, \dots, t_{n}) \in \HU$ für jedes $n$-stellige Funktionssymbol aus $F$ und alle Terme $t_{1}, \dots, t_{n} \in \HU$
+            \end{itemize}
+            Anmerkung: Das Herbrand-Universum ist immer abzählbar, manchmal endlich und niemals leer. \\
+            Beispiel: Für die Formel $F = p(f(x), y, g(z))$ ergibt sich $\HU = \{a, f(a), g(a), f(f(a)), f(g(a)), \dots \}$.
+
+            Eine Herbrandinterpretation für eine Formel $F$ ist eine Interpretation $\INT$ für die gilt:
+            \begin{itemize}
+                \item $\Delta^{\INT} = \HU$ ist das Herbrand-Universum von $F$
+                \item Für jeden Term $t \in \HU$ gilt $t^{\INT} = t$
+            \end{itemize}
+            $\INT$ ist ein Herbrandmodell für $F$ wenn zudem gilt $\INT \models F$.
+
+
     \end{description}
