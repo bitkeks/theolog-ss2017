@@ -5,7 +5,9 @@
 
 
 \section{Prädikatenlogik}
-Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, \f{C} und \f{P} kommen der Allquantor $\forall$ und der Existenzquantor $\exists$ hinzu. \vl{TIL 13}
+Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen der Variablen \f{V}, der Konstanten \f{C}, der Funktionen \f{F} und Prädikate \f{P} kommen der Allquantor $\forall$ und der Existenzquantor $\exists$ hinzu. Semantisch nutzen wir Interpretationen, um für Formeln Modelle zu finden (d.h. Variablenbelegungen zu finden, für welche die Formel nach wahr ausgewertet wird). \\
+Formeln können mit Hilfe von syntaktischen Umformungen umgeformt und vereinfacht werden. Dazu nutzen wir Algorithmen zum logischen Schließen, z.b. die Unifikation und Resolution. \vl{TIL 13}
+
 \subsection{Syntax}
     Im Gegensatz zu der unendlichen Menge von Atomen in der Aussagenlogik gibt es in der Prädikatenlogik die vier betrachteten Mengen V, C, F und P. Diese Mengen sind abzählbar unendlich und die Elemente disjunkt. Formeln sind, ausgenommen genannter Ausnahmen, eindeutig zu klammern. Die Mengen V, C und F arbeiten mit beliebigen Werten, die Prädikate hingegen werten bei Interpretation immer nach $true$ oder $false$ aus. \vl{TIL 13}
     \begin{description}
@@ -134,7 +136,7 @@ Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, 
 
 \subsection{Syntaktische Umformungen}
     \begin{description}
-        \item[Äquivalenzen mit Quantoren \vl{TIL 16}] Es gelten die folgenen Beziehungen:
+        \item[Äquivalenzen mit Quantoren] Es gelten die folgenen Beziehungen: \vl{TIL 16}
             \begin{itemize}
                 \item Negation von Quantoren: $\neg\exists.F \equiv \forall x.\neg F$ und $\neg\forall x.F \equiv \exists x.\neg F$
                 \item Kommutativität: $\exists x. \exists y.F \equiv \exists y. \exists x.F$, selbiges für $\forall${}
@@ -184,9 +186,8 @@ Die Prädikatenlogik erweitert die Aussagenlogik. Neben den neuen Mengen \f{V}, 
         \item[Substitution] In der Substitution werden freie Variablen $x \in V$ durch Terme $t \in T$ ersetzt.
             Eine Substitution wird durch $\sigma$ o.ä. definiert, z.B. $\sigma = \{x_{1} \mapsto t_{1}, \dots \}$. Wird diese Substitution dann auf eine Formel $A$ angewandt, d.h. $A\sigma$, nennt man dies \f{Instanz} von $A$ unter $\sigma$. Man kann mehrere Substitutionen hintereinander ausführen. Dann gilt $A(\sigma\circ\theta) = (A\sigma)\theta$.{}
 
-        \item[Unifikation] \vl{TIL 18}
-            Ein Unifikationsproblem ist eine endliche Menge von Gleichungen der Form \\ $G = \{s_{1} \doteq t_{1}, \dots , s_{n} \doteq t_{n} \}$.
-            Eine Substitution $\sigma$ ist ein Unifikator für $G$ falls $s_{i}\sigma = t_{i}\sigma$ für alle $i \in \{ 1, \dots , n \}$ gilt.
+        \item[Unifikation] Ein Unifikationsproblem ist eine endliche Menge von Gleichungen der Form \\ $G = \{s_{1} \doteq t_{1}, \dots , s_{n} \doteq t_{n} \}$.
+            Eine Substitution $\sigma$ ist ein Unifikator für $G$ falls $s_{i}\sigma = t_{i}\sigma$ für alle $i \in \{ 1, \dots , n \}$ gilt. \vl{TIL 18}
 
             Es kann mehrere Substitutionen geben, die diese Anforderung erfüllen. Dann kann durch Vergleich ein \f{allgemeinster Unifikator} gefunden werden.
 
