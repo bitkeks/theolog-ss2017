@@ -1,0 +1,67 @@
+\subsection*{Übung 5 (Komplexitätstheorie)}
+\subsubsection*{Aufgabe 1}
+    Welche der folgenden Aussagen sind wahr? Begründen Sie Ihre Antwort.
+    \begin{enumerate}
+        \item Falls $P \neq \NP$ gilt, dann auch $P \cap \NP = \emptyset$.{}
+        \item Es gibt Probleme, die NP-hart, aber nicht NP-vollständig sind.
+        \item Polynomielle Reduzierbarkeit ist nicht transitiv.
+        \item Ist $L_{2} \in P$ und $L_{1} \leq_{p} L_{2}$, dann ist auch $L_{1} \in P$.
+        \item Ist $L_{1}$ eine NP-vollständige Sprache und gilt $L_{1} \leq_{p} L_{2}$, dann ist auch $L_{2}$ NP-vollständig.
+        \item Ist $L_{2}$ eine NP-vollständige Sprache und gilt $L_{1} \leq_{p} L_{2}$, dann ist auch $L_{1}$ NP-vollständig.
+    \end{enumerate}
+
+    \LOES
+    \begin{enumerate}
+        \item Richtig. Derzeitiger Kenntnissstand: $P \subseteq \NP$, d.h. $P \cap \NP = P \neq \emptyset$.{}
+        \item Richtig. Jedes NP-Problem ist bspw. in polynomieller Zeit auf das Halteproblem $\phalt$ reduzierbar, aber $\phalt$ ist nicht in NP (da unentscheidbar).
+        \item Falsch. Reduktion ist transitiv, die Komposition von polynomiell-zeitberechenbaren Funktionen ist wieder polynomiell-zeitberechenbar. Formell: $C \leq_{p} B \leq_{p} A \Rightarrow C \leq_{p} A$.
+        \item Richtig. Ein Entscheidungsverfahren für $L_{1}$, welches in polynomieller Zeit läuft, reduziert zuerst die Eingabe $w$ auf eine Instanz $f(w)$ für $L_{2}$ und prüft dann, ob $f(w) \in L_{2}$.
+        \item Falsch. $L_{2}$ muss nur NP-hart sein. Beispiel $\phalt$.
+        \item Falsch. Beispiel $L = \emptyset$, $\emptyset \leq SAT$.
+    \end{enumerate}
+
+
+\newpage
+\subsubsection*{Aufgabe 2}
+    Zeigen Sie, dass das Wortproblem deterministischer endlicher Automaten in $L$ liegt: ist \\
+    $\prspec{DFA} := \{\ enc(A) \#\# enc(w)\ |\ A\ \text{ist ein DFA, der $w$ akzeptiert} \}$, dann gilt $\prspec{DFA} \in L$. \\
+
+    \LOES Die Klasse $L$ ist $LogSpace$, d.h. der Automat hat zusätzlich zur Eingabe logarithmisch viel Platz für seine Berechnung. Die Klasse $L$ ist somit die Klasse von Problemen, die mit einer konstanten Anzahl von Zählern und Zeigern gelöst werden können. \\
+
+    Für die Simulation von $A$ auf $w$ brauchen wir
+    \begin{itemize}
+        \item einen Zeiger, der auf den aktuellen Zustand zeigt
+        \item einen Zeiger in die Eingabe $w$
+        \item 2-3 Hilfszähler
+        \item 1-2 Zähler, um Eingabe zu überprüfen
+    \end{itemize}
+    Wichtig: die Anzahl der Zähler/Zeiger hängt nicht von der Länge der Eingabe ab.
+    Die Anzahl der für die Simulation benötigten Zähler und Zeiger liegt demnach in LogSpace.
+
+
+\subsubsection*{Aufgabe 3}
+    Es sei $L := \{\ a^{n}\ |\ \text{$n \in \N$ ist keine Primzahl} \}$. Zeigen Sie, dass $L \in \NP$ gilt. \\
+
+    \LOES Demnach ist $L = \{ \epsilon, a, aaaa, aaaaaa, \dots \}$. Wir nutzen den Teiler von $n$ als Zertifikat. \\
+    Ein nicht-deterministisches Entscheidungsverfahren für $L$, welches in polynomieller Zeit läuft ist folgendes: $M =$ bei Eingabe $a^{n}$:
+    \begin{itemize}
+        \item rate $p \in \N$ mit $1 < p < n$ (es gibt $\sqrt{n}$ viele $p$)
+        \item prüfe ob $p$ ein Teiler von $n$ ist
+        \item falls ja, akzeptiere, ansonsten verwerfe
+    \end{itemize}
+
+    Warum $L(M) = L$? Für jedes $a^{n} \in L$ gibt es mindestens einen akzeptierenden Lauf von $M$ auf $a^{n}$ und für $a^{n} \not\in L$ verwirft sie stets.
+    Ist $M$ polynomiell zeitbeschränkt? Ja, denn Test lässt sich in polynomieller Zeit ausführen. Damit ist $L \in \NP$. Sogar $L \in P$, wenn einfach alle Zahlen durchprobiert werden.
+    Der Primzahltest ist in $P$, wird jedoch komplexer bei der Kodierung ($log\ n \to n^{2}$).
+
+
+\subsubsection*{Aufgabe 4}
+    Zeigen Sie: ist $P = \NP$, dann gibt es einen Algorithmus, der in polynomieller Zeit für jede erfüllbare aussagenlogische Formel eine erfüllende Belegung findet. \\
+
+    \LOES Idee ist die binäre Suche mit Teilformeln. \\
+    Sei $\varphi$ eine aussagenlogische Formel mit Variablen $x_{1}, \dots, x_{n}$. Angenommen $\varphi$ ist erfüllbar. Betrachte die Formel $\varphi [x_{1} \leftarrow True ]$. Ist diese Formel erfüllbar (da $P = \NP$ kann hier SAT verwendet werden), setze $\beta(x_{1}) := True$, ansonsten setze $\beta(x_{1}) := False$. Berechne dann rekursiv eine erfüllende Belegung $\beta'$ für $\varphi [x_{1} \leftarrow \beta(x_{1})]$. Dann ist $\beta$ erweitert um $\beta'$ eine erfüllende Belegung für $\varphi$. \\
+
+    Was ist die Laufzeit dieses Algorithmus? Da $P = \NP$ gibt es ein Polynom $p(n)$, welches die Laufzeit für den Erfüllbarkeitstest nach oben abschätzt. Dann läuft der Algorithmus oben in Zeit $O(n \cdot p(|\varphi|)) = O(|\varphi| \cdot p(|\varphi|))$, also in polynomieller Zeit in der Größe von $\varphi$. \\
+
+    Wichtig: Backtracking ist hier nicht notwenig, da SAT alle weiteren Belegungen nach einer Belegung prüft.
+    Klappt auch für 3SAT und CLIQUE.

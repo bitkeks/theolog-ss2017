@@ -1,4 +1,4 @@
-\subsection*{Übung 3}
+\subsection*{Übung 3 (Berechenbarkeitstheorie)}
 \subsubsection*{Aufgabe 1}
     Zeigen Sie, dass es keine Many-One-Reduktion vom Halteproblem $P_{halt}$ von Turing-Maschinen auf des Leerheitsproblem $P_{leer} := \{enc(M)\ |\ \LANG(M) = \emptyset\}$ von Turing-Maschinen gibt. \\
 
@@ -11,6 +11,7 @@
     Beweis mit Annahme $P_{halt} \leq P_{leer}$. Da $P_{leer}$ co-semi-entscheidbar ist, ist auch $P_{halt}$ co-semi-entscheidbar. Widerspruch!
     Es bleibt zu zeigen, dass $P_{leer}$ co-semi-entscheidbar ist. Dazu geben wir eine TM $M$ an, die $\overline{P_{leer}}$ erkennt. \textit{(Anmerkung: Es handelt sich hier um das Komplement des Problems, nicht um das Komplement einer Menge)} \\
 
+\newpage
     $M$ erhält Eingabe $enc(N)$, ist NTM (andere Eingaben verwerfen) \\
     Sei $w_{0}, w_{1}, w_{2}, \dots$ eine Aufzählung von $\Sigma^{*}$. Definiere $M$ wie folgt:
     \begin{itemize}
