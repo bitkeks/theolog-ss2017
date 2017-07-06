@@ -1,0 +1,67 @@
+\newpage
+
+\subsection*{Übung 4}
+\subsubsection*{Aufgabe 1}
+    Besitzen folgende Instanzen $P_{i}$ des Postschen Korrespondenzproblems Lösungen oder nicht?
+    \begin{enumerate}
+        \item Ja, einfach zu zeigen.
+        \item Nein, denn der erste Stein ist der einzige, mit dem begonnen werden kann. Folgend passt nur der dritte Stein und nach diesem ebenfalls immer nur der dritte. Das untere Wort ist demnach immer länger als das obere.
+        \item Ja, hat Lösung mit 66 Steinen.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 2}
+    Zeigen Sie, dass das Postsche Korrespondenzproblem über einem einelementigen Alphabet entscheidbar ist.
+
+    \LOES Dies lässt sich mit Hilfe eines Algorithmus lösen, welcher die Länge der Wortpaare untersucht.
+    Sei $P = (a^{u_{1}}, a^{v_{1}}), \dots, (a^{u_{n}}, a^{v_{n}})$ über $\Sigma = \{ a \}$. Wir schreiben nun $(u_{i}, v_{i})$ statt $(a^{u_{i}}, a^{v_{i}})$, betrachten also nur die jeweilige Länge. Fallunterscheidung:
+    \begin{itemize}
+        \item 1. Fall: Es gibt ein $u_{i} = v_{i}$. Dann ist Paar $i$ die Lösung.
+        \item 2. Fall: Alle $i$ sind derart, dass $u_{i} < v_{i}$ bzw. $u_{i} > v_{i}$, d.h. alle oberen bzw. unteren Wörter sind länger als das jeweils andere. Dann ist $P$ unlösbar.
+        \item 3. Fall: Es gibt $i, j$ mit $u_{i} > v_{i}$ und $u_{j} < v_{j}$. Eine Lösung hat dann die Form $(\overbrace{i,i,\dots}^\text{k-mal},\overbrace{j,j,\dots}^\text{l-mal})$ (sofern Lösung existiert). Dann muss gelten $k \cdot u_{i} + l \cdot u_{j} = k \cdot v_{i} + l \cdot v_{j}$, also $k \cdot (u_{i} - v_{i}) = l \cdot (v_{j} - u_{j})$. Wähle $l = (u_{i} - v_{i})$, $k = (v_{j} - u_{j})$. Dann ist $(k \cdot i, l \cdot j)$ tatsächlich eine Lösung.
+    \end{itemize}
+    In jedem Fall ist also entscheidbar, ob es eine Lösung gibt. Damit ist die Aussage gezeigt.
+
+
+\subsubsection*{Aufgabe 3}
+    Zeigen Sie, dass folgendes Problem unentscheidbar ist: gegeben eine Turing-Maschine $M$ und ein $k \in \N$, kann die Sprache $L(M)$ durch eine Turing-Maschine mit höchstens $k$ Zuständen erkannt werden?
+    Zeigen Sie dazu, dass für $k = 1$ die Menge $T_{k} := \{\ enc(M)\ |\ L(M)\ \text{wird von einer TM mit höchstens}\ k\ \text{Zuständen erkannt} \}$ nicht entscheidbar ist. Warum zeigt dies die ursprüngliche Behauptung? \\
+
+    \LOES Wir setzen hier den Satz von Rice über die Unentscheidbarkeit von Eigenschaften von Sprachen an. (\textit{Wichtig! Nicht Eigenschaften von Maschinen!}) \\
+    Wir betrachten den Fall $T_{1}$. $T_{1}$ ist nach Satz von Rice unentscheidbar. \\
+    Was ist in diesem Falle die Eigenschaft $E$? Definition für $L \subset \SIGS$. \\
+    \hili{$L$ erfüllt $E \Longleftrightarrow$ es gibt eine TM $N$ mit einem Zustand, so dass $L(N) = L$}. Dann ist $E$ Eigenschaft von Sprachen. Bemerkung: ist $L$ nicht semi-entscheidbar (benötigt für Satz von Rice!), dann gibt es keine TM $N$  mit $L = L(M)$. Also erfüllt $L$ die Eigenschaft $E$ nicht. \\
+    $E$ ist nicht-trivial: $L = \emptyset$ funktioniert, TM hat keinen Endzustand. $L = \{ aa \}$ jedoch funktioniert nicht, da mit nur einem Zustand nicht gezählt werden kann.
+    Also ist nach Satz von Rice die Maschine $T_{1}$ unentscheidbar. \\
+    Da das Problem bereits für $k=1$ unentscheidbar ist, ist es auch für beliebige $k$ unentscheidbar. \\
+    Der Sonderfall $k=0$ führt zu $T_{0} = \emptyset$. Ist $\emptyset$ entscheidbar? Ja, die TM lehnt einfach immer ab. Da dieser Fall jedoch trivial ist, fällt er nicht unter den Satz von Rice.
+
+\newpage
+\subsubsection*{Aufgabe 4}
+    Zeigen Sie, dass weder das Äquivalenzproblem $\prspec{"aquiv}$ für Turing-Maschinen noch dessen Komplement $\overline{\prspec{"aquiv}}$ semi-entscheidbar ist, wobei
+    \begin{itemize}
+        \item $\prspec{"aquiv} := \{ enc(M_{1}) \#\# enc(M_{2}) | L(M_{1}) = L(M_{2}) \}$
+        \item $\overline{\prspec{"aquiv}} := \{ enc(M_{1}) \#\# enc(M_{2}) | L(M_{1}) \neq L(M_{2}) \}$
+    \end{itemize}
+    Zeigen Sie dazu, dass $\phalt \leq_{m} \prspec{"aquiv}$ und $\phalt \leq_{m} \overline{\prspec{"aquiv}}$ gilt. Weshalb zeigt dies die Aussage? \\
+
+    \LOES Angenommen $\paq$ wäre semi-entscheidbar. Dann $\overline{\paq}$ co-semi-entscheidbar. \\ Da $\phalt \leq_{m} \overline{\paq}$ muss auch $\phalt$ co-semi-entscheidbar. Widerspruch! Also ist $\overline{\paq}$ nicht semi-entscheidbar. \\
+    Selbige Heransgehensweise gilt für die entsprechenden Komplemente. \\
+
+    Wir zeigen $\phalt \leq_{m} \paq$. Dafür geben wir eine berechenbare Funktion $f: \SIGS \to \SIGS$ an, so dass \hili{$enc(M) \#\# enc(w) \in \phalt \Leftrightarrow f(enc(M) \#\# enc(w)) \in \paq$} für $M$ Turingmaschine und $w$ Eingabe.
+    Dafür müssten wir zwei TM $M_{1}$ und $M_{2}$ finden, so dass gilt: \hili{$M$ hält auf $w \Leftrightarrow L(M_{1}) = L(M_{2})$}.
+    Seien also $M$ und $w$ wie oben. \\
+
+    Dafür setzen wir $M_{1} =$ bei Eingabe $w$
+    \begin{itemize}
+        \item akzeptiere ($L(M_{1}) = \SIGS$)
+    \end{itemize}
+    Und $M_{2} = $ bei Eingabe $y$
+    \begin{itemize}
+        \item simuliere $M$ auf $w$ (nimmt $y$, codiert dies als $w$)
+        \item akzeptiere (bedeutet $M$ hat gehalten. Andernfalls würde $M$ nicht halten)
+    \end{itemize}
+    Bedeutet: $L(M_{2})$ ist $\SIGS$, falls $M$ auf $w$ hält. Sonst $L(M_{2}) = \emptyset$. \\
+    Dann gilt: \hili{$M$ hält auf $w \Leftrightarrow L(M_{2}) = \SIGS = L(M_{1})$}. \\
+    Daher ist \hili{$f(enc(M) \#\# enc(w)) := enc(M_{1})\#\# enc(M_{2})$} eine Reduktion von $\phalt$ auf $\paq$. \\
+    Die Reduktion $\phalt \leq_{m} \overline{\paq}$ verläuft analog.

@@ -7,7 +7,7 @@
 \subsubsection*{Aufgabe B}
     Zeigen Sie: Wenn es möglich ist, für zwei beliebige Turing-Maschinen zu entscheiden, ob sie dieselbe Sprache akzeptieren, so ist es auch möglich, für beliebige Turing-Maschinen zu entscheiden, ob sie die leere Sprache akzeptieren. Seien $K, M_1, M_2$ Turingmaschinen, so dass $K(enc(M_1)\#\#enc(M_2))$ akzeptiert $\Leftrightarrow$ $L(M_1) = L(M_2)$ und $K$ hält auf jeder Eingabe. \\
     \textbf{Lösung:} Sei $M$ Turingmaschine und sei $M_\emptyset$ eine Turingmaschine, so dass $L(M_\emptyset) = \emptyset$. \\
-    Dann gilt $K(enc(M)\#\#enc(M_\emptyset))$ akzeptiert $\Leftrightarrow$ $L(M) = \emptyset$, also \prspec{Leer} $\leq_m$ \prspec{"Aquiv}.
+    Dann gilt $K(enc(M)\#\#enc(M_\emptyset))$ akzeptiert $\Leftrightarrow$ $L(M) = \emptyset$, also $\prspec{leer} \leq_{m} \prspec{"aquiv}$.
 
 \subsubsection*{Aufgabe C}
     Zeigen Sie, dass $\{1\}^*$ unentscheidbare Teilmengen besitzt. \\
@@ -41,9 +41,9 @@
 
         \item „Es ist entscheidbar, ob eine Turingmaschine nur Wörter akzeptiert, die Palindrome sind.“ – Falsch, Satz von Rice (die Akzeptanz von Palindromen ist eine \f{Eigenschaft}). Eigenschaft $E$ ist „$L$ besteht nur aus Palindromen“, diese Eigenschaft ist nicht-trivial: erfüllt z.B. durch $L = \emptyset$, jedoch nicht durch $L = \{ab\}$.
 
-        \item „\prspec{Halt} ist semi-entscheidbar“ – Richtig, da es universelle Turingmaschinen gibt, die beliebige TM simulieren können.
+        \item „$\prspec{halt}$ ist semi-entscheidbar“ – Richtig, da es universelle Turingmaschinen gibt, die beliebige TM simulieren können.
 
-        \item „Es ist nicht entscheidbar, ob die von einer deterministischen Turing-Maschine berechnete Funktion total ist.“ – Richtig, denn sonst wäre das Halteproblem entscheidbar (\prspec{Halt} $\leq_m$ \prspec{Total}). \\
+        \item „Es ist nicht entscheidbar, ob die von einer deterministischen Turing-Maschine berechnete Funktion total ist.“ – Richtig, denn sonst wäre das Halteproblem entscheidbar ($\prspec{halt} \leq_{m} \prspec{total}$). \\
         Reduktion: $M, w$ gegeben, baue Turingmaschine $M'$ mit \\
         $M' =$ bei Eingabe $x$ \\
         $\to$ simuliere $M$ auf $w$ \\

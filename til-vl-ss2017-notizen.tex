@@ -43,8 +43,9 @@
 \newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
 \newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
 \newcommand{\prob}[1]{\textbf{#1}}
-\newcommand{\prspec}[1]{$~\prob{P}_{#1}~$}
-\newcommand{\phalt}{$~\prob{P}_{Halt}~$}
+\newcommand{\prspec}[1]{\prob{P}_{\text{#1}}}
+\newcommand{\phalt}{\prspec{halt}}
+\newcommand{\paq}{\prspec{äquiv}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
