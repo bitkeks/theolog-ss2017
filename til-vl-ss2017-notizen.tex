@@ -37,24 +37,30 @@
 % Small line under top header
 \renewcommand{\headrulewidth}{0.1pt}
 
+% Formatting macros
 \newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
 \newcommand{\f}[1]{\textbf{#1}}
 \newcommand{\blank}{\text{\textvisiblespace}}
 \newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
 \newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
+\newcommand{\LOES}{\f{Lösung:~}}
+% Problems
 \newcommand{\prob}[1]{\textbf{#1}}
 \newcommand{\prspec}[1]{\prob{P}_{\text{#1}}}
 \newcommand{\phalt}{\prspec{halt}}
 \newcommand{\paq}{\prspec{äquiv}}
+% Math sets
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\POT}{\mathcal{P}}
-\newcommand{\LOES}{\f{Lösung:~}}
+% Shortcuts
 \newcommand{\TMM}[1]{\mathcal{M}_{#1}}
 \newcommand{\LANG}{\mathcal{L}}
 \newcommand{\SIGS}{\Sigma^{*}}
-\newcommand{\NP}{\mathit{NP}}
+% Math texts
+\newcommand{\MT}[1]{\mathit{#1}}
+\newcommand{\NP}{\MT{NP}}
 
 
 \begin{document}
