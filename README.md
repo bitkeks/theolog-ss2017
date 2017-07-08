@@ -1,6 +1,6 @@
 **[Download der aktuellsten Version](https://github.com/cooox/theolog-ss2017/raw/master/til-vl-ss2017-notizen.pdf)**
 
-# Notizen Theoretische Informatik und Logik (Sommersemester 2017)
+# Theoretische Informatik und Logik (SS2017)
 
 Dieses Repo enthält meine Notizen zur Vorlesung TheoLog bei Prof. Krötzsch an der TU Dresden im Sommersemester 2017.
 Bei Fehlern oder Verbesserungen gerne ein Issue erstellen.

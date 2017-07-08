@@ -1,0 +1,127 @@
+\newpage
+\subsection*{Übung 6 (Komplexitätstheorie)}
+\subsubsection*{Aufgabe 1}
+    Wir betrachten das folgende Problem $K$: Gegeben eine aussagenlogische Formel $\varphi$ mit $n$ Variablen. Gibt es eine erfüllbare Belegung von $\varphi$, bei der mindestens die Hälfte aller in $\varphi$ vorkommenden Variablen mit $\MT{True}$ belegt sind?
+    \begin{enumerate}
+        \item Formalisieren Sie dieses Problem als Sprache und zeigen Sie, dass $K \in \NP$ gilt.
+        \item Zeigen Sie, dass $K$ ein NP-hartes Problem ist.
+    \end{enumerate}
+
+    \LOES
+    \begin{enumerate}
+        \item $K = \{\ enc(\varphi)\ |\ \varphi\ \text{aussagenlogische\ Formel,\ die\ eine\ erf"ullende\ Belegung\ hat,}$ \\
+            $\text{\ \ die\ mindestens\ die\ Hälfte\ der\ in\ $\varphi$\ vorkommenden\ Variablen\ auf\ $\MT{True}$\ setzt} \}$. \\
+
+            Was ist $\NP$? \hili{$\NP = \{\ L \subseteq \SIGS\ |\ L $ akzeptiert von NTM in polynomieller Zeit $\}$}. \\
+            Es gilt $K \in \NP$, da eine entsprechende erfüllende Belegung geraten und in polynomieller Zeit geprüft werden kann.
+
+        \item Wir müssen zeigen: alle Sprachen $L \in \NP$ können in polynomieller Zeit auf K reduziert werden, also $L \leq_{p} K$. Dazu genügt es zu zeigen, dass $SAT \leq_{p} K$ gilt. Dazu müssen wir in polynomieller Zeit zu einer aussagenlogischen Formel $\varphi$ eine aussagenlogische Formel $\varphi$ konstruieren, so dass $enc(\varphi) \in SAT \Leftrightarrow enc(\psi) \in K$.
+
+        Seien $x_{1}, \dots, x_{n}$ Variablen in $\varphi$ und $y_{1}, \dots, y_{n}$ neue Variablen. Definiere $\psi := \varphi \land y_{1} \land \dots \land y_{n}$.
+
+        Wir zeigen:
+
+        $\Rightarrow$: Sei $\phi$ erfüllbar. Sei $\beta$ eine erfüllende Belegung von $\varphi$. Dann ist $\beta'(z):{}
+        \begin{cases}
+            \beta(z)\ falls\ z \in \{ x_{1}, \dots, x_{n} \} \\
+            true\ falls\ z \in \{ y_{1}, \dots, y_{n} \}
+        \end{cases}$
+
+        Dann ist $\beta'(\psi) = True$ und $\beta'$ setzt mindestens die Hälfte der in $\psi$ vorkommenden Variablen auf $True (y_{1},\dots,y_{n})$. Also ist $enc(\psi) \in K$.
+
+        $\Leftarrow$: Sei $enc(\psi) \in K$. Dann ist $\psi$ erfüllbar, also auch $\varphi$ erfüllbar. Schließlich kann $\psi$ aus $\varphi$ in polynomieller Zeit konstruiert werden und es folgt $SAT \leq_{p} K$.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 2}
+    Im folgenden Solitaire-Spiel haben wir ein Spielbrett der Größe $m \times m$ gegeben. Als Ausgangsposition liegt auf jeder der $m^{2}$ Positionen entweder ein blauer Stein, ein roter Stein, oder gar nichts. Das Spiel wird nun so gespielt, dass Steine vom Brett genommen werden bis in jeder Spalte nur noch Steine einer Farbe liegen, und in jeder Zeile mindestens ein Stein liegen bleibt. In diesem Fall ist das Spiel gewonnen. Es ist möglich, dass man ausgehend von einer Ausgangsposition das Spiel nicht gewinnen kann.
+    \begin{enumerate}
+        \item Formalisieren Sie das Problem, für eine gegebene Ausgangsposition im Solitaire-Spiel zu entscheiden, ob es möglich ist, das Spiel zu gewinnen, als ein Entscheidungsproblem SOLITAIRE.
+        \item Zeigen Sie, dass $\MT{SOLITAIRE} \in \NP$ gilt.
+        \item Zeigen Sie, dass SOLITAIRE ein NP-hartes Problem ist, indem Sie zeigen, dass 3SAT in polynomieller Zeit auf SOLITAIRE reduzierbar ist.
+    \end{enumerate}
+
+    \LOES
+    \begin{enumerate}
+        \item $\MT{SOLITAIRE} = \{\ enc(f)\ |\ f: \{ 1,\dots,m \} \times \{ 1,\dots,m \} \to \{ blau, rot, nil \},$ \\
+            $\text{\ \ so,\ dass\ das\ Spiel\ mit\ Anfangsbelegung\ f\ gewinnbar\ ist} \}$.
+
+        \item $\MT{SOLITAIRE} \in \NP$, da als Zertifikat eine „Unterbelegung“ der Anfangsbelegung geraten werden kann, die eine Gewinnposition ist.
+            Der Test, ob dabei eine Gewinnbelegung vorliegt, lässt sich in polynomieller Zeit durchführen.
+
+\newpage
+        \item Zeigen SOLITAIRE NP-hart, Reduktion von 3SAT: $\MT{3SAT} \leq_{p} \MT{SOLITAIRE}$.
+
+            Sei $\varphi = \bigwedge\limits_{i=1}^{k} C_{i}$ eine 3CNF-Formel mit Klauseln $C_{1}, \dots, C_{k}$ und Variablen $x_{1}, \dots, x_{n}$.
+            Wir konstruieren eine Anfangsbelegung $f$ für SOLITAIRE wie folgt:
+            $f(i,j) =
+            \begin{cases}
+                \MT{blau\ falls\ } x_{j} \in C_{i} \\
+                \MT{rot\ falls\ } \neg x_{j} \in C_{i} \\
+                \MT{nil\ sonst}
+            \end{cases}$
+
+            Hierbei bezeichnet $i \in \{ 1,\dots,k \}$ die Klausel und $j \in \{ 1,\dots,n \}$ die Variable. Wir nehmen auch an, dass keine Klausel gleichzeitig $x$ und $\neg x$ enthält.
+
+            Dies ergibt ein $k \times n$ Spielbrett. Dieses Brett kann quadratisch gemacht werden durch Duplizieren von Zeilen oder Hinzufügen leerer Spalten.
+
+            Dann gilt: $\varphi$ ist erfüllbar gdw. das Spiel mit $f$ als Anfangsbelegung gewinnbar ist, \\
+            d.h. $enc(\varphi) \in 3SAT \Leftrightarrow enc(f) \in \MT{SOLITAIRE}$.
+
+            Behauptung: \hili{$\varphi$ erfüllbar $\Leftrightarrow f$ gewinnbar}
+
+            $\Rightarrow$: Sei $\varphi$ erfüllbar. Sei $\beta$ eine erfüllende Belegung von $\varphi$. Falls $\beta(x_{j}) = True$, entferne alle Steine aus der $j$-ten Spalte von $f$, die rot sind, andernfalls entferne alle blauen Steine. Sei $f'$ die daraus resultierende Brettposition.
+            Dann ist $f'$ eine Gewinnposition, da in jeder Zeile immer noch ein Stein liegt. Betrachte dazu Zeile $i$.
+            Dann ist $\beta(C_{i}) = True$, also gibt es ein Literal $l \in C_{i}$, mit $\beta(l) = True$. Ist $l$ wahr, d.h. $l = x_{j}$, dann liegt in $f$ auf Position $(i,j)$ ein blauer Stein.
+            Da $\beta(x_{j}) = \beta(l) = True$, liegt dieser Stein auch in $f'$ auf Position $(i,j)$. Also liegt in Zeile $i$ ein blauer Stein. Der Fall, dass $l$ nicht wahr ist, liefert analog, dass in Zeile $i$ ein roter Stein liegt. In jedem Fall liegt in Zeile $i$ ein Stein und damit ist $f'$ eine Gewinnposition.
+
+            $\Leftarrow$: Sei $f$ gewinnbar und sei $f'$ eine Gewinnposition für $f$.
+
+            Definiere Variablenbelegung $\beta$ mit $\beta(x_{j})
+            \begin{cases}
+                True\ \text{falls in Spalte $j$ ein blauer Stein liegt} \\
+                False\ \text{sonst (leere Spalten sind egal)}
+            \end{cases}$
+
+            Dann gilt $\beta(\varphi) = True$, da für jede Klausel $C_{i}$ gilt $\beta(C_{i}) = True$. Dies gilt, da in Zeile $i$ mindestens eine Position $(i,j)$ in $f'$ existiert, auf der ein Stein liegt. Ist dieser blau, dann ist $\beta(x_{j}) = True$ und $x_{j} \in C_{i}$ also $\beta(C_{i}) = True$, ist der Stein rot, so folgt analog $\beta(C_{i}) = True$.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 3}
+    Sei $\Sigma$ ein Alphabet und $A, B \subseteq \SIGS$. Wir sagen, dass $A$ auf $B$ in logarithmischen Platz reduzierbar ist, und schreiben $A \leq_{l} B$, falls es eine Many-One-Reduktion von $A$ nach $B$ gibt, die in logarithmischen Platz berechenbar ist. Zeigen Sie: gilt $A \leq_{l} B$ und $B \leq_{l} C$, dann gilt auch $A \leq_{l} C$. \\
+
+    \textit{Für diese Aufgabe ist eine Musterlösung gegeben, die Aufgabe wurde nicht in der Übung besprochen.}
+
+
+%~ \newpage
+\subsubsection*{Aufgabe 4}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\SESP}{\MT{SETSPLITTING}}
+
+    Wir betrachten das Problem SET-SPLITTING, welches für eine gegebene endliche Menge $S$ und eine Menge $\C = \{ C_{1}, \dots, C_{k}\}$ von Teilmengen von $S$ fragt, ob die Elemente von $S$ derart mit den Farben blau oder rot gefärbt werden können, so dass niemals alle Elemente einer Menge $C_{i}$ die gleiche Farbe bekommen. Zeigen Sie, dass SET-SPLITTING ein NP-vollständiges Problem ist. \\
+
+    \LOES Frage: ist $(S, \C)$ färbbar? \\
+    Behauptung: SET-SPLITTING ist NP-vollständig. \\
+    Beweis: $\SESP \in \NP$ da eine korrekte Färbung als Zertifikat in polynomieller Zeit geraten und überprüft werden kann. Wir zeigen $\MT{CNFSAT} \leq_{p} \SESP$.{}
+
+    Sei $\varphi = \bigwedge\limits_{i=1}^{k} C_{i}$ eine Formel in KNF. Wir konstruieren in polynomieller Zeit eine Instanz $(S_{\varphi}, \C_{\varphi})$ von SET-SPLITTING so, dass \hili{$\varphi$ erfüllbar $\Leftrightarrow (S_{\varphi}, \C_{\varphi})$ färbbar}.
+    Seien $x_{1}, \dots, x_{n}$ die in $\varphi$ vorkommenden Variablen. Definiere:
+    \begin{itemize}
+        \item $S_{\varphi} = \{ x_{1}, \dots, x_{n}, \neg x_{1}, \dots, \neg x_{n}, False \}$
+        \item $\C_{varphi} = \{ \{ x_{1}, \neg x_{1} \}, \dots, \{ x_{n}, \neg x_{n} \}, C_{1}', \dots C_{k}' \}$
+        \item $C_{i}' = C_{i} \cup \{ False \}$
+        \item $\varphi = (x_{1} \lor x_{2} \lor x_{3}) = (x_{1} \lor x_{2} \lor x_{3} \lor False)$
+    \end{itemize}
+
+    $\Leftarrow$: Sei $(S_{\varphi}, \C_{\varphi})$ färbbar und sei $f$ eine entsprechende Färbung (ohne Einschränkung sei $f(False) = rot$).
+
+    Definiere $\beta(x_{j}) =
+    \begin{cases}
+        True\ \text{falls $f(x_{j}) = blau$} \\
+        False\ \text{sonst}
+    \end{cases}$
+
+    Behauptung: $\beta(\varphi) = True$. Sei $C_{i}$ eine Klausel von $\varphi$. Dann gibt es in $C_{i}'$ ein Element, welches Blau gefärbt ist. Da $f(farbe) = rot$ muss also ein Literal $l \in C_{i}$ existieren mit $f(l) = blau$. Ist $l = \neg x_{j}$ dann ist wegen $\{ x_{j}, \neg x_{j} \} \in \C_{\varphi}$ $x_{j}$ rot gefärbt.
+    Also ist $\beta(x_{j}) = False$, $\beta(\neg x_{j}) = True$ und $\beta(C_{i}) = true$. % l = x_{j}
+
+    $\Rightarrow$: analog mit Tauschen der Farbe. Aufgabe wie 6.2 lösen.
