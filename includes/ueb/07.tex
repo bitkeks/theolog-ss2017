@@ -1,0 +1,94 @@
+\subsection*{Übung 7 (Komplexitätstheorie)}
+\subsubsection*{Aufgabe 1}
+    Zeigen Sie, dass PSpace unter Komplement, Durchschnitt, Vereinigung, Konkatenation und Kleene-Stern abgeschlossen ist. \\
+
+    \LOES \\
+    \hili{PSpace = es gibt eine DTM, die in polynomiellem Platz ein Problem entscheidet.} (kann auch Loop beinhalten)
+    \begin{enumerate}
+        \item Durchschnitt: sind $L_{1}, L_{2} \in PSpace$ dann auch $L_{1} \cap L_{2} \in PSpace$. Seien dazu $M_{1}$ und $M_{2}$ zwei platzbeschränkte DTM, die $L_{1}$ bzw. $L_{2}$ entscheiden.
+            Definiere M = bei Eingabe $w$
+            \begin{itemize}
+                \item simuliere $M_{1}$ auf $w$; verwerfe falls Simulation verwirft
+                \item simuliere $M_{2}$ auf $w$; verwerfe falls Simulation verwirft
+                \item akzeptiere
+            \end{itemize}
+            Dann ist $M$ polynomiell-platzbeschränkt, entscheidet $L_{1} \cap L_{2}$ und ist deterministisch.
+
+        \item Vereinigung: wie Durchschnitt, nur „verwirft“ und „akzeptiere“ vertauscht.
+
+        \item Komplement: $L \in PSpace$, $L = L(M)$, $M$ determinischer polynomiell-platzbeschränkter Entscheider.
+            Konstruiere neue Maschine $M'$ durch Vertauschen der Final- und Nichtfinalzustände. Dann ist $M'$ ein deterministisch polynomiell-platzbeschränkter Entscheider für $\SIGS \setminus L$ also $\SIGS \setminus L \in PSpace$.
+
+        \item Konkatenation: $L_{1}, L_{2} \in PSpace \Rightarrow L_{1} \circ L_{2} \in PSpace$ \\
+            $L_{1} = L(M_{1})$, $L_{2} = L(M_{2})$
+
+            $M =$ bei Eingabe $w$
+            \begin{itemize}
+                \item Für alle Belegungen $w = w_{1} w_{2}$ (Raten einer Zerlegung ist NPSpace, laut Savitch gleich PSpace)
+                \item Simuliere $M_{1}$ auf $w_{1}$
+                \item Simuliere $M_{2}$ auf $w_{2}$
+                \item Akzeptiere, falls beide akzeptieren
+                \item Verwerfe, sonst
+            \end{itemize}
+
+        \item Kleene-Stern: wie Konkatenation, nur mit $w=w_{1},\dots,w_{n}$ (wobei $n$ beliebig, maximal $|w|$), d.h. alle Teilstrings durchprobieren mit maximal $n$ DTM.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 2}
+    Gomoku ist auch bekannt als „Fünf gewinnt“.
+
+    %~ Wir betrachten das japanische Spiel Gomoku, welches von zwei Spielern X und O auf einem
+    %~ 19×19-Brett gespielt wird. Die Spieler setzen abwechselnd ihre Steine auf das Brett, und
+    %~ derjenige Spieler, der zuerst fünf Steine in einer Reihe (horizontal, vertikal, oder diagonal)
+    %~ gelegt hat, gewinnt. Spieler X beginnt.
+    %~ Verallgemeinertes Gomoku wird statt auf einem Brett fester Größe auf einem beliebigen
+    %~ n×n-Brett gespielt. Eine Position in diesem Spiel ist eine Belegung der Felder des Spielbretts
+    %~ 1mit Steinen der Spieler X und O, wie sie in einem wirklichen Spiel auftreten könnte. Sei
+
+    \hili{$GM := \{\ enc(B)\ |\ B \text{ ist eine Position im verallgemeinerten Gomoku, in der X eine Gewinnstrategie hat } \}$}, wobei $enc(B)$ die zeilenweise Kodierung der Position $B$ über einem festen Alphabet ist. Zeigen Sie $GM \in PSpace$. \\
+
+    \LOES Wir verwenden hierzu einen Baum, der vom Knotenpunkt B abgehend die möglichen Züge von X darstellt. Diese erste Ebene von Positionen, welche nach dem entsprechenden X-Zug entstehen, ist mit dem Existenzquantor markiert. Abgehend von einer Position gibt es nun weitere Baumblätter für die Züge von O, markiert mit dem Allquantor. Danach wieder X/$\exists$ und so weiter. All diese Positionen bedürfen maximal $\leq n^{2}$ Platz.
+    \begin{itemize}
+        \item Rekursive Definition finden für „gewinnbare Position“
+            \begin{itemize}
+                \item ist die Position für X bereits gewonnen, dann ist sie gewinnbar
+                \item wenn X am Zug, dann ist Position gewinnbar, falls es einen Zug für X gibt, der in einer gewinnbaren Position mündet
+                \item wenn O am Zug, dann ist Position gewinnbar, falls alle Züge zu einer gewinnbaren Position führen
+            \end{itemize}
+
+        \item Rekursive Auswertung, ob die Wurzel B gewinnbar ist mittels "Tiefensuche". Dies benötigt höchstens so viel Platz, wie der längste Ast im Spielbaum von B lang ist und das ist höchstens $O(n^{2} \cdot log\ n)$.
+
+    \end{itemize}
+
+
+\subsubsection*{Aufgabe 3}
+    Welche der folgenden QBF-Formeln (quantified boolean formula) sind erfüllbar? Begründen Sie Ihre Antwort.
+    \begin{enumerate}
+        \item $W(\exists p_{1}.p_{1}) = W(p_{1}[p_{1}/\top] \lor W(p_{1}[p_{1}/\bot]))${}
+        \item $W(\forall p_{1}.p_{1}) = \dots \land \dots = 1 \land 0 = 0$
+        \item $W(\exists p_{1}.\bot) = 0$
+        \item $\forall p_{1}.\exists p_{2}. p_{2} \to p_{1}$: Baum zeichnen, ist erfüllbar
+        \item $\forall p_{1}. \exists p_{2}. \forall p_{3}. (p_{1} \lor p_{2}) \land p_{3}$: Baum zeichnen
+        \item Trivial, nur $\lor \neg p_{3}$ betrachten.
+    \end{enumerate}
+
+
+\subsubsection*{Aufgabe 4}
+    \textit{Diese Aufgabe war optional und wurde in der Übung nicht behandelt. Es gibt eine Musterlösung.}
+
+
+%~ a) ∃p 1 .p 1
+%~ b) ∀p 1 .p 1
+%~ c) ∃p 1 .⊥
+%~ d) ∀p 1 .∃p 2 .p 2 → p 1
+%~ e) ∀p 1 .∃p 2 .∀p 3 .(p 1 ∨ p 2 ) ∧ p 3
+%~ f) ∀p 1 .∀p 2 .∃p 3 .∀p 4 .(p 1 ∧ p 2 → p 4 ) ∨ ¬p 3
+%~ Aufgabe 4
+%~ Ein linear bounded automaton (LBA) ist eine deterministische Turing Maschine M , die bei
+%~ jeder Berechnung niemals mehr Platz benutzt als bereits durch die Eingabe belegt ist. Dies
+%~ erreicht M dadurch, dass sie niemals ein überschreibt und den Lesekopf nach links bewegt,
+%~ sobald sie ein liest.
+%~ Zeigen Sie, dass das Wortproblem für LBA
+%~ P LBA := { enc(M)## enc(w ) | M ein LBA, der w akzeptiert }.
+%~ ein PSpace-vollständiges Problem ist.
