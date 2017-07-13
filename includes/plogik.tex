@@ -2,6 +2,7 @@
 \newcommand{\ZUW}{\mathcal{Z}}
 \newcommand{\FM}{\mathcal{T}}
 \newcommand{\HU}{\Delta_{F}}
+\newcommand{\HE}{\MT{HE}}
 
 
 \section{Prädikatenlogik}
@@ -127,7 +128,7 @@ Formeln können mit Hilfe von syntaktischen Umformungen umgeformt und vereinfach
     Zusammenfassend lassen sich demnach logische Konsequenzen auf diese Probleme reduzieren und da CFG unentscheidbar gilt auch: Logisches Schließen (Erfüllbarkeit, Allgemeingültigkeit, logische Konsequenz) in der Prädikatenlogik ist unentscheidbar. \vl{TIL 15}
 
 \subsection{Gödel}
-    Gödelscher Vollständigkeitssatz und Unvollständigkeitssätze. \vl{TIL 15}
+    Gödelscher Vollständigkeitssatz und Unvollständigkeitssätze. \vl{TIL 15} \vl{TIL 21}
     \begin{description}
         \item[Gödelscher Vollständigkeitssatz] „Es gibt ein konsistentes Verfahren, das alle Konsequenzen einer prädikatenlogischen Theorie effektiv beweisen kann.“ (1) Alle wahren Sätze können endlich bewiesen werden. (2) Prädikatenlogisches Schließen ist semi-entscheidbar.
         \item[1. Gödelscher Unvollständigkeitssatz] „Es gibt kein konsistentes Verfahren, das alle Konsequenzen der elementaren Arithmetik effektiv beweisen kann.“ (1) Für jedes Verfahren gibt es Sätze über elementare arithmetische Zusammenhänge, die weder bewiesen noch widerlegt werden können. (2) Die Wahrheit elementarer arithmetischer Zusammenhänge ist nicht semi-entscheidbar.
@@ -217,7 +218,7 @@ Formeln können mit Hilfe von syntaktischen Umformungen umgeformt und vereinfach
             (3) $\{ L(x_{2}')\}$ \textcolor{blue}{(1) + (2), $\{ x_{1} \mapsto a \}$} \\
             %~ \textit{(Dieses Beispiel zeigt nicht die vollständige Resolution mit einer leeren Klausel)}
 
-        \item[Herbrand] Herbranduniversum, Herbrandinterpretationen und Herbrandmodelle. \vl{TIL 19} \\
+        \item[Herbrand] Herbrand-Universum, Herbrandinterpretationen und Herbrandmodelle. \vl{TIL 19} \\
             Das Herbranduniversum ist eine Erzeugung einer „Semantik aus Syntax“, einer Konstruktion von Modellen direkt aus Formeln.
 
             Sei $a$ eine beliebige Konstante. Das Herbranduniversum $\HU$ für eine Formel $F$ ist die Menge aller variablenfreien Terme, die man mit Konstanten und Funktionssymbolen in $F$ und der zusätzlichen Konstante $a$ bilden kann:
@@ -229,12 +230,30 @@ Formeln können mit Hilfe von syntaktischen Umformungen umgeformt und vereinfach
             Anmerkung: Das Herbrand-Universum ist immer abzählbar, manchmal endlich und niemals leer. \\
             Beispiel: Für die Formel $F = p(f(x), y, g(z))$ ergibt sich $\HU = \{a, f(a), g(a), f(f(a)), f(g(a)), \dots \}$.
 
+\newpage
             Eine Herbrandinterpretation für eine Formel $F$ ist eine Interpretation $\INT$ für die gilt:
             \begin{itemize}
                 \item $\Delta^{\INT} = \HU$ ist das Herbrand-Universum von $F$
                 \item Für jeden Term $t \in \HU$ gilt $t^{\INT} = t$
             \end{itemize}
+            D.h. Prädikate können wie in einer üblichen Interpretation unterschiedliche Werte erhalten.
+
             $\INT$ ist ein Herbrandmodell für $F$ wenn zudem gilt $\INT \models F$.
 
+            Die \f{Herbrand-Expansion} $\HE(F)$ einer Formel $F = \forall x_{1}, \dots, x_{n}.G$ in Skolemform ist die Menge:
+                $\HE(F) := \{ G\{x_{1} \mapsto t_{1}, \dots, x_{n} \mapsto t_{n} \}\ |\ t_{1},\dots,t_{n} \in \delta_{F}\ \}$
+
+            Satz von Gödel, Herbrand und Skolem: Eine Formel $F$ in Skolemform ist genau dann erfüllbar, wenn $\HE(F)$ aussagenlogisch erfüllbar ist.
+
+        \item[Lifting-Lemma] Seien $K_{1}$ und $K_{2}$ prädikatenlogische Klauseln mit Grundinstanzen $K_{1}' = K_{1} \sigma$ und $K_{2}' = K_{2} \sigma$. Wenn $R'$ eine (aussagenlogische) Resolvente von $K_{1}'$ und $K_{2}'$ ist, dann gibt es eine prädikatenlogische Resolvente $R$, welche $R'$ als Grundinstanz hat. \vl{TIL 20}
+
+        \item[Kompaktheit] Satz (Endlichkeitssatz, Kompaktheitssatz): Falls eine unendliche Menge prädikatenlogischer Sätze $\mathcal{T}$ eine logische Konsequenz $F$ hat, so ist $F$ auch Konsequenz einer endlichen Teilmenge von $\mathcal{T}$.
+
+        \item[Endliche Modelle] Satz von \f{Löwenheim und Skolem}: „Jede erfüllbare prädiktenlogische Formel hat ein abzählbares Modell (d.h. eines mit abzählbarer Domäne).“ (aber: nicht jede Formel hat ein endliches Modell!). \vl{TIL 20}
+
+            Beispiel anhand von relationalen Datenbanken in \vl{TIL 20}
+
+        \item[Model Checking] Das Auswertungsproblem (Model Checking) der Prädikatenlogik lautet wie folgt: \\
+            Gegeben: Eine Formel $Q$ mit freien Variablen $x_{1}, \dots, x_{n}$; eine endliche Interpretation $\INT$; Elemente $\delta_{1}, \dots, \delta_{n} \in \Delta^{\INT}$. Frage: Gilt $\INT$, $\{x_{1} \mapsto \delta_{1}, \dots, x_{n} \mapsto \delta_{n} \} \models Q$?
 
     \end{description}
