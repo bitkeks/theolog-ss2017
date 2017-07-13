@@ -30,7 +30,7 @@
     \LOES Wir setzen hier den Satz von Rice über die Unentscheidbarkeit von Eigenschaften von Sprachen an. (\textit{Wichtig! Nicht Eigenschaften von Maschinen!}) \\
     Wir betrachten den Fall $T_{1}$. $T_{1}$ ist nach Satz von Rice unentscheidbar. \\
     Was ist in diesem Falle die Eigenschaft $E$? Definition für $L \subset \SIGS$. \\
-    \hili{$L$ erfüllt $E \Longleftrightarrow$ es gibt eine TM $N$ mit einem Zustand, so dass $L(N) = L$}. Dann ist $E$ Eigenschaft von Sprachen. Bemerkung: ist $L$ nicht semi-entscheidbar (benötigt für Satz von Rice!), dann gibt es keine TM $N$  mit $L = L(M)$. Also erfüllt $L$ die Eigenschaft $E$ nicht. \\
+    \boxed{L$ erfüllt $E \Longleftrightarrow$ es gibt eine TM $N$ mit einem Zustand, so dass $L(N) = L}. Dann ist $E$ Eigenschaft von Sprachen. Bemerkung: ist $L$ nicht semi-entscheidbar (benötigt für Satz von Rice!), dann gibt es keine TM $N$  mit $L = L(M)$. Also erfüllt $L$ die Eigenschaft $E$ nicht. \\
     $E$ ist nicht-trivial: $L = \emptyset$ funktioniert, TM hat keinen Endzustand. $L = \{ aa \}$ jedoch funktioniert nicht, da mit nur einem Zustand nicht gezählt werden kann.
     Also ist nach Satz von Rice die Maschine $T_{1}$ unentscheidbar. \\
     Da das Problem bereits für $k=1$ unentscheidbar ist, ist es auch für beliebige $k$ unentscheidbar. \\
@@ -48,8 +48,8 @@
     \LOES Angenommen $\paq$ wäre semi-entscheidbar. Dann $\overline{\paq}$ co-semi-entscheidbar. \\ Da $\phalt \leq_{m} \overline{\paq}$ muss auch $\phalt$ co-semi-entscheidbar. Widerspruch! Also ist $\overline{\paq}$ nicht semi-entscheidbar. \\
     Selbige Heransgehensweise gilt für die entsprechenden Komplemente. \\
 
-    Wir zeigen $\phalt \leq_{m} \paq$. Dafür geben wir eine berechenbare Funktion $f: \SIGS \to \SIGS$ an, so dass \hili{$enc(M) \#\# enc(w) \in \phalt \Leftrightarrow f(enc(M) \#\# enc(w)) \in \paq$} für $M$ Turingmaschine und $w$ Eingabe.
-    Dafür müssten wir zwei TM $M_{1}$ und $M_{2}$ finden, so dass gilt: \hili{$M$ hält auf $w \Leftrightarrow L(M_{1}) = L(M_{2})$}.
+    Wir zeigen $\phalt \leq_{m} \paq$. Dafür geben wir eine berechenbare Funktion $f: \SIGS \to \SIGS$ an, so dass \boxed{enc(M) \#\# enc(w) \in \phalt \Leftrightarrow f(enc(M) \#\# enc(w)) \in \paq} für $M$ Turingmaschine und $w$ Eingabe.
+    Dafür müssten wir zwei TM $M_{1}$ und $M_{2}$ finden, so dass gilt: \boxed{M$ hält auf $w \Leftrightarrow L(M_{1}) = L(M_{2})}.
     Seien also $M$ und $w$ wie oben. \\
 
     Dafür setzen wir $M_{1} =$ bei Eingabe $w$
@@ -62,6 +62,6 @@
         \item akzeptiere (bedeutet $M$ hat gehalten. Andernfalls würde $M$ nicht halten)
     \end{itemize}
     Bedeutet: $L(M_{2})$ ist $\SIGS$, falls $M$ auf $w$ hält. Sonst $L(M_{2}) = \emptyset$. \\
-    Dann gilt: \hili{$M$ hält auf $w \Leftrightarrow L(M_{2}) = \SIGS = L(M_{1})$}. \\
-    Daher ist \hili{$f(enc(M) \#\# enc(w)) := enc(M_{1})\#\# enc(M_{2})$} eine Reduktion von $\phalt$ auf $\paq$. \\
+    Dann gilt: \boxed{M$ hält auf $w \Leftrightarrow L(M_{2}) = \SIGS = L(M_{1})} \\
+    Daher ist \boxed{f(enc(M) \#\# enc(w)) := enc(M_{1})\#\# enc(M_{2})} eine Reduktion von $\phalt$ auf $\paq$. \\
     Die Reduktion $\phalt \leq_{m} \overline{\paq}$ verläuft analog.

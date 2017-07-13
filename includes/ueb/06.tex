@@ -12,7 +12,7 @@
         \item $K = \{\ enc(\varphi)\ |\ \varphi\ \text{aussagenlogische\ Formel,\ die\ eine\ erf"ullende\ Belegung\ hat,}$ \\
             $\text{\ \ die\ mindestens\ die\ Hälfte\ der\ in\ $\varphi$\ vorkommenden\ Variablen\ auf\ $\MT{True}$\ setzt} \}$. \\
 
-            Was ist $\NP$? \hili{$\NP = \{\ L \subseteq \SIGS\ |\ L $ akzeptiert von NTM in polynomieller Zeit $\}$}. \\
+            Was ist $\NP$? \boxed{\NP = \{\ L \subseteq \SIGS\ |\ L $ akzeptiert von NTM in polynomieller Zeit $\}}. \
             Es gilt $K \in \NP$, da eine entsprechende erfüllende Belegung geraten und in polynomieller Zeit geprüft werden kann.
 
         \item Wir müssen zeigen: alle Sprachen $L \in \NP$ können in polynomieller Zeit auf K reduziert werden, also $L \leq_{p} K$. Dazu genügt es zu zeigen, dass $SAT \leq_{p} K$ gilt. Dazu müssen wir in polynomieller Zeit zu einer aussagenlogischen Formel $\varphi$ eine aussagenlogische Formel $\varphi$ konstruieren, so dass $enc(\varphi) \in SAT \Leftrightarrow enc(\psi) \in K$.
@@ -68,7 +68,7 @@
             Dann gilt: $\varphi$ ist erfüllbar gdw. das Spiel mit $f$ als Anfangsbelegung gewinnbar ist, \\
             d.h. $enc(\varphi) \in 3SAT \Leftrightarrow enc(f) \in \MT{SOLITAIRE}$.
 
-            Behauptung: \hili{$\varphi$ erfüllbar $\Leftrightarrow f$ gewinnbar}
+            Behauptung: \boxed{\varphi$ erfüllbar $\Leftrightarrow f$ gewinnbar$}
 
             $\Rightarrow$: Sei $\varphi$ erfüllbar. Sei $\beta$ eine erfüllende Belegung von $\varphi$. Falls $\beta(x_{j}) = True$, entferne alle Steine aus der $j$-ten Spalte von $f$, die rot sind, andernfalls entferne alle blauen Steine. Sei $f'$ die daraus resultierende Brettposition.
             Dann ist $f'$ eine Gewinnposition, da in jeder Zeile immer noch ein Stein liegt. Betrachte dazu Zeile $i$.
@@ -104,7 +104,7 @@
     Behauptung: SET-SPLITTING ist NP-vollständig. \\
     Beweis: $\SESP \in \NP$ da eine korrekte Färbung als Zertifikat in polynomieller Zeit geraten und überprüft werden kann. Wir zeigen $\MT{CNFSAT} \leq_{p} \SESP$.{}
 
-    Sei $\varphi = \bigwedge\limits_{i=1}^{k} C_{i}$ eine Formel in KNF. Wir konstruieren in polynomieller Zeit eine Instanz $(S_{\varphi}, \C_{\varphi})$ von SET-SPLITTING so, dass \hili{$\varphi$ erfüllbar $\Leftrightarrow (S_{\varphi}, \C_{\varphi})$ färbbar}.
+    Sei $\varphi = \bigwedge\limits_{i=1}^{k} C_{i}$ eine Formel in KNF. Wir konstruieren in polynomieller Zeit eine Instanz $(S_{\varphi}, \C_{\varphi})$ von SET-SPLITTING so, dass \boxed{\varphi$ erfüllbar $\Leftrightarrow (S_{\varphi}, \C_{\varphi})$ färbbar$}.
     Seien $x_{1}, \dots, x_{n}$ die in $\varphi$ vorkommenden Variablen. Definiere:
     \begin{itemize}
         \item $S_{\varphi} = \{ x_{1}, \dots, x_{n}, \neg x_{1}, \dots, \neg x_{n}, False \}$

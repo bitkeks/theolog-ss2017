@@ -24,7 +24,7 @@
     Zeigen: Färbbarkeit von Graphen NP-vollständig. \\
 
     \LOES \\
-    Formalisierung des Problems: \hili{$SP = \{\ enc(P, S, f, h)\ |\ \text{es existiert ein Plan für $(P, S, f)$ mit $h$ Zeitslots}\}$}. Hierbei Funktion $f: P \mapsto \POT(S)$, Zuordnung Studierende auf jeweilige Prüfungen.
+    Formalisierung des Problems: \boxed{SP = \{\ enc(P, S, f, h)\ |\ \text{es existiert ein Plan für $(P, S, f)$ mit $h$ Zeitslots}\}} Hierbei Funktion $f: P \mapsto \POT(S)$, Zuordnung Studierende auf jeweilige Prüfungen.
 
     $SP \in \NP$. Rate Plan $g: P \mapsto \{\ 1, \dots, h\ \}$. Prüfe, ob Plan gültig.
 
@@ -39,7 +39,7 @@
         \epsilon sonst
     \end{cases}$
 
-    Reduktion: \hili{$G$ ist $k$-färbbar $\Leftrightarrow$ es existiert ein Plan für $(V,E,f)$ mit $k$ Zeitslots.}
+    Reduktion: \boxed{G$ ist $k$-färbbar $\Leftrightarrow$ es existiert ein Plan für $(V,E,f)$ mit $k$ Zeitslots.$}
 
     „$\Rightarrow$“ $\exists h$: $V \to \{\ 1, \dots, k\ \}$ gültige Färbung von $G$. $\to h$ ist Plan für $(V,E,f)$, da $P_{1} \neq P_{2}$. $S \in f(P_{1})$ und $S \in f(P_{2})$. $\Rightarrow S = (P_{1}, P_{2})$ oder $S=(P_{2}, P_{1})$. $\Rightarrow h(P_{1}) \neq h(P_{2})$
 
@@ -55,7 +55,7 @@
 
     \LOES \\
     $\prspec{poly} = \{\ enc(M) \#\# enc(k)\ |\ M \text{ läuft in } O(n^{k})\ \}$. Wobei $n$ Länge der Eingabe.\\
-    Wir suchen nun die Reduktion $\phalt \leq_{m} \prspec{poly}$ um \hili{$M$ hält auf $w \Leftrightarrow M'$ läuft in $O(n^{2})$} zu konstruieren. \\
+    Wir suchen nun die Reduktion $\phalt \leq_{m} \prspec{poly}$ um \boxed{M$ hält auf $w \Leftrightarrow M'$ läuft in $O(n^{2})} zu konstruieren. \\
     TM: $enc(M) \#\# enc(w) \mapsto enc(M') \#\# enc(2)$ (hier $k = 2 \in \N$ fest gewählt). \\
 
     $M'(U) = $ simuliere $M$ auf $w$ in $|U|^{2}$ Schritten ($|U| = n$).

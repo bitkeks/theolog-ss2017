@@ -46,7 +46,7 @@
     %~ n×n-Brett gespielt. Eine Position in diesem Spiel ist eine Belegung der Felder des Spielbretts
     %~ 1mit Steinen der Spieler X und O, wie sie in einem wirklichen Spiel auftreten könnte. Sei
 
-    \hili{$GM := \{\ enc(B)\ |\ B \text{ ist eine Position im verallgemeinerten Gomoku, in der X eine Gewinnstrategie hat } \}$}, wobei $enc(B)$ die zeilenweise Kodierung der Position $B$ über einem festen Alphabet ist. Zeigen Sie $GM \in PSpace$. \\
+    \boxed{GM := \{\ enc(B)\ |\ B \text{ ist eine Position im verallgemeinerten Gomoku, in der X eine Gewinnstrategie hat } \}}, wobei $enc(B)$ die zeilenweise Kodierung der Position $B$ über einem festen Alphabet ist. Zeigen Sie $GM \in PSpace$. \\
 
     \LOES Wir verwenden hierzu einen Baum, der vom Knotenpunkt B abgehend die möglichen Züge von X darstellt. Diese erste Ebene von Positionen, welche nach dem entsprechenden X-Zug entstehen, ist mit dem Existenzquantor markiert. Abgehend von einer Position gibt es nun weitere Baumblätter für die Züge von O, markiert mit dem Allquantor. Danach wieder X/$\exists$ und so weiter. All diese Positionen bedürfen maximal $\leq n^{2}$ Platz.
     \begin{itemize}
