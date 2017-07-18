@@ -1,0 +1,185 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tgpagella}
+\usepackage{marginnote}
+\usepackage{nameref}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{enumitem}
+\usepackage{sectsty}
+\usepackage{wrapfig}
+\usepackage{listings}
+
+\usepackage[
+    pdfauthor={Dominik Pataky},
+    pdftitle={Theoretische Informatik und Logik},
+    pdfsubject={Notizen und Begriffsklärungen aus dem Sommersemester 2017, TU Dresden},
+    colorlinks=true,linkcolor=black,urlcolor=link]{hyperref}
+
+\definecolor{light-gray}{gray}{0.9}
+\definecolor{light-red}{RGB}{255,105,105}
+\definecolor{vl}{RGB}{84,200,70}
+\definecolor{link}{RGB}{84,100,220}
+\definecolor{sectionblue}{RGB}{0,64,114}
+\definecolor{subsectionblue}{RGB}{0,94,167}
+\definecolor{subsubsectionblue}{RGB}{0,110,195}
+
+% set enumeration style
+\setlist[enumerate, 1]{label=\textbf{\alph*)}, leftmargin=2em}
+\setlist{itemsep=0em}
+
+% Small line under top header
+\renewcommand{\headrulewidth}{0.1pt}
+
+% Formatting macros
+\newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
+\newcommand{\f}[1]{\textbf{#1}}
+\newcommand{\blank}{\text{\textvisiblespace}}
+\newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
+\newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
+\newcommand{\LOES}{\f{Lösung:~}}
+% Problems
+\newcommand{\prob}[1]{\textbf{#1}}
+\newcommand{\prspec}[1]{\prob{P}_{\text{#1}}}
+\newcommand{\phalt}{\prspec{halt}}
+\newcommand{\paq}{\prspec{äquiv}}
+% Math sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\POT}{\mathcal{P}}
+% Shortcuts
+\newcommand{\TMM}[1]{\mathcal{M}_{#1}}
+\newcommand{\LANG}{\mathcal{L}}
+\newcommand{\SIGS}{\Sigma^{*}}
+% Math texts
+\newcommand{\MT}[1]{\mathit{#1}}
+\newcommand{\NP}{\MT{NP}}
+
+
+\begin{document}
+
+\subsection*{Übung 10 (Allgemeinster Unifikator, Resolution)}
+\subsubsection*{Aufgabe 1}
+Bestimmen Sie jeweils einen allgemeinsten Unifikator der folgenden Gleichungsmengen, oder begründen Sie, warum kein allgemeinster Unifikator existiert. Verwenden Sie hierfür den Algorithmus aus der Vorlesung. Dabei sind $x,y$ Variablen und $a,b$ Konstanten.
+\begin{enumerate}
+\item $\{ f(x) \dot{=} g(x,y), y \dot{=} f(a) \}$ \\
+\LOES Der Algorithmus besteht aus 4 Regeln: 
+\begin{itemize}
+\item Löschen: $t=t$
+\item Orientieren: $t=x \mapsto x=t$
+\item Zerlegen: $f(t_1,\dots,t_n) = f(s_1,\dots,s_n) \mapsto t_1=s_1,\dots, t_n=s_n$
+\item Einsetzen (Eliminieren): $x=t$ in anderer Gleichung einsetzen, falls $x$ nicht vorkommt.
+\end{itemize}
+\begin{equation*}
+\{ f(x) = g(x,y), y = f(a) \} \rightarrow_{einsetzen} \{ f(x) = g(x,f(a)), y = f(a) \}
+\end{equation*}
+Keine weitere Regel anwendbar und Menge nicht in gelöster Form. \\
+Also gibt es keinen (allgemeinsten) Unifikator.
+\item $\{ f(g(x,y)) \dot{=} f(g(a,h(b))) \}$ \\
+\LOES 
+\begin{equation*}
+\{ f'(g(x,y)) = f'(g(a,h(b))) \} \rightarrow_{zerlegen} \{g(x,y) = g(a,h(b)) \rightarrow_{zerlegen} \{x=a, y=h(b)\}
+\end{equation*}
+Keine weitere Regel anwendbar und Menge in gelöster Form. \\
+Ein allgemeinster Unifikator ist $\{x \mapsto a, y \mapsto h(b) \}$
+\item $\{ f(x,y) \dot{=} x, y \dot{=} g(x) \}$ \\
+\LOES
+\begin{equation*}
+\{ f(x,y) = x, y = g(x) \} \rightarrow_{orientieren} \{x=f(x,y), y=g(x)\} \rightarrow_{einsetzen} \{x = f(x,g(x)), y= g(x) \}
+\end{equation*}
+Keine weitere Regel anwendbar. \\
+Menge nicht in gelöster Form.
+\item $\{ f(g(x),y) \dot{=} f(g(x),a), g(x) \dot{=} g(h(a)) \}$ \\
+\LOES
+\begin{equation*}
+\{ f(g(x),y) = f(g(x),a), g(x) = g(h(a)) \} \rightarrow_{zerlegen} \{ g(x) = g(x), y=a, g(x) = g(h(a)) \} \rightarrow_{zerlegen} \{ g(x) = g(x), y=a, x=h(a) \} \rightarrow_{löschen} \{y=a, x=h(a) \}
+\end{equation*}
+Fertig, in gelöster Form, ein allg. Unifikator ist $\{y \mapsto a, x \mapsto h(a) \}$.
+\item Zusatz. $\{x\dot{=}a, x\dot{=}h(a)\}$  \\
+\LOES
+\begin{equation*}
+\{x=a, x=h(a)\} \rightarrow_{einsetzen} \{h(a) = a, x=h(a) \}
+\end{equation*}
+Nicht in gelöster Form.
+\item Zusatz. $\{x\dot{=}z, y\dot{=}h(z)\}$  \\
+\LOES
+In gelöster Form. Unifikator $\{ x \mapsto z, y \mapsto h(z) \}$
+\end{enumerate}
+\subsubsection*{Aufgabe 2}
+Zeigen Sie mittels prädikatenlogischer Resolution folgende Aussagen: 
+\begin{enumerate}
+\item Die Aussage \glqq Der Professor ist glücklich, wenn alle seine Studenten Logik mögen\grqq \\
+hat als Folgerung \glqq Der Professor ist glücklich, wenn er keine Studenten hat\grqq. \\
+\LOES Wir verwenden folgendes Vokabular: $\{\text{glücklich}/1, \text{magLogik}/1, \text{student}/1, \text{prof}(Konstante)\}$ 
+\begin{align*}
+F_1 &= \forall x.(\text{student}(x) \to \text{magLogik}(x)) \to \text{glücklich}(prof) \\
+F_2 &= \neg \exists x.\text{student}(x) \to \text{glücklich}(prof)
+\end{align*} 
+\underline{Ziel}: Zeige $F_1 \models F_2$. Zeige dazu, $\{F_1, \neg F_2\}$ ist unerfüllbar. \\
+\underline{Normalformen}: 
+\begin{align*}
+F_1 &= \forall x.(\neg\text{student}(x) \lor \text{magLogik}(x) \to \text{glücklich}(prof) \\
+&\equiv \neg \forall x.(\neg \text{student}(x) \lor \text{magLogik}(x) \lor \text{glücklich}(prof) \\
+&\equiv \exists x.((\text{student}(x) \land \neg \text{magLogik}(x)) \lor \text{glücklich}(prof) \qquad \text{Pränexform} \\
+&=_{Skolem} (\text{student}(c) \land \neg \text{magLogik}(c)) \lor \text{glücklich(prof)} \\ 
+&\equiv (\text{student}(c) \lor \text{glücklich}(prof)) \land (\neg \text{magLogik}(c) \lor \text{glücklich}(prof)) \\
+\neg F_2 &= \neg (\neg \exists x.\text{student}(x) \to \text{glücklich}(prof)) \\
+&\equiv \neg (\exists x.\text{student}(x) \lor \text{glücklich}(prof)) \\
+&\equiv \forall x.(\neg \text{student}(x) \land \neg \text{glücklich}(prof))
+\end{align*}
+Klauselmenge: 
+\begin{align*}
+\{&\{\text{student}(c), \text{glücklich}(prof)\}^{(1)}, \{\neg\text{magLogik}(c),\text{glücklich}(prof)\}^{(2)}, \\ 
+&\{\neg\text{student}(x)\}^{(3)}, \{\neg\text{glücklich}(prof)\}^{(4)}\}
+\end{align*}
+Resolution:
+\begin{align*}
+(5) &= (1) + (4) \text{ ergibt } \{\text{student}(c)\} \\
+(6) &= (3) + (5) \text{ mit Unifikator } \{x \mapsto c\} \text{ ergibt } \bot
+\end{align*}
+Also ist $\{F_1, \neg F_2\}$ unerfüllbar und es gilt $F_1 \models F_2$
+\item Die Formulierung des Barbier-Paradoxons aus Aufgabe 4 von Blatt 9 ist unerfüllbar. \\
+\LOES 
+\begin{align*}
+F &= \forall x.(rasiert(barbier, x) \leftrightarrow \neg rasiert(x,x) \\
+&= \forall x.((rasiert(barbier,x) \lor rasiert(x,x)) \land (\neg rasiert(barbier,x) \lor \neg rasiert(x,x)))
+\end{align*}
+Klauseln:
+\begin{equation*}
+\{\{rasiert(barbier,x),rasiert(x,x)\}^{(1)}, \{\neg rasiert(barbier, x), \neg rasiert(x,x)\}^{(2)}\}
+\end{equation*}
+Resolution: $(1) + (2)$ mit Unifikator $\{x \mapsto barbier\}$ ergibt $\bot$
+\item In Aufgabe V folgt die letzte Aussage aus den ersten drei. (Zur Vereinfachung darf hier angenommen werden, dass alle Individuen Drachen sind.) \\
+\LOES
+\begin{align*}
+F_1 &:= \forall x.(\forall y.(\text{kind}(x,y) \to \text{fliegen}(y)) \to \text{glücklich}(x)) \\
+F_2 &:= \forall x.(\text{grün}(x) \to \text{fliegen}(x)) \\
+F_3 &:= \forall x.(\exists y(\text{kind}(y, x) \land \text{grün}(y)) \to \text{grün}(x)) \\
+F_4 &:= \forall x.(\text{grün}(x) \to \text{glücklich}(x))
+\end{align*}
+Klauselmenge (nach umformulieren):
+\begin{align*}
+\{&\{\text{kind}(x,f(x)), \text{glücklich}(x)\}^{(1)},\{\neg\text{fliegen}(f(x)), \text{glücklich}(x)\}^{(2)}, \\
+&\{\neg\text{grün}(x), \text{fliegen}(x)\}^{(3)}, \{\neg\text{kind}(y,x), \neg\text{grün}(y), \text{grün}(x) \}^{(4)}, \\
+&\{\text{grün}(c)\}^{(5)}, \{\neg\text{glücklich}(c)\}^{(6)}\}
+\end{align*}
+Resolution: 
+\begin{align*}
+(7) = (1)+(4) & \text{ Variante von } (4): \{\neg \text{kind}(z,w), \neg\text{grün}(z),\text{grün}(w)\} \\
+& \text{ Unifikator } \{z \mapsto x, w \mapsto f(x)\} \text{ ergibt Resolvente } \{\text{glücklich}(x),\neg\text{grün}(x),\text{grün}(f(x))\} \\
+(8) = (5)+(7) &,\{x \mapsto c\} \text{ ergibt } \{\text{glücklich}(c),\text{grün}(f(c))\} \\
+(9) = (8)+(6) & \text{ ergibt } \{\text{grün}(f(c))\} \\
+(10) = (3)+(9) & \text{ mit } \{x \mapsto f(c)\} \text{ ergibt } \{\text{fliegen}(f(c))\} \\
+(11) = (10)+(2) & \text{ mit } \{x \mapsto c\} \text{ ergibt } \{\text{glücklich}(c)\} \\
+(12) = (11)+(6) & \text{ ergibt } \bot
+\end{align*}
+Also gilt $\{F_1, F_2, F_3\} \models F_4$
+\end{enumerate}
+\end{document}
