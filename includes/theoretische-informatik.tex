@@ -104,7 +104,7 @@ Ab Kapitel \ref{subsec:komplex} behandeln wir die Komplexitätstheorie. In diese
         \begin{description}
             \item[Kardinalität] Beweis von Aussagen anhand der unterschiedlichen Kardinalitäten.
             \item[Diagonalisierung] Berechenbarkeit annehmen und einen paradoxen Algorithmus für das Problem konstruieren.
-            \item[Reduktion] Reduktion eines „größeren“/„komplexeren“ Problems auf eines seiner Teilprobleme. Die Reduktion ist ein Entscheid\-bar\-keits\-algorithmus. Entscheidbarkeit, Semi-Entscheidbarkeit, Co-Semi-Entscheidbarkeit werden übertragen. Siehe auch \verweis{subsec:fs-komplexitaet}. \vl{TIL 4}
+            \item[Reduktion] Reduktion (Rückführung) eines Problems auf ein anderes Problem (Einbetten eines Problems in ein anderes). Die Reduktion ist ein Entscheid\-bar\-keits\-algorithmus. Entscheidbarkeit, Semi-Entscheidbarkeit, Co-Semi-Entscheidbarkeit werden übertragen („wenn A semi-entscheidbar und es gilt $B \leq_{m} A$, dann auch B semi-entscheidbar“). Siehe auch \verweis{subsec:fs-komplexitaet}. \vl{TIL 4}
                 \begin{description}
                     \item[Turing-Reduktion] Ein Problem \prob{P} ist Turing-reduzierbar auf ein Problem \prob{Q} (in Symbolen: $\prob{P} \leq_T\prob{Q}$), wenn man \prob{P} mit einem Programm lösen könnte, welches ein Programm für \prob{Q} als Unterprogramm (auch: Subroutine) aufrufen darf. Das Programm für \prob{Q} muss hierbei nicht existieren.
 
