@@ -18,21 +18,9 @@ wobei $c_1,c_2$ Konstanten sind, folgendes an:
 	\item \dots
 	\end{itemize}
 	\item die Menge aller Terme; \\
-	\LOES
-	\begin{itemize}
-	\item $c_1$
-	\item $z$
-	\item $x$
-	\item $c_2$
-	\item $y$
-	\end{itemize}
+	\LOES $\{ x, y, z, c_1, c_2 \}$
 	\item die Menge aller Variablen, mit Unterscheidung freier und gebundener Variablen; \\
-	\LOES
-	\begin{itemize}
-	\item $z$, frei
-	\item $x$, gebunden
-	\item $y$, gebunden
-	\end{itemize}
+	\LOES $\{ x (gebunden), y (gebunden), z (frei) \}$
 	\item eine Interpretation $\INT$ und eine Zuweisung $\ZUW$ für $\INT$, so dass $\INT,\ZUW \models F$. \\
 \LOES Für die folgende Interpretation $\INT$ und zugehörige Zuweisung $\ZUW$ gilt $\INT, \ZUW \models F$:
 \begin{itemize}
@@ -41,7 +29,7 @@ wobei $c_1,c_2$ Konstanten sind, folgendes an:
 	\item $c_2^{\INT} := \delta$
 	\item $p^{\INT} := \{(\delta,\delta)\}$
 	\item $q^{\INT} := \{(\delta,\delta,\delta)\}$
-	\item $\ZUW(z) := \delta$.
+	\item $\ZUW := \{ z \mapsto \delta \}$
 \end{itemize}
 \f{Achtung:} Es ist keine Interpretation der gebundenen Variablen $x$ und $y$ notwendig. \\
 
