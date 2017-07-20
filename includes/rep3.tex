@@ -1,0 +1,224 @@
+\newcommand{\SUBINT}{\mathcal{J}}
+\subsection*{Repetitorium III (07.07.2017)}
+\subsubsection*{Aufgabe I}
+Geben Sie für die Formel
+\begin{equation*}
+F = \forall x.\exists y.(p(c_1,z) \land (q(x,c_2,z)) \lor p(c_2,y))),
+\end{equation*}
+wobei $c_1,c_2$ Konstanten sind, folgendes an:
+\begin{enumerate}
+	\item die Menge der Teilformeln; \\
+	\LOES 
+	\begin{itemize}
+	\item $F$
+	\item $\exists y.(p(c_1,z) \land (q(x, c_2, z) \lor p(c_2,y)))$
+	\item $p(c_1,z) \land (q(x,c_2,z) \lor p(c_2, y))$
+	\item $p(c_1, z)$
+	\item $q(x,c_2,z)$
+	\item \dots
+	\end{itemize}
+	\item die Menge aller Terme; \\
+	\LOES
+	\begin{itemize}
+	\item $c_1$
+	\item $z$
+	\item $x$
+	\item $c_2$
+	\item $y$
+	\end{itemize}
+	\item die Menge aller Variablen, mit Unterscheidung freier und gebundener Variablen; \\
+	\LOES
+	\begin{itemize}
+	\item $z$, frei
+	\item $x$, gebunden
+	\item $y$, gebunden
+	\end{itemize}
+	\item eine Interpretation $\INT$ und eine Zuweisung $\ZUW$ für $\INT$, so dass $\INT,\ZUW \models F$. \\
+\LOES Für die folgende Interpretation $\INT$ und zugehörige Zuweisung $\ZUW$ gilt $\INT, \ZUW \models F$:
+\begin{itemize}
+	\item $\Delta^{\INT} := \{\delta \}$
+	\item $c_1^{\INT} := \delta$
+	\item $c_2^{\INT} := \delta$
+	\item $p^{\INT} := \{(\delta,\delta)\}$
+	\item $q^{\INT} := \{(\delta,\delta,\delta)\}$
+	\item $\ZUW(z) := \delta$.
+\end{itemize}
+\f{Achtung:} Es ist keine Interpretation der gebundenen Variablen $x$ und $y$ notwendig. \\
+
+Es gilt:
+\begin{align*}
+&\INT, \ZUW \models \forall x.\exists y.(p(c_1,z) \land (q(x,c_2,z)) \lor p(c_2,y))) \\
+\text{gdw.} & \text{ für alle } \delta_x \in \Delta^{\INT} \text{ existiert ein } \delta_y \in \Delta^{\INT} \text{, sodass gilt} \\
+&\INT,\ZUW [x \mapsto \delta_x, y \mapsto \delta_y ] \models p(c_1, z) \text{, und} \\
+&\INT,\ZUW [x \mapsto \delta_x, y \mapsto \delta_y ] \models q(x,c_2,z) \text{ oder } \INT,\ZUW [x \mapsto \delta_x, y \mapsto \delta_y ] \models p(c_2,y)
+\end{align*}
+
+Die umgeformte letzte Bedingung ist tatsächlich erfüllt, denn für $\delta_x$ gibt es nur die Möglichkeit $\delta_x=\delta$, und wir sehen auch schnell, dass wir stets $\delta_y=\delta$ wählen können. \\
+Es gilt dann nämlich für die Zuordnung
+\begin{equation*}
+\ZUW^* := \ZUW[x \mapsto \delta, y \mapsto \delta] = \{x \mapsto \delta, y \mapsto \delta, z \mapsto \delta \}
+\end{equation*}
+folgendes:
+\begin{align*}
+& \INT, \ZUW^* \models p(c_1, z) \text{, und } \INT, \ZUW^* \models q(x,c_2,z) \text{ oder } \INT,\ZUW^* \models p(c_2,y) \\
+\text{gdw. } & (c_1^{\INT}, \ZUW^*(z)) \in p^{\INT} \text{, und } (\ZUW^*(x), c_2^{\INT}, \ZUW^*(z)) \in q^{\INT} \text{ oder } (c_2^{\INT}, \ZUW^*(y)) \in p^{\INT} \\
+\text{gdw. } & (\delta, \delta) \in \{(\delta, \delta)\} \text{, und } (\delta, \delta, \delta) \in \{(\delta, \delta, \delta)\} \text{ oder } (\delta,\delta) \in \{(\delta, \delta) \}
+\end{align*}
+\end{enumerate}
+
+
+\subsubsection*{Aufgabe II}
+Zeigen Sie die folgenden Aussagen: 
+\begin{enumerate}
+	\item Es gilt $\{F\} \models G$ genau dann, wenn $F \to G$ allgemeingültig ist.\\
+	\LOES Es gilt 
+	\begin{align*}
+	&\{F\} \models G \\
+	\text{gdw. } &\text{jedes Modell von } F \text{ ist ein Modell von } G \\
+	\text{gdw. } &\text{jede Interpretation ist kein Modell von } F \text{ oder ein Modell von } G \\
+	\text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \text{ oder ein Modell von } G \\
+	\text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \lor G  \\
+	\text{gdw. } &\text{jede Interpretation ist ein Modell von } F \to G \\
+	\text{gdw. } & F \to G \text{ ist allgemeingültig. }
+	\end{align*}
+	\item Es gilt $\{F_1,\dots,F_k\} \models G$ genau dann, wenn $\land_{i=1}^k F_i \to G$ allgemeingültig ist. \\
+	\LOES Es gilt die Äquivalenz
+	\begin{equation*}
+	\{F_1, \dots ,F_k\} \models G \text{ gdw. } \{\land_{i=1}^k F_i\} \models G,
+	\end{equation*}
+	denn die Formelmengen $\{F_1,\dots ,F_n \}$ und $\{ \land_{i=1}^n F_i \}$ haben die gleichen Modelle. \\
+	Also folgt mit dem ersten Teil sofort, dass 
+	\begin{equation*}
+	\{ F_1, \dots , F_k \} \models G \text{ gdw. } \land_{i=1}^k F_i \to G \text{ allgemeingültig ist.}
+	\end{equation*}
+\end{enumerate}
+
+\subsubsection*{Aufgabe III}
+Seien $F$, $G$ Formeln und $x$ eine Variable. Zeigen Sie, dass dann gilt 
+\begin{equation*}
+\exists x.(F \to G) \equiv \forall x. F \to \exists x. G.
+\end{equation*}
+\LOES Es gilt nach Definition von $\to$ und Folie 21 von \vl{TIL 16}
+\begin{align*}
+& \exists x.(F \to G) \\
+\equiv \,& \exists x.(\lnot F \lor G) \\
+\equiv \,& \exists x.\lnot \lor \exists x.G \\
+\equiv \,& \lnot \forall x.F \lor \exists x.G \\
+\equiv \,& \forall x.F \to \exists x.G.
+\end{align*}
+
+\subsubsection*{Aufgabe IV}
+Welche der folgenden Aussagen sind wahr? Begründen Sie Ihre Antwort.
+\begin{enumerate}
+\item Jede Formel in Pränexform ist in Skolemform.\\
+\LOES \textcolor{orange}{Die Aussage ist \f{falsch}}. \\
+Die Formel $\exists x.p(x)$ ist in Pränexform, aber nicht in Skolemform.
+\item Jede Formel in Skolemform ist in Pränexform. \\
+\LOES \textcolor{green}{Die Aussage ist \f{wahr}}.\\
+\f{Nach Definition ist jede Skolemform} von der Form $\forall x_1. \dots \forall x_k. F$ für eine quantorenfreie Formel $F$, d.h. \f{in Pränexform}
+\item Jede Formel ist äquivalent zu einer bereinigten Formel. \\
+\LOES \textcolor{green}{Die Aussage ist \f{wahr}}. \\
+\f{Umbenennung von gebundenen Variablen ändert nichts} an der Interpretation der Formel.
+\item Jede Formel ist äquivalent zu einer bereinigten Formel in Pränexform. \\
+\LOES \textcolor{green}{Die Aussage ist \f{wahr}}, siehe Folien 7-9 von \vl{TIL, 17}.
+\item Jede Formel ist äquivalent zu einer bereinigten Formel in Skolemform. \\
+\LOES \textcolor{orange}{Die Aussage ist \f{falsch}}. \\
+Jede Skolemform ist von der Form $F := \forall x_1, \dots, x_n.G$ wobei $x_1, \dots, x_n$ Variablen sind und $G$ eine quantorenfreie Formel ist. \\
+Geschlossene Formeln dieser Art sind monoton in folgendem Sinne: Wenn $\INT$ ein Modell von $F$ ist, dann gilt auch für jede induzierte Teilinterpretation $\SUBINT$ von $\INT$, dass $\SUBINT$ ein Modell von $F$ ist. \\
+Das gilt aber zum Beispiel nicht für die Formel $\exists x.p(x)$, und damit kann sie nicht äquivalent zu einer (bereinigten) Formel in Skolemform sein.
+\end{enumerate}
+
+\subsubsection*{Aufgabe V}
+\label{REP3-V}
+Formalisieren Sie die folgenden Aussagen in Prädikatenlogik:
+\begin{enumerate}
+\item Jeder Drache ist glücklich, wenn alle seine Drachen-Kinder fliegen können.
+\item Grüne Drachen können fliegen.
+\item Ein Drache ist grün, wenn er Kind mindestens eines grünen Drachens ist.
+\item Alle grünen Drachen sind glücklich.
+\end{enumerate}
+Zeigen Sie, dass die letzte Aussage aus den ersten drei folgt. \\\\
+\LOES Zur Formalisierung der vier Aussagen verwenden wir die folgende Menge $\f{P}$ von Prädikatensymbolen: $\f{P} := \{\text{kind}/2, \text{fliegen}/1, \text{glücklich}/1, \text{grün}/1 \}$. 
+\begin{enumerate}
+\item Jeder Drache ist glücklich, wenn alle seine Drachen-Kinder fliegen können.\\
+$F_1 := \forall x.(\forall y.(\text{kind}(x,y) \to \text{fliegen}(y)) \to \text{glücklich}(x))$
+\item Grüne Drachen können fliegen. \\
+$F_2 := \forall x.(\text{grün}(x) \to \text{fliegen}(x))$
+\item Ein Drache ist grün, wenn er Kind mindestens eines grünen Drachens ist. \\
+$F_3 := \forall x.(\exists y(\text{kind}(y, x) \land \text{grün}(y)) \to \text{grün}(x))$ \\
+$\phantom{F_3}\hspace{0.3em} \equiv \forall x,y.((\text{kind}(x, y) \land \text{grün}(x)) \to \text{grün}(y))$ \\
+$\phantom{F_3}\hspace{0.3em} \equiv \forall x,y.(\text{kind}(x,y) \to (\text{grün}(x) \to \text{grün}(y)))$
+\item Alle grünen Drachen sind glücklich. \\
+$F_4 := \forall x.(\text{grün}(x) \to \text{glücklich}(x))$
+\end{enumerate}
+Wir zeigen nun, dass $F_4$ eine semantische Konsequenz der drei $F_i$ ist, d.h. dass $\{F_1, F_2, F_3 \} \models F_4$ gilt.
+\begin{enumerate}
+\item[1)]
+\begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
+Sei $\delta$ ein grüner Drache, und es gelten die Aussagen (1), (2) und (3). & Sei $\INT$ eine Interpretation mit \newline 
+$\INT \models \{F_1, F_2, F_3 \}$, und sei $\delta \in \Delta^{\INT}$ mit $\delta \in \text{grün}^{\INT}$. 
+\end{tabular}
+\item[2)] 
+\begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
+Nach (3) folgt, dass jedes Kind von $\delta$ grün ist. & Mit $\INT \models F_3$ folgt \newline 
+$\forall \epsilon \in \Delta^{\INT}: (\delta, \epsilon) \in \text{kind}^{\INT} \Rightarrow \epsilon \in \text{grün}^{\INT}$.
+\end{tabular}
+\item[3)] 
+\begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
+Mit (2) erhalten wir, dass alle Kinder von $\delta$ fliegen können. & Mit $\INT \models F_2$ folgt \newline 
+$\forall \epsilon \in \Delta^{\INT}: (\delta, \epsilon) \in \text{kind}^{\INT} \Rightarrow \epsilon \in \text{fliegen}^{\INT}$.
+\end{tabular}
+\item[4)] 
+\begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
+Wegen (1) ist $\delta$ glücklich. & Mit $\INT \models F_1$ folgt $\delta \in \text{glücklich}^{\INT}$.
+\end{tabular}
+\item[5)] 
+\begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
+Also folgt (4) aus den Aussagen (1), (2) und (3). & Weil $\INT$ und $\delta \in \Delta^{\INT}$ beliebig waren, folgt \newline 
+$\{F_1, F_2, F_3\} \models F_4$. 
+\end{tabular}
+\end{enumerate}
+
+\subsubsection*{Aufgabe VI}
+Welche der folgenden Aussagen sind wahr? Begründen Sie Ihre Antwort.
+\begin{enumerate}
+\item Zwei prädikatenlogische Formeln $F$ und $G$ sind äquivalent, wenn die Formel $F \leftrightarrow G$ allgemeingültig ist. \\
+\LOES \textcolor{green}{Die Aussage ist \f{wahr}} \\
+\begin{align*}
+& F \equiv G \\
+\text{gdw. }& \{F\} \models G \text{ und } \{G\} \models F \\
+\text{gdw. }& \emptyset \models F \to G \text{ und } \emptyset \models G \to F \\
+\text{gdw. }& \emptyset \models (F \to G) \land (G \to F) \\
+\text{gdw. }& \emptyset \models (F \leftrightarrow G)
+\end{align*}
+\item Jede erfüllbare Formel der Prädikatenlogik erster Stufe hat ein endliches Modell. \\
+\LOES \textcolor{orange}{Die Aussage ist \f{falsch.}} \\
+Für Abbildungen $f: A \to A$ auf einer endlichen Menge $A$ gilt, dass $f$ injektiv ist genau dann, wenn $f$ surjektiv ist. Folglich gilt für injektive und nicht surjektive Abbildungen $f: A \to A$, dass $A$ nicht endlich sein kann. \\
+\f{Die Formel} $F_{\infty} := F_{inj} \land \lnot F_{sur}$ aus Aufgabe 4 vom Übungsblatt 9 ist erfüllbar, aber \f{hat kein endliches Modell}. Ein Modell hat die Grundmenge $\N$ und interpretiert $p$ als Nachfolgerrelation, d.h. als $\{(n, n+1) \mid n \in \N \}$. \\
+\f{Genauer:} In Logik ohne Gleichheit hat jedes Modell $\INT$ der vermöge Folien 10-16 von \vl{TIL 15} transformierten Formel $(F_{\infty})_{eq} \land G_{eq}$ unendlich viele (nicht-leere und disjunkte) Äquivalenzklassen bzgl. $eq^{\INT}$, und somit auch eine unendliche Grundmenge. Auch hier existiert ein Modell $(\N, \cdot^N)$ mit $p^N := \{(n,n+1) \mid n \in \N\}$ und $eq^N := =$.   
+\item Jede erfüllbare Formel der Prädikatenlogik erster Stufe hat ein abzählbares Modell. \\
+\LOES \textcolor{green}{Die Aussage ist \f{wahr}} nach dem \f{Satz von Löwenheim-Skolem.}
+\item Jede Skolemformel hat höchtens eine Herbrand-Interpretation. \\
+\LOES \textcolor{orange}{Die Aussage ist \f{falsch.}} \\
+Die Skolemformel gibt nur die Grundmenge und die Interpretation der Funktionssymbole vor, \f{die Interpretation der Prädikatensymbole kann jedoch frei gewählt werden} - und dafür gibt es auch mindestens die Möglichkeiten $\emptyset$ und $\{(\delta,\dots,\delta)\}$ für ein $\delta \in \Delta^{\INT}$.
+\item Jede Skolemformel hat mindestens ein Herbrand-Modell. \\
+\LOES \textcolor{orange}{Die Aussage ist \f{falsch.}} \\
+Die unerfüllbare Skolemformel $p() \land \lnot p()$ \f{hat kein Modell}, und somit auch kein Herbrand-Modell.
+\end{enumerate}
+
+\subsubsection*{Aufgabe VII}
+Zeigen Sie, dass man das Resolutionsverfahren der Prädikatenlogik erster Stufe auch zum Nachweis von semantischen Konsequenzen nutzen kann, indem Sie die Äquivalenz der folgenden Aussagen nachweisen:
+\begin{enumerate}
+\item $\Gamma \models F$.
+\item $\Gamma \cup \{\lnot F\}$ ist unerfüllbar.
+\item $\bigwedge \Gamma \to F$ ist allgemeingültig.
+\item $\bigwedge \Gamma \land \lnot F$ ist unerfüllbar.
+\end{enumerate}
+Hierbei sei $\bigwedge \Gamma = \gamma_1 \land \dots \land \gamma_n$ für $\Gamma = \{\gamma_1, \dots, \gamma_n\}$. \\\\
+\LOES Die Äquivalenz der vier Aussagen folgt durch einfache oder bereits bekannte Umformungen:
+\begin{itemize}[leftmargin=2cm]
+\item[$(1)\Leftrightarrow(3)$] gilt nach Aufgabe II (b).
+\item[$(3)\Leftrightarrow(4)$] $\bigwedge \Gamma \to F$ ist allgemeingültig gdw. $\lnot (\bigwedge \Gamma \to F) = \bigwedge \Gamma \land \lnot F$ unerfüllbar ist.
+\item[$(2)\Leftrightarrow(4)$] Es gibt genau dann kein Modell von $\Gamma \cup \{\lnot F\}$, wenn die Konjunktion $\bigwedge \Gamma \land \lnot F$ kein Modell besitzt.
+\end{itemize}
+Um also nachzuweisen, dass die Formel $F$ eine semantische Konsequenz der Formelmenge $\Gamma$ ist, zeigt man mittels prädikatenlogischer Resolution, dass die Konjunktion $\bigwedge \Gamma \land \lnot F$ unerfüllbar ist, d.h. dass sich aus der entsprechenden Klauselmenge die leere Klausel $[\,]$ herleiten lässt.

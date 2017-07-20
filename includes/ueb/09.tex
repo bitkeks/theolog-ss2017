@@ -1,0 +1,105 @@
+\subsection*{Übung 9 (Prädikatenlogik)}
+\subsubsection*{Aufgabe 1}
+Welche der angegebenen Strukturen sind Modelle der folgenden Formel?
+\begin{equation*}
+\forall x.p(x,x) \land \forall x,y.((p(x,y) \land p(y,x)) \to x \approx y) \land \forall x, y, z.((p(x,y) \land p(y,z)) \to p(x,z))
+\end{equation*}
+\begin{enumerate}
+\item $\INT_1$ mit Grundmenge $\N$ und $p^{\INT_1} = \{(m,n) \mid m < n\}$;
+\item $\INT_2$ mit Grundmenge $\N$ und $p^{\INT_2} = \{(m,n + 1) \mid n \in \N \}$;
+\item $\INT_3$ mit Grundmenge $\N$ und $p^{\INT_3} = \{(m,n) \mid m teilt n\}$;
+\item $\INT_4$ mit Grundmenge $\SIGS$ für ein Alphabet $\Sigma$ und $p^{\INT_4} = \{(x,y) \mid x \text{ ist Präfix von } y \}$;
+\item $\INT_5$ mit Grundmenge $\POT(M)$ für eine Menge $M$ und $p^{\INT_5} = \{(X,Y) \mid X \subseteq Y \}$;
+\end{enumerate}
+\LOES 
+\begin{equation*}
+\underbrace{\forall x.p(x,x)}_{\substack{{p(x,x) = \top} \\ \\ \text{p wird als reflexive} \\ \text{Relation interpretiert}}} \land \underbrace{\forall x,y.((p(x,y) \land p(y,x)) \to x \approx y)}_{\substack{{x \leq y, y \leq x, x=y} \\ \\ \text{p wird als antisymmetrische} \\ \text{Relation interpretiert}}} \land \underbrace{\forall x, y, z.((p(x,y) \land p(y,z)) \to p(x,z))}_{\substack{\text{transitivität} \\ \\ \text{p wird als transitive} \\ \text{Relation interpretiert}}}
+\end{equation*}
+$\Rightarrow$ Die gesamte Formel beschreibt die Theorie der Ordnungsrelation.
+\begin{enumerate}[leftmargin=1cm]
+\item[Zu a)] Kein Modell, denn $(2,2) \notin p^{\INT_1}$
+\item[Zu b)] Kein Modell, denn $(1,2),(2,3) \in p^{\INT_2}$, aber $(1,3) \notin p^{\INT_2}$.
+\begin{align*}
+\text{\f{Genauer:}} \\
+\text{Sei } \ZUW: &x \mapsto 1 \text{, dann gilt } \INT_2, \ZUW\#p(x,y) \land p(y,z) \to p(x,z) \\
+& y \mapsto 2 \text{, also folgt } \INT_2\#\forall x, y, z.(p(x,y) \land p(y,z) \to p(x,z)) \\
+& z \mapsto 3 \text{, und damit ist } \INT_2 \text{ kein Modell der Formel}  
+\end{align*}
+\item[Zu c)] Ist ein Modell, denn Teilbarkeit ist eine Ordnungsrelation auf $\N$.
+\item[Zu d)] Ist ein Modell, denn Präfixrelation ist eine Ordnungsrelation auf $\N$.
+\item[Zu e)] Ist ein Modell, denn $\subseteq$ ist eine Ordnungsrelation auf $\N$.
+\end{enumerate}
+
+\subsubsection*{Aufgabe 2}
+\begin{enumerate}
+\item Geben Sie eine erfüllbare Formel in Prädikatenlogik mit Gleichheit an, so dass alle Modelle 
+	\begin{enumerate}[label=\roman*)]
+	\item höchstens drei, \\
+	\LOES $F_{\leq 3} := \exists x,y,z.\forall w.(w \approx x \lor w \approx y \lor w \approx z)$
+	\item mindestens drei,\\
+	\LOES $F_{\geq 3} := \exists x,y,z.(\underbrace{x \not\approx y}_{= \neg (x \approx y)} \land y \not\approx z \land x \not\approx z)$
+	\item genau drei \\
+	\LOES $F_{=3} := F_{\leq 3} \land F_{\geq 3}$
+	\end{enumerate}
+	Elemente in der Grundmenge besitzen.
+\item Geben Sie je eine erfüllbare Formel in Prädikatenlogik mit Gleichheit an, so dass das zweistellige Relationensymbol $p$ in jedem Modell als der Graph einer
+
+	\begin{enumerate}[label=\roman*)]
+	\item injektiven Funktion, \\
+	\LOES $F_{fun} := \underbrace{\forall x.\exists y. p(x,y)}_{\substack{{p \text{ wird als linkstotale}} \\ \text{Relation interpretiert}}} \land \underbrace{\forall x, y, z.(p(x,y) \land p(x,z) \to y \approx z)}_{\substack{{p \text{ wird als rechtseindeutige}} \\ \text{Relation interpretiert}}}$ \\
+	$F_{inj} := F_{fun} \land \forall x,y,z.(p(x,z) \land p(y,z) \to x \approx y)$
+	\item surjektiven Funktion, \\
+	\LOES $F_{sur} := F_{fun} \land \forall y. \exists x.p(x,y)$
+	\item bijektiven Funktion \\	
+	\LOES $F_{bij} := F_{inj} \land F_{sur}$
+	\end{enumerate}
+	interpretiert wird. \\
+	(Der Graph einer Funktion $f: A \to B$ ist die Relation $\{(x,y) \in A \times B \mid f(x) = y \}$.)
+\end{enumerate}
+
+\subsubsection*{Aufgabe 3}
+Welche der folgenden Aussagen sind wahr? Begründen Sie Ihre Antwort.
+\begin{enumerate}
+\item Sind $\Gamma$ und $\Gamma'$ Mengen von prädikatenlogischen Formeln, dann folgt aus $\Gamma \subseteq \Gamma'$ und $\Gamma \models F$ auch $\Gamma' \models F$. \\
+\LOES \textcolor{green}{Ja}, $\Gamma \subseteq \Gamma'$ und $\overbrace{\Gamma \models F}^{\forall \text{ Strukturen } \INT: \INT \models \Gamma \Rightarrow \INT \models F}$  impliziert $\overbrace{\Gamma' \models F}^{\forall \text{ Strukturen } \INT: \INT \models \Gamma' \Rightarrow \INT \models F}$. \\
+Die Aussage gilt: Sei $\INT \models \Gamma'$. Wegen $\Gamma \subseteq \Gamma'$ folgt $\INT \models \Gamma$. \\
+Mit $\Gamma \models F$ folgt $\INT \models F$. Also insgesamt haben wir $\Gamma' \models F$ gezeigt.
+\item Jede aussagenlogische Formel ist eine prädikatenlogische Formel. \\
+\LOES \textcolor{green}{Ja}, mit der in der VL gezeigten Einbettung von Aussagenlogik in Prädikatenlogik.
+\item Eine prädikatenlogische Formel $F$ ist genau dann allgemeingültig, wenn $\neg F$ unerfüllbar ist. \\
+\LOES \textcolor{green}{Ja}, denn: 
+\begin{align*}
+F \text{ allgemeingültig } &\Leftrightarrow \forall \text{ Strukturen } \INT:\INT \models F \\
+& \Leftrightarrow \forall \text{ Strukturen } \INT: \INT \not\models \neg F \\
+& \Leftrightarrow \neg F \text{ unerfüllbar }
+\end{align*}
+\item Es gilt 
+\begin{equation*}
+\{\forall x,y.(p(x,y) \to p(y,x)), \forall x,y,z.((p(x,y) \land p(y,z)) \to p(x,z))\} \models \forall x.p(x,x).
+\end{equation*}
+\LOES \textcolor{orange}{Falsch!} Übersetzt wird hier gefragt, ob aus Symmetrie und Transitivität einer binären Relation stets ihre Reflexivität folgt. \\
+Gegenbeispiel: $\INT := (\{d\},\{p \mapsto \emptyset \})$
+\end{enumerate}
+\subsubsection*{Aufgabe 4}
+\label{U9-4}
+Formalisieren Sie Bertrand Russells Barbier-Paradoxon 
+\begin{center}
+\textit{Der Barbier rasiert genau diejenigen Personen, die sich nicht selbst rasieren.}
+\end{center}
+als eine prädikatenlogische Formel und zeigen Sie, dass diese unerfüllbar ist. \\\\
+\LOES Wir verwenden die Menge $C := \{Barbier\}$ als Menge der Konstanten und die Menge $\f{P} := \{rasiert\}$ als Menge der Prädikatensymbole. Nun formulieren wir die gegebene Aussage in Prädikatenlogik wie folgt:
+\begin{equation*}
+F := \forall x.(\neg rasiert(x,x) \leftrightarrow rasiert(barbier,x))
+\end{equation*}
+Wir zeigen: $F$ ist unerfüllbar. \\\\
+Sei $\INT$ eine Interpretation. Dann ist zu zeigen, dass $\INT \not\models F$. 
+\begin{align*}
+\INT \models F &\Leftrightarrow \INT \models \forall x.(rasiert(barbier,x) \leftrightarrow \neg rasiert(x,x)) \\
+&\Leftrightarrow \text{ Für alle } \delta_x \in \Delta^{\INT} \text{ gilt, dass } \INT, \{ x \mapsto \delta_x \} \models rasiert(barbier, x)  \leftrightarrow \neg rasiert(x,x)
+\end{align*}
+Für das Element $\delta_x$ mit $barbier^{\INT} = \delta_x$ gilt:
+\begin{align*}
+\INT, \{x \mapsto \delta_x\} \models rasiert(barbier,x) \leftrightarrow \neg rasiert(x,x) 
+\Leftrightarrow \underbrace{(barbier^{\INT}, \delta_x}_{=\delta_x} \in rasiert^{\INT} \Leftrightarrow (\delta_x, \delta_x) \not\in rasiert^{\INT}
+\end{align*}
+Es ergibt sich der Widerspruch $(\delta_x, \delta_x) \in rasiert^{\INT} \Leftrightarrow (\delta_x, \delta_x) \not\in rasiert^{\INT}$ und damit ist $\INT$ kein Modell von $F$. Weil $\INT$ beliebig, folgt die Unerfüllbarkeit von $F$.
