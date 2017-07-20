@@ -1,0 +1,106 @@
+\newcommand{\HRule}[2]{\par
+  \vspace*{\dimexpr-\parskip-\baselineskip+#2}
+  \noindent\rule{#1}{0.2mm}\par
+  \vspace*{\dimexpr-\parskip-.5\baselineskip+#2}}
+
+\subsection*{Übung 10 (Skolemform)}
+\subsubsection*{Aufgabe 1}
+Bestimmen Sie zu jeder der folgenden Formeln eine äquivalente bereinigte Formel in Pränexform.
+\begin{enumerate}
+\item $\forall x.(p(x,x) \leftrightarrow \neg \exists y.q(x,y))$ \\
+\LOES 
+\begin{align*}
+& \forall x.(p(x,x) \leftrightarrow \neg \exists y.q(x,y)) \\ 
+\equiv\, & \forall x.(p(x,x) \to \neg \exists y.q(x,y)) \land (\neg \exists y.q(x,y) \to p(x,x))) \\
+\equiv\, & \forall x.((\neg p(x,x) \lor \underbrace{\neg \exists y}_{\forall y.\neg}.q(x,y)) \land (\exists y'.q(x,y') \lor p(x,x))) \\
+\equiv\, & \forall x,y.\exists y'.((\neg p(x,x) \lor \neg q(x,y)) \land (q(x,y') \lor p(x,x)))
+\end{align*}
+\item $\forall x.p(f(x,x)) \lor (q(x,z) \to \exists x.p(g(x,y,z)))$ \\
+\LOES 
+\begin{align*}
+& \forall x.p(f(x,x)) \lor (q(x,z) \to \exists x.p(g(x,y,z))) \\
+\equiv\, & \forall x'.(p(f(x',x')) \lor (\neg q(x,z) \lor \exists x''.p(g(x'',y,z)))) \\
+\equiv\, & \forall x'.\exists x''.(p(f(x',x')) \lor \neg q(x,z) \lor p(g(x'',y,z)))
+\end{align*}
+\item $\forall x.p(x) \land (\forall y.\exists x.q(x,g(y)) \to \exists y.(r(f(y)) \lor \neg q(y,x)))$ \\
+\LOES
+\begin{align*}
+& \forall x.p(x) \land (\forall y.\exists x.q(x,g(y)) \to \exists y.(r(f(y)) \lor \neg q(y,x))) \\
+\equiv\, & \forall x''.p(x'') \land (\underbrace{\neg\forall y.\exists x'.q(x',g(y))}_{\equiv \exists y.\forall x'.\neg q(x',g(y))} \lor \, \exists y'.(r(f(y')) \lor \neg q(y',x)) \\
+\equiv\, & \forall x''.\exists y.\forall x'.\exists y'.(p(x'') \land (q(x',g(y)) \lor r(f(y') \lor \neg q(y',x)))
+\end{align*}
+(Tipp für Skolemform: $\exists$-Quantoren möglichst nach links ziehen.)
+\end{enumerate}
+\subsubsection*{Aufgabe 2}
+Bestimmen Sie zu jeder der folgenden Formeln eine erfüllbarkeitsäquivalente bereinigte Formel in Skolemform.
+\begin{enumerate}
+\item $p(x) \lor \exists x.q(x,x) \lor \forall x.p(f(x))$ \\
+\LOES \begin{align*}
+& p(x) \lor \exists x.q(x,x) \lor \forall x.p(f(x)) \\
+\equiv\, & \exists u.\forall v.(p(x) \lor q(u,u) \lor p(f(v))) \\
+\rightarrow_{skolemform}\, & \forall v.(p(x) \lor q(c,c) \lor p(f(v))) \text{,}
+\end{align*}
+wobei $c$ eine neue Konstante ist.
+\item $\forall x. \exists y.q(f(x),g(y)) \land \forall x.(p(x,y,y) \lor q(h(y),x))$ \\
+\LOES 
+\begin{align*}
+& \forall x. \exists y.q(f(x),g(y)) \land \forall x.(p(x,y,y) \lor q(h(y),x)) \\
+\equiv\, & \forall x.\exists u.\forall v.(q(f(x),g(u)) \land (p(v,y,y) \lor q(h(y),v))) \\
+\rightarrow_{skolemform}\, & \forall x,v.(q(f(x), g(l(x)) \land (p(v,y,y) \lor q(h(y),v))) \text{,}
+\end{align*}
+wobei $l$ ein neues ein-stelliges Funktionssymbol ist.
+\item $\forall x. \forall x.(p(x) \leftrightarrow q(x,x)) \lor \exists x.\forall y.(q(x,g(y,z)) \land \exists z.q(z,z))$ \\
+\LOES 
+\begin{align*}
+& \forall x. \forall x.(p(x) \leftrightarrow q(x,x)) \lor \exists x.\forall y.(q(x,g(y,z)) \land \exists z.q(z,z)) \\
+\equiv\, & \forall x.\exists u.\forall v.\exists w(((p(x) \land q(x,x)) \lor (\neg p(x) \land \neg q(x,x) \lor (q(n,g(v,z)) \land q(w,w))) \\
+\rightarrow_{skolemform}\, & \forall x,v.(((p(x) \land q(x,x)) \lor (\neg p(x) \land \neg q(x,x))) \lor (q(f(x), g(v,z)) \land q(h(x,v), h(x,v)))) \text{,}
+\end{align*}
+wobei $f$ und $h$ neue Funktionssymbole sind.
+\end{enumerate}
+
+\subsubsection*{Aufgabe 3}
+Gegeben sind die folgenden Formeln in Skolemform. 
+\begin{align*}
+F &= \forall x,y,z.p(x,f(y),g(z,x)), \\
+G &= \forall x,y.(p(a,f(a,x,y)) \lor q(b)),
+\end{align*}
+wobei $a$ und $b$ Konstanten sind.
+\begin{enumerate}
+\item Geben Sie die zugehörigen Herbrand-Universen $\Delta_F$ und $\Delta_G$ an. \\
+\LOES 
+\begin{align*}
+\Delta_F &= \{a, f(a), g(a,a), f(f(a)), g(f(a),f(a)), \dots \} \\
+\Delta_G &= \{a, b, f(a,a,a), f(a,a,b), f(a,b,a), f(b,a,a), \dots, f(f(a,a,a),f(b,a,b),f(b,a,a)), \dots \} \\
+\text{Wir können } &\Delta_F \text{ und } \Delta_G \text{ auch rekursiv wie folgt charakterisieren:} \\
+\Delta_F &= \{a\} \cup \{f(t),g(t,u) \mid t,u \in \Delta_F \} \\
+\Delta_G &= \{a,b\} \cup \{f(s,t,u) \mid s,t,u \in \Delta_G\}
+\end{align*}
+\item Geben Sie je ein Herbrand-Modell an oder begründen Sie, warum kein solches existiert. \\
+\LOES Für $F: a^{\INT} := a,\quad f^{\INT}(t) := f(t),\quad g^{\INT}(s,t) := g(s,t) \text{ mit } s,t \in \Delta_F$ \\
+Definiere noch: $p^{\INT} := \Delta_F^3$, alternativ: $p^{\INT} := \{(r,f(s),g(t,r)) \mid r,s,t \in \Delta_F \}$. \\
+Dann ist die Herbrand-Interpretation $(\Delta_F, \cdot^{\INT})$ ein Modell von $F$.
+\HRule{3cm}{3mm}
+Für $G: a^{\INT} := a,\quad b^{\INT} := b,\quad f^{\INT}(v,s,t) := f(v,s,t)$. \\\
+Definiere noch: $p^{\INT} := \{(a,f(a,s,t)) \mid s,t \in \Delta_G \}$, $q^{\INT} := \{b\}$. \\
+Dann ist $(\Delta_G, \cdot^{\INT})$ ein Herbrand Modell von $G$.
+\item Geben Sie die Herbrand-Expansion $\HE(F)$ und $\HE(G)$ an. \\
+\LOES 
+\begin{align*}
+\HE(F) &= \{p(a,f(a),g(a,a)), \dots \} \\
+&= \{p(r,f(s),g(t,r)) \mid r,s,t \in \Delta_F \} \\
+\HE(G) &= \{ p(a,f(a,f(a,a,a),b)) \lor q(b), \dots \} \\
+&= \{ p(a,f(a,s,t)) \lor q(b) \mid s,t \in \Delta_G \}
+\end{align*}
+\end{enumerate}
+
+\subsubsection*{Aufgabe 4}
+Zeigen Sie, dass Allgemeingültigkeit von Formeln der Prädikatenlogik erster Stufe in Skolemform entscheidbar ist. \\
+\LOES Es sei $F$ eine quantorenfreie Formel mit Variablen $x_1, \dots, x_n$. Dann gilt
+\begin{align*}
+\forall x_1, \dots, x_n. F ist allgemeingültig \Leftrightarrow & \exists x_1, \dots, x_n.\neg F \text{ ist unerfüllbar} \\
+\Leftrightarrow & \neg F[x_1/a_1, \dots, x_n/a_n] \text{ ist unerfüllbar} \\
+& \text{(Skolemisierung mit Konstanten } a_1, \dots, a_n \text{).}
+\end{align*}
+Es ist also $\forall x_1, \dots, x_n.F$ allgemeingültig genau dann, wenn $\neg F[x_1/a_1, \dots, x_n/a_n]$ unerfüllbar ist. \\
+Letzteres ist aber essentiell eine aussagenlogische Formel, und deren Erfüllbarkeit ist entscheidbar.
