@@ -1,70 +1,3 @@
-\documentclass[a4paper,10pt]{article}
-
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
-\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage[table]{xcolor}
-\usepackage{fancyhdr}
-\usepackage{tgpagella}
-\usepackage{marginnote}
-\usepackage{nameref}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{enumitem}
-\usepackage{sectsty}
-\usepackage{wrapfig}
-\usepackage{listings}
-
-\usepackage[
-    pdfauthor={Dominik Pataky},
-    pdftitle={Theoretische Informatik und Logik},
-    pdfsubject={Notizen und Begriffsklärungen aus dem Sommersemester 2017, TU Dresden},
-    colorlinks=true,linkcolor=black,urlcolor=link]{hyperref}
-
-\definecolor{light-gray}{gray}{0.9}
-\definecolor{light-red}{RGB}{255,105,105}
-\definecolor{vl}{RGB}{84,200,70}
-\definecolor{link}{RGB}{84,100,220}
-\definecolor{sectionblue}{RGB}{0,64,114}
-\definecolor{subsectionblue}{RGB}{0,94,167}
-\definecolor{subsubsectionblue}{RGB}{0,110,195}
-
-% set enumeration style
-\setlist[enumerate, 1]{label=\textbf{\alph*)}, leftmargin=2em}
-\setlist{itemsep=0em}
-
-% Small line under top header
-\renewcommand{\headrulewidth}{0.1pt}
-
-% Formatting macros
-\newcommand{\vl}[1]{\colorbox{vl}{\textcolor{white}{\small\textbf{#1}}}}
-\newcommand{\f}[1]{\textbf{#1}}
-\newcommand{\blank}{\text{\textvisiblespace}}
-\newcommand{\hili}[1]{\colorbox{light-gray}{\textcolor{black}{#1}}}
-\newcommand{\verweis}[1]{\textit{\ref{#1} \nameref{#1}}}
-\newcommand{\LOES}{\f{Lösung:~}}
-% Problems
-\newcommand{\prob}[1]{\textbf{#1}}
-\newcommand{\prspec}[1]{\prob{P}_{\text{#1}}}
-\newcommand{\phalt}{\prspec{halt}}
-\newcommand{\paq}{\prspec{äquiv}}
-
-% Math sets
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\POT}{\mathcal{P}}
-% Shortcuts
-\newcommand{\TMM}[1]{\mathcal{M}_{#1}}
-\newcommand{\LANG}{\mathcal{L}}
-\newcommand{\SIGS}{\Sigma^{*}}
-% Math texts
-\newcommand{\MT}[1]{\mathit{#1}}
-\newcommand{\NP}{\MT{NP}}
-\newcommand{\INT}{\mathcal{I}}
-\newcommand{\ZUW}{\mathcal{Z}}
-
 \lstset{
     frame=single,
     basicstyle=\footnotesize,
@@ -74,8 +7,6 @@
     xleftmargin=0.3cm,
     xrightmargin=3cm,
 }
-
-\begin{document}
 
 \newcommand{\copaq}{\overline{\mbox{\prob{P}\strut}}_{\text{äquiv}}}
 \newcommand{\M}{\mathcal{M}}
@@ -260,4 +191,3 @@ dann ist $P \not= NP$. \\
 \item Ist $F$ eine prädikatenlogische Formel ohne Variablen, dann ist $F$ erfüllbar. \\
 \LOES Nein\POINT, zum Beispiel ist $F = p(c) \land \neg p(c)$ eine Formel ohne Variablen, die unerfüllbar ist.\POINT
 \end{enumerate}
-\end{document}
