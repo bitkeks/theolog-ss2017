@@ -198,11 +198,12 @@ Ab Kapitel \ref{subsec:komplex} behandeln wir die Komplexitätstheorie. In diese
         \item[QBF] Eine Quantifizierte Boolsche Formel (QBF) ist eine logische Formel der folgenden Form: \\
             $Q_{1}p_{1}.Q_{2}p_{2}.\dots.Q_{l}p_{l}.F[p_{1},\dots,p_{l}]$ mit $i \geq 0, Q_{i} \in \{\ \exists, \forall\ \}$ Quantoren, $p_{i}$ aussagenlogischen Atomen (Variablen) und $F$ einer aussagenlogischen Formel mit Atomen $p_{1},\dots,p_{l}$. \vl{TIL 11}
 
-        \item[PSpace-Probleme] Siehe auch Satz von Savitch. Auch hier gibt es PSpace-hart und -vollständig. \vl{TIL 11}
+        \item[PSpace-Probleme] PSpace-hart und -vollständig. Siehe auch Satz von Savitch. \vl{TIL 11} \vl{TIL 12}
             \begin{description}
-                \item[TrueQBF] PSpace-hart. Gegeben: eine QBF $Q$. Frage: Ist $W(Q) = 1$? Es gilt $\MT{SAT} \leq_{p} \MT{TrueQBF}$, eine Tautologie lässt sich auf TrueQBF reduzieren.
-                \item[Geography] PSpace-vollständig. Gegeben: Ein gerichteter Graph und ein Startknoten. Frage: Gibt es eine Gewinnstrategie für dieses TrueQBF-Spiel Geography?
+                \item[TrueQBF] PSpace-vollständig. Gegeben: eine QBF $Q$. Frage: Ist $W(Q) = 1$? \\
+                    Es gilt $\MT{SAT} \leq_{p} \MT{TrueQBF}$; eine Tautologie lässt sich auf TrueQBF reduzieren.
                 \item[TrueQBF$_{\text{alt}}$] Ist TrueQBF mit alternierenden All- bzw. Existenzquantoren.
+                \item[Geography] PSpace-vollständig. Gegeben: Ein gerichteter Graph und ein Startknoten. Frage: Gibt es eine Gewinnstrategie für dieses TrueQBF-Spiel Geography?
             \end{description}
 
         \item[Linear Speedup Theorem] Sei $M$ eine Turingmaschine mit $k > 1$ Bändern, die bei Eingaben der Länge $n$ nach maximal $f(n)$ Schritten hält. Dann gibt es für jede natürliche Zahl $c > 0$ eine äquivalente $k$-Band Turingmaschine $M'$, die nach maximal $\frac{f(n)}{c} + n + 2$ Schritten hält. \\
