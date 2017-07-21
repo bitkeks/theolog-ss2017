@@ -1,0 +1,193 @@
+\lstset{
+    frame=single,
+    basicstyle=\footnotesize,
+    %~ backgroundcolor=\color{light-gray},
+    rulecolor=\color{gray},
+    %~ linewidth=220pt,
+    xleftmargin=0.3cm,
+    xrightmargin=3cm,
+}
+
+\newcommand{\copaq}{\overline{\mbox{\prob{P}\strut}}_{\text{äquiv}}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\POINT}{{\textcolor{red}{* }}}
+\subsection*{Musterklausur SS17}
+Die Teilantworten, auf welche man einen Punkt erhält, werden mit \POINT gekennzeichnet.
+\subsubsection*{Aufgabe 1 (6 Punkte)}
+Sei $f: \N \times \N \setminus \{0\} \to \N$ mit $f(x,y)=(x\,mod\,y)$. Geben Sie ein LOOP-Programm an, welches $f$ berechnet. Dabei dürfen Sie die Abkürzungen aus der Vorlesung benutzen. Erläutern Sie Ihr Programm. \\\\
+\LOES \\
+\begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+\begin{lstlisting}
+x0 := x1;
+LOOP x1 DO  
+  IF x0 >= x2 THEN
+    x0 := x0 - x2
+  END
+END
+\end{lstlisting}
+\begin{lstlisting}
+x0 := x1;
+LOOP x1 DO  
+  x3 := x0 + 1;
+  x3 := x3 - x2;
+  IF x_3 != 0 THEN
+    x_0 := x_0 - x_2
+  END
+END
+\end{lstlisting}
+& 
+\vspace{1.5cm}
+Ein naives Programm implementiert $mod$ durch sukzessives Abziehen des zweiten Arguments.\POINT \newline
+
+Der Vergleich $x_0 \geq x_2$ kann leicht ersetzt werden.\POINT \newline
+
+Korrekte LOOP-Syntax\POINT
+
+\end{tabular}
+
+\subsubsection*{Aufgabe 2 (9 Punkte)}
+\label{MUSTER-2}
+Siehe auch Übung 4 Aufgabe 4 [\ref{U4-4}] \\\\
+\LOES Wir zeigen zuerst $\phalt \leq_m \paq$ und $\phalt \leq_m \copaq$. Für die erste Reduktion sei $\M$ eine Turing-Maschine und $w$ eine Eingabe für $\M$.\POINT Betrachte die Turing-Maschinen $\M_1,\M_2$ mit \\
+
+\begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}}
+\POINT $\M_1 =$ Bei Eingabe $x$:
+\begin{itemize}[leftmargin=1.75cm]
+\item akzeptiere
+\end{itemize} 
+&
+\POINT $\M_2 = $ Bei Eingabe $x$:
+\begin{itemize}[leftmargin=1.75cm]
+\item simuliere $\M$ auf $w$
+\item akzeptiere
+\end{itemize} 
+\end{tabular} 
+Dann gilt
+\begin{equation*}
+\M \text{ hält auf } w \Leftrightarrow \LANG(\M_2) = \SIGS \Leftrightarrow \LANG(M_2) = \LANG(M_1).\text{\POINT}
+\end{equation*}
+Da außerdem die Abbildung $f$ mit
+\begin{equation*}
+f(enc(\M)\#\#enc(w)) = enc(\M_1)\#\#enc(M_2)
+\end{equation*}
+berechenbar ist, ist $f$ eine Reduktion von $\phalt$ auf $\paq$.\POINT \\\\
+Definiert man nun $\M_1'$ als eine Maschine, die jede Eingabe verwirft, dann ist analog die berechenbare Abbildung
+\begin{equation*}
+f(enc(\M)\#\#enc(w)) := enc(\M_1')\#\#enc(\M_2)
+\end{equation*}
+Eine Reduktion von $\phalt$ auf $\copaq$.\POINT \\
+Angenommen, $\paq$ wäre semi-entscheidbar. Wegen $\phalt \leq_m \copaq$ ist dann auch $\phalt$ co-semi-entscheidbar und damit entscheidbar, Widerspruch!\POINT Analog folgt aus $\phalt \leq_m \paq$ und der Annahme, dass $\paq$ co-semi-entscheidbar ist, dass $\phalt$ auch co-semi-entscheidbar ist, Widerspruch.\POINT \\
+Also ist $\paq$ weder semi-entscheidbar, nocht co-semi-entscheidbar. \\\\
+Form\POINT
+\subsubsection*{Aufgabe 3 (8 Punkte)}
+Welche der folgenden Probleme sind unentscheidbar? Begründen Sie Ihre Antwort.
+\begin{enumerate}
+\item Gegeben eine Turing-Maschine $\M$ über dem Eingabealphabet $\{0,1,\dots,9\}$ und eine Zahl $n$. Hält $\M$ nach höchstens $n$ Schritten bei Eingabe $42$? \\
+\LOES \textcolor{green}{Das Problem ist entscheidbar}\POINT. Simuliere dazu $\M$ für $n$ Schritte mit Eingabe $42$ und akzeptiere, falls diese Simulation hält.\POINT Dieses Verfahren hält stets, da die Simulation von $\M$ spätestens nach $n$ Schritten hält.\POINT 
+\item Gegeben eine Turing-Maschine $\M$, ist $\LANG(\M)$ unendlich? \\
+\LOES \textcolor{orange}{Das Problem ist nicht entscheidbar}\POINT nach dem Satz von Rice \POINT, da die Eigenschaft \glqq $\LANG(\M)$ ist unendlich\grqq eine nicht-triviale Eigenschaft unendlicher Sprachen ist: $\emptyset$ erfüllt sie nicht, aber $\SIGS$ schon.\POINT
+\item Gegeben eine Turing-Maschine $\M$ über einem einelementigen Eingabealphabet, erkennt $\M$ nur Palindrome? \\
+\LOES \textcolor{green}{Das Problem ist entscheidbar}\POINT, da jede Maschine über einem einelementigen Eingabealphabet nur Palindrome akzeptiert. Ein Entscheidungsverfahren prüft also nur, ob die Eingabe eine gültige Kodierung einer Turing-Maschine über einem einelementigen Alphabet ist und akzeptiert dann.\POINT
+\end{enumerate}
+
+\subsubsection*{Aufgabe 4 (6 Punkte)}
+Zeigen Sie: ist $P = NP$, dann gibt es einen Algorithmus, der in polynomieller Zeit für jede erfüllbare aussagenlogische Formel eine erfüllende Belegung findet. \\\\
+\LOES Sei $\phi$ eine erfüllbare Formel mit Variablen $x_1,\dots,x_n$.\POINT Betrachte die Formeln $\phi[x_1/\top]$ und $\phi[x_1/\bot]$ und wähle diejenige aus, die erfüllbar ist.\POINT Verfahre analog mit $x_2,\dots,x_n$, bis alle Variablen entweder mit $\top$ oder $\bot$ ersetzt worden sind.\POINT Die entsprechende Wertzuweisung ist dann eine erfüllende Belegung für $\phi$.\POINT \\
+Wegen der Annahme $P = NP$ ist der Test auf Erfüllbarkeit in deterministischer polynomieller Zeit realisierbar\POINT, und daher läuft auch dieses Verfahren in polynomieller Zeit ab.\POINT
+
+\subsubsection*{Aufgabe 5 (10 Punkte)}
+Wir betrachten folgendes Entscheidungsproblem: Gegeben eine aussagenlogische Formel $F$, gibt es eine erfüllende Belegung von $F$, die nicht alle Variablen wahr macht? Formalisieren Sie dieses Problem als eine Sprache \prob{NAT-SAT} (\textit{not-all-true satisfiability}) und zeigen Sie, dass \prob{NAT-SAT} $NP$-vollständig ist. \\\\
+\LOES Wir formalisieren zuerst die Sprache zu 
+\begin{align*}
+\prob{NAT-SAT} := \{enc(\phi) \mid & \phi \text{ aussagenlogische Formel, die eine erfüllende Belegung hat, } \\
+& \text{ in der nicht alle Variablen auf true gesetzt sind. } \}\POINT
+\end{align*}
+Dann ist $\prob{NAT-SAT} \in NP$\POINT, da eine solche Belegung geraten und in polynomieller Zeit überprüft werden kann.\POINT \\
+Um zu zeigen, dass \prob{NAT-SAT} auch NP-vollständig\POINT ist, reduzieren wir in polynomieller Zeit \prob{SAT} auf \prob{NAT-SAT}.\POINT Sei dazu $\phi$ eine aussagenlogische Formel. Definiere
+\begin{equation*}
+f(enc(\phi)) := enc(\psi)\POINT
+\end{equation*}
+ mit $\psi := \phi \land \neg x$, wobei $x$ eine neue Variable ist.\POINT Dann ist $\phi$ erfüllbar genau dann, wenn $\psi$ erfüllbar ist mit einer Belegung, in der nicht alle Variablen wahr sind.\POINT Außerdem ist $f$ in polynomieller Zeit berechenbar.\POINT Also ist $\prob{SAT} \leq_p \prob{NAT-SAT}$ und damit \prob{NAT-SAT} auch NP-vollständig.\\\\
+Form\POINT 
+\subsubsection*{Aufgabe 6 (9 Punkte)}
+\begin{enumerate}
+\item Bestimmen Sie die Skolemform für folgende Formeln $F$ und $G$.
+Geben Sie als Zwischenschritte die bereinigte Form, die Negationsnormalform und die Pränexform an.
+\begin{enumerate}[label=\roman*)]
+\item $F = \exists x.p(x,y) \to \exists x.q(x,x)$ \\
+\LOES 
+\begin{align*}
+F &= \exists x.p(x,y) \to \exists x.q(x,x) \\
+&\equiv\, \neg \exists x.p(x,y) \lor \exists x.q(x,x) \\
+&\equiv\, \forall x.\neg p(x,y) \lor \exists x.q(x,x) \qquad &\text{(NNF)\POINT} \\
+&\equiv\, \forall x_1.\neg p(x_1,y) \lor \exists x_2.q(x_2,x_2) \qquad &\text{(bereinigt)\POINT} \\
+&\equiv\, \forall x_1.\exists x_2.(\neg p(x_y,y) \lor q(x_2,x_2)) \qquad &\text{(Pränexform)\POINT} \\
+&\stackrel{Skolem}{\rightarrow}\, \forall x_1.(\neq p(x_y, y) \lor q(f(x_1), f(x_1))) \qquad &\text{(Skolem)\POINT} 
+\end{align*}
+mit $f$ einem neuen Funktionssymbol. \\
+\item $G = \forall x.(\forall y.\exists z.p(x,y,z) \land \exists z.\forall y.\neg p(x,y,z))$ \\
+\LOES 
+\begin{align*}
+G &= \forall x.(\forall y.\exists z.p(x,y,z) \land \exists z.\forall y.\neg p(x,y,z)) \qquad &\text{(bereits in NNF)\POINT} \\
+&\equiv\, \forall x.(\forall y.\exists z.p(x,y,z) \land \exists u.\forall v.\neg p(x,v,u)) \qquad &\text{(bereinigt)\POINT} \\
+&\equiv\, \forall x.\forall y.\exists z.\exists u.\forall v.(p(x,y,z) \land \neg p(x,v,u)) \qquad &\text{(Pränexform)\POINT} \\
+&\stackrel{Skolem}{\rightarrow}\, \forall x.\forall y.\forall v.(p(x,y,f(x,y)) \land \neg p(x,v,g(x,y))) \qquad &\text{(Skolem)\POINT} 
+\end{align*}
+mit $f,g$ neuen Funktionssymbolen.\\\\
+\end{enumerate}
+\item Welche der Umformungen sind nicht semantisch äquivalent? Begründen Sie Ihre Antwort. \\
+\LOES Bis auf die Skolemisierung sind alle Umformungen semantisch äquivalent.\POINT 
+\end{enumerate}
+
+\subsubsection*{Aufgabe 7 (10 Punkte)}
+Gegeben sind die prädikatenlogischen Klauseln $K_1$ und $K_2$ mit 
+\begin{align*}
+K_1 &= \{p(x,f(y)), \neg q(f(x)), \neg q(y)\}, \\
+K_2 &= \{\neg p(f(u), f(u)), q(f(v))\}.
+\end{align*}
+\begin{enumerate}
+\item Berechnen Sie \textit{alle} prädikatenlogischen Resolventen von $K_1$ und $K_2$. Erläutern Sie Ihre Vorgehensweise. \\
+\LOES Resolventen:
+\begin{align*}
+&\{\neg q(f(f(u))), \neg q(u), q(f(v)) \}\POINT \qquad &\{x \mapsto f(u), y \mapsto u\}\POINT \\
+&\{p(v,f(y)), \neq q(y), \neq p(f(u),f(u)) \}\POINT \qquad &\{x \mapsto v\}\POINT \\
+&\{p(x,f(f(v))), \neq q(f(x)), \neq p(f(u),f(u)) \}\POINT \qquad &\{y \mapsto f(v)\}\POINT \\
+&\{p(v,f(f(v))), \neq p(f(u),f(u)) \}\POINT \qquad &\{x \mapsto v, y \mapsto f(v)\}\POINT \\
+\end{align*}
+\item Ist $\{K_1, K_2\}$ erfüllbar? Begründen Sie Ihre Antwort. \\
+\LOES Die Klauselmenge $\{K_1, K_2\}$ ist erfüllbar.\POINT Ein Modell ist $\INT = (\Delta^{\INT}, p^{\INT}, q^{\INT}, f^{\INT})$ mit 
+\begin{align*}
+\Delta^{\INT} &:= \{\delta\}, \\
+p^{\INT} &:= \{(\delta,\delta)\}, \\
+q^{\INT} &:= \{\delta\},
+f^{\INT}(\delta) &:= \delta
+\end{align*}
+Dann gilt für alle $a,b,c \in \Delta^{\INT}$
+\begin{align*}
+\INT, \{x \mapsto a, y \mapsto b\} &\models p(x,f(y)),\\
+\INT, \{w \mapsto c\} &\models q(f(w)),
+\end{align*}
+d.h. die beiden Klauseln sind erfüllt und $\INT$ ist in der Tat ein Modell von $\{K_1, K_2\}$.\POINT
+\end{enumerate}
+
+\subsubsection*{Aufgabe 8 (16 Punkte)}
+Welche der folgenden Aussagen sind jeweils wahr oder falsch? Begründen Sie Ihre Antworten.
+\begin{enumerate}
+\item Ist $P = NP$, dann ist auch $NP = coNP$. \\
+\LOES Ja\POINT, da in diesem Fall $coNP = coP = P = NP$ ist.\POINT
+\item Sind $A$ und $B$ Sprachen mit $A \leq_m B$ und $A$ semi-entscheidbar, dann ist auch $B$ semi-entscheidbar. \\
+\LOES Nein\POINT, zum Beispiel ist $\prob{SAT} \leq_m \paq$ und $\paq$ ist nicht semi-entscheidbar (siehe Übung 4 [\ref{U4-4}] oder Aufgabe 2 [\ref{MUSTER-2}]).\POINT
+\item Die Mengen der Instanzen des Postschen Korrespondenzproblems, welche keine Lösung habhen, ist semi-entscheidbar. \\
+\LOES Nein\POINT, da sonst das Postsche Korrespondenzproblem semi-entscheidbar und co-semi-entscheidbar und damit entscheidbar wäre.\POINT
+\item Jede kontextfreie Sprache ist auch co-semi-entscheidbar. \\
+\LOES Ja\POINT, da alle kontextfreien Sprachen entscheidbar sind.\POINT
+\item Es gibt QBF-Formeln, die erfüllbar, aber nicht allgemeingültig sind. \\
+\LOES Nein\POINT. Da laut Vorlesung QBF-Formeln niemals freie Variablen haben, fallen Erfüllbarkeit und Allgemeingültigkeit zusammen.\POINT
+\item Ist $F$ eine prädikatenlogische Formel mit freien Variablen $x_1,\dots,x_n$, dann ist $F$ genau dann erfüllbar, wenn $\forall x_1,\dots,x_n.F$ erfüllbar ist. \\
+\LOES Nein\POINT, zum Beispiel ist $F = \exists x_1, x_2.\neg x_1 \approx x_2 \land y \approx z$ erfüllbar, $\forall y,z.F$ aber nicht.\POINT
+\item Ist das Rucksackproblem, bei dem alle Zahlen unär kodiert werden, NP-vollständig,\\
+dann ist $P \not= NP$. \\
+\LOES Nein\POINT, da das Rucksackproblem mit unär kodierten Zahlen ein Entscheidungsproblem in P ist und dann $P = NP$ folgen würde.\POINT
+\item Ist $F$ eine prädikatenlogische Formel ohne Variablen, dann ist $F$ erfüllbar. \\
+\LOES Nein\POINT, zum Beispiel ist $F = p(c) \land \neg p(c)$ eine Formel ohne Variablen, die unerfüllbar ist.\POINT
+\end{enumerate}
