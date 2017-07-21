@@ -1,5 +1,4 @@
-\newcommand{\SUBINT}{\mathcal{J}}
-\subsection*{Repetitorium III (07.07.2017)}
+\subsection*{Repetitorium III}
 \subsubsection*{Aufgabe I}
 Geben Sie für die Formel
 \begin{equation*}
@@ -7,29 +6,29 @@ F = \forall x.\exists y.(p(c_1,z) \land (q(x,c_2,z)) \lor p(c_2,y))),
 \end{equation*}
 wobei $c_1,c_2$ Konstanten sind, folgendes an:
 \begin{enumerate}
-	\item die Menge der Teilformeln; \\
-	\LOES 
-	\begin{itemize}
-	\item $F$
-	\item $\exists y.(p(c_1,z) \land (q(x, c_2, z) \lor p(c_2,y)))$
-	\item $p(c_1,z) \land (q(x,c_2,z) \lor p(c_2, y))$
-	\item $p(c_1, z)$
-	\item $q(x,c_2,z)$
-	\item \dots
-	\end{itemize}
-	\item die Menge aller Terme; \\
-	\LOES $\{ x, y, z, c_1, c_2 \}$
-	\item die Menge aller Variablen, mit Unterscheidung freier und gebundener Variablen; \\
-	\LOES $\{ x (gebunden), y (gebunden), z (frei) \}$
-	\item eine Interpretation $\INT$ und eine Zuweisung $\ZUW$ für $\INT$, so dass $\INT,\ZUW \models F$. \\
+        \item die Menge der Teilformeln; \\
+        \LOES
+        \begin{itemize}
+        \item $F$
+        \item $\exists y.(p(c_1,z) \land (q(x, c_2, z) \lor p(c_2,y)))$
+        \item $p(c_1,z) \land (q(x,c_2,z) \lor p(c_2, y))$
+        \item $p(c_1, z)$
+        \item $q(x,c_2,z)$
+        \item \dots
+        \end{itemize}
+        \item die Menge aller Terme; \\
+        \LOES $\{ x, y, z, c_1, c_2 \}$
+        \item die Menge aller Variablen, mit Unterscheidung freier und gebundener Variablen; \\
+        \LOES $\{ x (gebunden), y (gebunden), z (frei) \}$
+        \item eine Interpretation $\INT$ und eine Zuweisung $\ZUW$ für $\INT$, so dass $\INT,\ZUW \models F$. \\
 \LOES Für die folgende Interpretation $\INT$ und zugehörige Zuweisung $\ZUW$ gilt $\INT, \ZUW \models F$:
 \begin{itemize}
-	\item $\Delta^{\INT} := \{\delta \}$
-	\item $c_1^{\INT} := \delta$
-	\item $c_2^{\INT} := \delta$
-	\item $p^{\INT} := \{(\delta,\delta)\}$
-	\item $q^{\INT} := \{(\delta,\delta,\delta)\}$
-	\item $\ZUW := \{ z \mapsto \delta \}$
+        \item $\Delta^{\INT} := \{\delta \}$
+        \item $c_1^{\INT} := \delta$
+        \item $c_2^{\INT} := \delta$
+        \item $p^{\INT} := \{(\delta,\delta)\}$
+        \item $q^{\INT} := \{(\delta,\delta,\delta)\}$
+        \item $\ZUW := \{ z \mapsto \delta \}$
 \end{itemize}
 \f{Achtung:} Es ist keine Interpretation der gebundenen Variablen $x$ und $y$ notwendig. \\
 
@@ -56,33 +55,33 @@ folgendes:
 
 
 \subsubsection*{Aufgabe II}
-Zeigen Sie die folgenden Aussagen: 
+Zeigen Sie die folgenden Aussagen:
 \begin{enumerate}
-	\item Es gilt $\{F\} \models G$ genau dann, wenn $F \to G$ allgemeingültig ist.\\
-	\LOES Es gilt 
-	\begin{align*}
-	&\{F\} \models G \\
-	\text{gdw. } &\text{jedes Modell von } F \text{ ist ein Modell von } G \\
-	\text{gdw. } &\text{jede Interpretation ist kein Modell von } F \text{ oder ein Modell von } G \\
-	\text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \text{ oder ein Modell von } G \\
-	\text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \lor G  \\
-	\text{gdw. } &\text{jede Interpretation ist ein Modell von } F \to G \\
-	\text{gdw. } & F \to G \text{ ist allgemeingültig. }
-	\end{align*}
-	\item Es gilt $\{F_1,\dots,F_k\} \models G$ genau dann, wenn $\land_{i=1}^k F_i \to G$ allgemeingültig ist. \\
-	\LOES Es gilt die Äquivalenz
-	\begin{equation*}
-	\{F_1, \dots ,F_k\} \models G \text{ gdw. } \{\land_{i=1}^k F_i\} \models G,
-	\end{equation*}
-	denn die Formelmengen $\{F_1,\dots ,F_n \}$ und $\{ \land_{i=1}^n F_i \}$ haben die gleichen Modelle. \\
-	Also folgt mit dem ersten Teil sofort, dass 
-	\begin{equation*}
-	\{ F_1, \dots , F_k \} \models G \text{ gdw. } \land_{i=1}^k F_i \to G \text{ allgemeingültig ist.}
-	\end{equation*}
+        \item Es gilt $\{F\} \models G$ genau dann, wenn $F \to G$ allgemeingültig ist.\\
+        \LOES Es gilt
+        \begin{align*}
+        &\{F\} \models G \\
+        \text{gdw. } &\text{jedes Modell von } F \text{ ist ein Modell von } G \\
+        \text{gdw. } &\text{jede Interpretation ist kein Modell von } F \text{ oder ein Modell von } G \\
+        \text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \text{ oder ein Modell von } G \\
+        \text{gdw. } &\text{jede Interpretation ist ein Modell von } \lnot F \lor G  \\
+        \text{gdw. } &\text{jede Interpretation ist ein Modell von } F \to G \\
+        \text{gdw. } & F \to G \text{ ist allgemeingültig. }
+        \end{align*}
+        \item Es gilt $\{F_1,\dots,F_k\} \models G$ genau dann, wenn $\land_{i=1}^k F_i \to G$ allgemeingültig ist. \\
+        \LOES Es gilt die Äquivalenz
+        \begin{equation*}
+        \{F_1, \dots ,F_k\} \models G \text{ gdw. } \{\land_{i=1}^k F_i\} \models G,
+        \end{equation*}
+        denn die Formelmengen $\{F_1,\dots ,F_n \}$ und $\{ \land_{i=1}^n F_i \}$ haben die gleichen Modelle. \\
+        Also folgt mit dem ersten Teil sofort, dass
+        \begin{equation*}
+        \{ F_1, \dots , F_k \} \models G \text{ gdw. } \land_{i=1}^k F_i \to G \text{ allgemeingültig ist.}
+        \end{equation*}
 \end{enumerate}
 
 \subsubsection*{Aufgabe III}
-Seien $F$, $G$ Formeln und $x$ eine Variable. Zeigen Sie, dass dann gilt 
+Seien $F$, $G$ Formeln und $x$ eine Variable. Zeigen Sie, dass dann gilt
 \begin{equation*}
 \exists x.(F \to G) \equiv \forall x. F \to \exists x. G.
 \end{equation*}
@@ -126,7 +125,7 @@ Formalisieren Sie die folgenden Aussagen in Prädikatenlogik:
 \item Alle grünen Drachen sind glücklich.
 \end{enumerate}
 Zeigen Sie, dass die letzte Aussage aus den ersten drei folgt. \\\\
-\LOES Zur Formalisierung der vier Aussagen verwenden wir die folgende Menge $\f{P}$ von Prädikatensymbolen: $\f{P} := \{\text{kind}/2, \text{fliegen}/1, \text{glücklich}/1, \text{grün}/1 \}$. 
+\LOES Zur Formalisierung der vier Aussagen verwenden wir die folgende Menge $\f{P}$ von Prädikatensymbolen: $\f{P} := \{\text{kind}/2, \text{fliegen}/1, \text{glücklich}/1, \text{grün}/1 \}$.
 \begin{enumerate}
 \item Jeder Drache ist glücklich, wenn alle seine Drachen-Kinder fliegen können.\\
 $F_1 := \forall x.(\forall y.(\text{kind}(x,y) \to \text{fliegen}(y)) \to \text{glücklich}(x))$
@@ -143,27 +142,27 @@ Wir zeigen nun, dass $F_4$ eine semantische Konsequenz der drei $F_i$ ist, d.h. 
 \begin{enumerate}
 \item[1)]
 \begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
-Sei $\delta$ ein grüner Drache, und es gelten die Aussagen (1), (2) und (3). & Sei $\INT$ eine Interpretation mit \newline 
-$\INT \models \{F_1, F_2, F_3 \}$, und sei $\delta \in \Delta^{\INT}$ mit $\delta \in \text{grün}^{\INT}$. 
+Sei $\delta$ ein grüner Drache, und es gelten die Aussagen (1), (2) und (3). & Sei $\INT$ eine Interpretation mit \newline
+$\INT \models \{F_1, F_2, F_3 \}$, und sei $\delta \in \Delta^{\INT}$ mit $\delta \in \text{grün}^{\INT}$.
 \end{tabular}
-\item[2)] 
+\item[2)]
 \begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
-Nach (3) folgt, dass jedes Kind von $\delta$ grün ist. & Mit $\INT \models F_3$ folgt \newline 
+Nach (3) folgt, dass jedes Kind von $\delta$ grün ist. & Mit $\INT \models F_3$ folgt \newline
 $\forall \epsilon \in \Delta^{\INT}: (\delta, \epsilon) \in \text{kind}^{\INT} \Rightarrow \epsilon \in \text{grün}^{\INT}$.
 \end{tabular}
-\item[3)] 
+\item[3)]
 \begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
-Mit (2) erhalten wir, dass alle Kinder von $\delta$ fliegen können. & Mit $\INT \models F_2$ folgt \newline 
+Mit (2) erhalten wir, dass alle Kinder von $\delta$ fliegen können. & Mit $\INT \models F_2$ folgt \newline
 $\forall \epsilon \in \Delta^{\INT}: (\delta, \epsilon) \in \text{kind}^{\INT} \Rightarrow \epsilon \in \text{fliegen}^{\INT}$.
 \end{tabular}
-\item[4)] 
+\item[4)]
 \begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
 Wegen (1) ist $\delta$ glücklich. & Mit $\INT \models F_1$ folgt $\delta \in \text{glücklich}^{\INT}$.
 \end{tabular}
-\item[5)] 
+\item[5)]
 \begin{tabular}[t]{p{0.5\textwidth} p{0.5\textwidth}}
-Also folgt (4) aus den Aussagen (1), (2) und (3). & Weil $\INT$ und $\delta \in \Delta^{\INT}$ beliebig waren, folgt \newline 
-$\{F_1, F_2, F_3\} \models F_4$. 
+Also folgt (4) aus den Aussagen (1), (2) und (3). & Weil $\INT$ und $\delta \in \Delta^{\INT}$ beliebig waren, folgt \newline
+$\{F_1, F_2, F_3\} \models F_4$.
 \end{tabular}
 \end{enumerate}
 
@@ -183,7 +182,7 @@ Welche der folgenden Aussagen sind wahr? Begründen Sie Ihre Antwort.
 \LOES \textcolor{orange}{Die Aussage ist \f{falsch.}} \\
 Für Abbildungen $f: A \to A$ auf einer endlichen Menge $A$ gilt, dass $f$ injektiv ist genau dann, wenn $f$ surjektiv ist. Folglich gilt für injektive und nicht surjektive Abbildungen $f: A \to A$, dass $A$ nicht endlich sein kann. \\
 \f{Die Formel} $F_{\infty} := F_{inj} \land \lnot F_{sur}$ aus Aufgabe 4 vom Übungsblatt 9 ist erfüllbar, aber \f{hat kein endliches Modell}. Ein Modell hat die Grundmenge $\N$ und interpretiert $p$ als Nachfolgerrelation, d.h. als $\{(n, n+1) \mid n \in \N \}$. \\
-\f{Genauer:} In Logik ohne Gleichheit hat jedes Modell $\INT$ der vermöge Folien 10-16 von \vl{TIL 15} transformierten Formel $(F_{\infty})_{eq} \land G_{eq}$ unendlich viele (nicht-leere und disjunkte) Äquivalenzklassen bzgl. $eq^{\INT}$, und somit auch eine unendliche Grundmenge. Auch hier existiert ein Modell $(\N, \cdot^N)$ mit $p^N := \{(n,n+1) \mid n \in \N\}$ und $eq^N := =$.   
+\f{Genauer:} In Logik ohne Gleichheit hat jedes Modell $\INT$ der vermöge Folien 10-16 von \vl{TIL 15} transformierten Formel $(F_{\infty})_{eq} \land G_{eq}$ unendlich viele (nicht-leere und disjunkte) Äquivalenzklassen bzgl. $eq^{\INT}$, und somit auch eine unendliche Grundmenge. Auch hier existiert ein Modell $(\N, \cdot^N)$ mit $p^N := \{(n,n+1) \mid n \in \N\}$ und $eq^N := =$.
 \item Jede erfüllbare Formel der Prädikatenlogik erster Stufe hat ein abzählbares Modell. \\
 \LOES \textcolor{green}{Die Aussage ist \f{wahr}} nach dem \f{Satz von Löwenheim-Skolem.}
 \item Jede Skolemformel hat höchtens eine Herbrand-Interpretation. \\
